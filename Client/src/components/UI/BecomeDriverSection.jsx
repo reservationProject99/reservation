@@ -1,31 +1,79 @@
-/* eslint-disable react/no-unescaped-entities */
-import "../../styles/become-driver.css";
-import { Container, Row, Col } from "reactstrap";
+  import Carousel from "react-multi-carousel";
+  import "react-multi-carousel/lib/styles.css";
+  import "../../styles/BecomeDriverSection.css";
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 4, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 768 },
+      items: 3,
+      slidesToSlide: 3, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 767, min: 464 },
+      items: 2,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+  const sliderImageUrl = [
+    //First image url
+    {
+      url: "https://www.carlogos.org/car-logos/bmw-logo.png",
+    },
+    {
+      url: "https://www.carlogos.org/car-logos/toyota-logo.png",
+    },
+    //Second image url
+    {
+      url: "https://www.carlogos.org/car-logos/ford-logo.png",
+    },
+    //Third image url
+    {
+      url: "https://www.carlogos.org/car-logos/honda-logo.png",
+    },
+    {
+      url: "https://www.carlogos.org/car-logos/nissan-logo.png",
+    },
+    {
+      url: "https://www.carlogos.org/car-logos/kia-logo.png",
+    },
+    {
+      url: "https://www.carlogos.org/car-logos/mercedes-benz-logo.png",
+    },
 
-import driverImg from "../../assets/all-images/toyota-offer-2.png";
+    //Fourth image url
 
-const BecomeDriverSection = () => {
-  return (
-    <section className="become__driver">
-      <Container>
-        <Row>
-          <Col lg="6" md="6" sm="12" className="become__driver-img">
-            <img src={driverImg} alt="" className="w-100" />
-          </Col>
-
-          <Col lg="6" md="6" sm="12">
-            <h2 className="section__title become__driver-title">
-              Do You Want to Earn With Us? So Don't Be Late
-            </h2>
-
-            <button className="btn become__driver-btn mt-4">
-              Become a Driver
-            </button>
-          </Col>
-        </Row>
-      </Container>
-    </section>
-  );
-};
-
-export default BecomeDriverSection;
+    {
+      url: "https://www.carlogos.org/car-logos/hyundai-logo.png",
+    },
+  ];
+  const Slider = () => {
+    return (
+      <div className="AA">
+        <div className="parent">
+          <Carousel
+            responsive={responsive}
+            autoPlay={true}
+            swipeable={true}
+            draggable={true}
+            showDots={true}
+            infinite={true}
+            partialVisible={false}
+            dotListClass="custom-dot-list-style"
+          >
+            {sliderImageUrl.map((imageUrl, index) => {
+              return (
+                <div className="slider" key={index}>
+                  <img src={imageUrl.url} alt="movie" />
+                </div>
+              );
+            })}
+          </Carousel>
+        </div>
+      </div>
+    );
+  };
+  export default Slider;
