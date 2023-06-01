@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 
-const CarItem = (props) => {
+function CustomerCard(props) {
   const { imgUrl, model, carName, automatic, speed, price } = props.item;
 
   return (
-    <div className="col-lg-4 col-md-4 col-sm-6 mb-5">
+    <div className="col-lg-8 col-md-4 col-sm-6 mb-5">
       <div className="car__item">
         <div className="car__img">
           <img src={imgUrl} alt="" className="w-100" />
@@ -29,18 +28,10 @@ const CarItem = (props) => {
               <i className="ri-timer-flash-line"></i> {speed}
             </span>
           </div>
-
-          <button className="w-50 car__item-btn car__btn-rent">
-            <Link to={`/cars/${carName}`}>Rent</Link>
-          </button>
-
-          <button className="w-50 car__item-btn car__btn-details">
-            <Link to={`/cars/${carName}`}>Details</Link>
-          </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default CarItem;
+export default CustomerCard;

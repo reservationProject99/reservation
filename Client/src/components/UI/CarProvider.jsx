@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
 
-const CarItem = (props) => {
+function CarProvider(props) {
   const { imgUrl, model, carName, automatic, speed, price } = props.item;
 
   return (
@@ -31,16 +31,16 @@ const CarItem = (props) => {
           </div>
 
           <button className="w-50 car__item-btn car__btn-rent">
-            <Link to={`/cars/${carName}`}>Rent</Link>
+            <Link to={`/cars/${carName}`}>Edit</Link>
           </button>
 
           <button className="w-50 car__item-btn car__btn-details">
-            <Link to={`/cars/${carName}`}>Details</Link>
+            <Link to={`/cars/${carName}`}>Delete</Link>
           </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default CarItem;
+export default CarProvider

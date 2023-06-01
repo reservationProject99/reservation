@@ -1,15 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import Helmet from "../components/Helmet/Helmet";
-import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
 import { useState } from "react";
+import CarProvider from "../components/UI/CarProvider";
+import CarRental from "../components/UI/CarRental";
 
 const Provider = () => {
   const defult = () => {
     return (
       <>
         <Helmet title="Cars">
-          <div className="btn-group" role="group" aria-label="Basic example"></div>
+          <div
+            className="btn-group"
+            role="group"
+            aria-label="Basic example"
+          ></div>
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -27,7 +32,7 @@ const Provider = () => {
               </div>
 
               {carData.map((item) => (
-                <CarItem item={item} key={item.id} />
+                <CarProvider item={item} key={item.id} />
               ))}
             </div>
           </div>
@@ -57,7 +62,7 @@ const Provider = () => {
             </div>
 
             {carData.map((item) => (
-              <CarItem item={item} key={item.id} />
+              <CarProvider item={item} key={item.id} />
             ))}
           </div>
         </div>
@@ -181,11 +186,11 @@ const Provider = () => {
                   </div>
                 </div>
               </div>
-            <div className="d-flex justify-content-end">
-              <button className=" w-50 header__btn btn text-white">
-                Add Car
-              </button>
-            </div>
+              <div className="d-flex justify-content-end">
+                <button className=" w-50 header__btn btn text-white">
+                  Add Car
+                </button>
+              </div>
             </div>
           </form>
         </>
@@ -193,81 +198,56 @@ const Provider = () => {
     );
   };
 
-  const rentalCar = ()=>{
+  const rentalCar = () => {
     setElementToDisplay(
-              <Helmet title="Cars">
-      <div className="d-flex flex-row">
-        <div className="col">
-          <div className="col-lg-4">
-            <div className="d-flex align-items-center gap-3 mb-5">
-              <span className="d-flex align-items-center gap-2">
-                <i className="ri-sort-asc"></i> Sort By
-              </span>
-
-              <select>
-                <option>Select</option>
-                <option value="low">Low to High</option>
-                <option value="high">High to Low</option>
-              </select>
-            </div>
+      <Helmet title="Cars">
+        <div className="d-flex justify-content-evenly">
+          <div className="d-flex flex-column align-items-center">
+            {carData.map((item) => (
+              <CarRental item={item} key={item.id} />
+            ))}
           </div>
-
-          {carData.map((item) => (
-            <CarItem item={item} key={item.id} />
-          ))}
-        </div>
-        <div className="col">
-          <div className="col-lg-4">
-            <div className="d-flex align-items-center gap-3 mb-5">
-              <span className="d-flex align-items-center gap-2">
-                <i className="ri-sort-asc"></i> Sort By
-              </span>
-
-              <select>
-                <option>Select</option>
-                <option value="low">Low to High</option>
-                <option value="high">High to Low</option>
-              </select>
-            </div>
+          <div className="d-flex flex-column align-items-center">
+            {carData.map((item) => (
+              <CarRental item={item} key={item.id} />
+            ))}
           </div>
-
-          {carData.map((item) => (
-            <CarItem item={item} key={item.id} />
-          ))}
         </div>
-      </div>
-    </Helmet>
-    )
-  }
-
+      </Helmet>
+    );
+  };
 
   return (
     <>
-    <div className="d-flex justify-content-center">
-    <div
-        className="btn-group d-flex justify-content-center my-3 w-25"
-        role="group"
-        aria-label="Basic example"
-      >
-        <button
-          onClick={myCars}
-          type="button"
-          className="header__btn btn text-white"
+      <div className="d-flex justify-content-center">
+        <div
+          className="btn-group d-flex justify-content-center my-3 w-25"
+          role="group"
+          aria-label="Basic example"
         >
-          My Cars
-        </button>
-        <button
-          onClick={addCars}
-          type="button"
-          className="header__btn btn text-white"
-        >
-          Add Cars
-        </button>
-        <button onClick={rentalCar} type="button" className="header__btn btn text-white">
-          Rental Car
-        </button>
+          <button
+            onClick={myCars}
+            type="button"
+            className="header__btn btn text-white"
+          >
+            My Cars
+          </button>
+          <button
+            onClick={addCars}
+            type="button"
+            className="header__btn btn text-white"
+          >
+            Add Cars
+          </button>
+          <button
+            onClick={rentalCar}
+            type="button"
+            className="header__btn btn text-white"
+          >
+            Rental Car
+          </button>
         </div>
-    </div>
+      </div>
 
       {elementToDisplay}
     </>
