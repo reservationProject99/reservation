@@ -1,7 +1,7 @@
-import React from "react";
 import "../../styles/about-section.css";
 import aboutImg from "../../assets/all-images/cars-img/bmw-offer.png";
 
+// eslint-disable-next-line react/prop-types
 const AboutSection = ({ aboutClass }) => {
   return (
     <section

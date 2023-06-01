@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/no-unescaped-entities */
 import "../../styles/become-driver.css";
 import { Container, Row, Col } from "reactstrap";
 

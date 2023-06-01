@@ -1,4 +1,3 @@
-import React from "react";
 import Helmet from "../components/Helmet/Helmet";
 import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";

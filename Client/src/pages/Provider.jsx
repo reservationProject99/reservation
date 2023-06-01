@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/no-unescaped-entities */
 import Helmet from "../components/Helmet/Helmet";
 import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
@@ -9,7 +9,7 @@ const Provider = () => {
     return (
       <>
         <Helmet title="Cars">
-          <div class="btn-group" role="group" aria-label="Basic example"></div>
+          <div className="btn-group" role="group" aria-label="Basic example"></div>
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -245,25 +245,25 @@ const Provider = () => {
     <>
     <div className="d-flex justify-content-center">
     <div
-        class="btn-group d-flex justify-content-center my-3 w-25"
+        className="btn-group d-flex justify-content-center my-3 w-25"
         role="group"
         aria-label="Basic example"
       >
         <button
           onClick={myCars}
           type="button"
-          class="header__btn btn text-white"
+          className="header__btn btn text-white"
         >
           My Cars
         </button>
         <button
           onClick={addCars}
           type="button"
-          class="header__btn btn text-white"
+          className="header__btn btn text-white"
         >
           Add Cars
         </button>
-        <button onClick={rentalCar} type="button" class="header__btn btn text-white">
+        <button onClick={rentalCar} type="button" className="header__btn btn text-white">
           Rental Car
         </button>
         </div>

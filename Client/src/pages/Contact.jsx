@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Form, FormGroup, Input } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
@@ -81,7 +80,7 @@ const Contact = () => {
                       key={index}
                       className="social__link-icon"
                     >
-                      <i class={item.icon}></i>
+                      <i className={item.icon}></i>
                     </Link>
                   ))}
                 </div>

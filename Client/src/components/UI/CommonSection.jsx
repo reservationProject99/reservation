@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Container } from "reactstrap";
 import "../../styles/common-section.css";
 
