@@ -47,12 +47,12 @@ const Header = () => {
 
             <div className="col-lg-6 col-md-6 col-sm-6">
               <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="#" className="d-flex align-items-center gap-1">
+                <Link to="signin" className="d-flex align-items-center gap-1">
                   <i className="ri-login-circle-line"></i> Login
                 </Link>
 
                 <Link to="#" className="d-flex align-items-center gap-1">
-                  <i className="ri-user-line"></i> Register
+                  <i className="ri-user-line"></i>
                 </Link>
               </div>
             </div>
