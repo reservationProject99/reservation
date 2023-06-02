@@ -6,11 +6,11 @@ import Routers from "./routers/Routers";
 function App() {
   return (
     <>
-      <Header />
+      {window.location.pathname != "/admin" ? <Header /> : null}
       <div>
         <Routers />
       </div>
-      <Footer />
+      {window.location.pathname != "/admin" ? <Footer /> : null}
     </>
   );
 }
