@@ -8,7 +8,8 @@ CREATE TABLE provider  (
   password VARCHAR(50) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   address VARCHAR(50) NOT NULL,
-  is_delete BOOLEAN DEFAULT false
+  is_delete BOOLEAN DEFAULT false,
+  active BOOLEAN DEFAULT false
 );
 
 CREATE TABLE customers  (
@@ -37,7 +38,11 @@ CREATE TABLE cars  (
   available BOOLEAN DEFAULT true,
   images_data BYTEA,
   start_date DATE,
-  end_date DETE,
+  end_date DATE,
+  start_location TEXT,
+  end_location TEXT,
+  seats_number INTEGER,
+  user_id INTEGER ,
   is_delete BOOLEAN DEFAULT false,
   provider_id INTEGER REFERENCES provider(provider_id)
 );
