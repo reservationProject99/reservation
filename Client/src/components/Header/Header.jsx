@@ -32,80 +32,31 @@ const Header = () => {
 
   return (
     <header className="header">
-      {/* ============ header top ============ */}
-      <div className="header__top">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 col-md-6 col-sm-6">
-              <div className="header__top__left">
-                <span>Need Help?</span>
-                <span className="header__top__help">
-                  <i className="ri-phone-fill"></i> +1-202-555-0149
-                </span>
-              </div>
-            </div>
-
-            <div className="col-lg-6 col-md-6 col-sm-6">
-              <div className="header__top__right d-flex align-items-center justify-content-end gap-3">
-                <Link to="signin" className="d-flex align-items-center gap-1">
-                  <i className="ri-login-circle-line"></i> Login
-                </Link>
-
-                <Link to="#" className="d-flex align-items-center gap-1">
-                  <i className="ri-user-line"></i>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* =============== header middle =========== */}
+      {/* =============== header top =========== */}
       <div className="header__middle">
         <div className="container">
           <div className="row">
-            <div className="col-lg-4 col-md-3 col-sm-4">
+            <div className="col-lg-10 col-md-3 col-sm-4">
               <div className="logo">
                 <h1>
                   <Link to="/home" className="d-flex align-items-center gap-2">
                     <i className="ri-car-line"></i>
-                    <span>
-                      Rent Car <br /> Service
-                    </span>
+                    <span>QuickRide</span>
                   </Link>
                 </h1>
               </div>
             </div>
 
-            <div className="col-lg-3 col-md-3 col-sm-4">
-              <div className="header__location d-flex align-items-center gap-2">
-                <span>
-                  <i className="ri-earth-line"></i>
-                </span>
-                <div className="header__location-content">
-                  <h4>Bangladesh</h4>
-                  <h6>Sylhet City, Bangladesh</h6>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-3 col-md-3 col-sm-4">
-              <div className="header__location d-flex align-items-center gap-2">
-                <span>
-                  <i className="ri-time-line"></i>
-                </span>
-                <div className="header__location-content">
-                  <h4>Sunday to Friday</h4>
-                  <h6>10am - 7pm</h6>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end">
+            <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
               <button className="header__btn btn">
-                <Link to="/contact">
-                  <i className="ri-phone-line"></i> Request a call
+                {" "}
+                <Link path="/">
+                  {" "}
+                  <i className="ri-user-line"></i>
                 </Link>
+              </button>{" "}
+              <button className="header__btn btn">
+                <Link to="/signUp">Sign Up</Link>
               </button>
             </div>
           </div>
@@ -133,15 +84,6 @@ const Header = () => {
                     {item.display}
                   </NavLink>
                 ))}
-              </div>
-            </div>
-
-            <div className="nav__right">
-              <div className="search__box">
-                <input type="text" placeholder="Search" />
-                <span>
-                  <i className="ri-search-line"></i>
-                </span>
               </div>
             </div>
           </div>

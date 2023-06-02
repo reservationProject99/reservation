@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styles/Cars.css";
-import CarsData from "../../assets/dummy-data/CarsData";
-import CarItem from "../../components/UI/CarItem";
+import carData from "../../assets/data/carData";
+import CarItemAdmin from "../../components/Dashboard/UI/CarItemAdmin";
 
 const Cars = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -14,8 +14,8 @@ const Cars = () => {
     setSelectedStatus(event.target.value);
   };
 
-  const filteredCars = CarsData.filter((car) => {
-    if (selectedBrand && car.category !== selectedBrand) {
+  const filteredCars = carData.filter((car) => {
+    if (selectedBrand && car.brand !== selectedBrand) {
       return false;
     }
     if (selectedStatus && car.Status !== selectedStatus) {
@@ -47,10 +47,16 @@ const Cars = () => {
             </select>
           </div>
         </div>
-
-        <div className="booking__car-list">
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            columnGap: "3rem",
+            justifyContent: "center",
+          }}
+        >
           {filteredCars.map((item) => (
-            <CarItem item={item} key={item.id} />
+            <CarItemAdmin item={item} key={item.id} />
           ))}
         </div>
       </div>

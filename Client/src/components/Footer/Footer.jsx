@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import "../../styles/footer.css";
 
@@ -15,10 +14,10 @@ const quickLinks = [
     path: "/cars",
     display: "Car Listing",
   },
-  {
-    path: "/blogs",
-    display: "Blog",
-  },
+  // {
+  //   path: "/blogs",
+  //   display: "Blog",
+  // },
   {
     path: "/contact",
     display: "Contact",
@@ -28,27 +27,26 @@ const quickLinks = [
 const Footer = () => {
   const date = new Date();
   const year = date.getFullYear();
-  
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-md-4 col-sm-12">
+          <div className="col-lg-7 col-md-4 col-sm-12">
             <div className="logo footer__logo">
               <h1>
                 <Link to="/home" className="d-flex align-items-center gap-2">
                   <i className="ri-car-line"></i>
-                  <span>
-                    Rent Car <br /> Service
-                  </span>
+                  <span>QuickRide</span>
                 </Link>
               </h1>
             </div>
             <p className="footer__logo-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequuntur, distinctio, itaque reiciendis ab cupiditate harum ex
-              quam veniam, omnis expedita animi quibusdam obcaecati mollitia?
-              Delectus et ad illo recusandae temporibus?
+              Renting a car provides convenient short-term transportation
+              without ownership. <br></br>With diverse vehicle options, flexible
+              rental periods, and convenient pick-up/drop-off, <br></br>it
+              offers a hassle-free experience. Insurance coverage adds peace of
+              mind.
             </p>
           </div>
 
@@ -68,31 +66,18 @@ const Footer = () => {
           <div className="col-lg-3 col-md-4 col-sm-6">
             <div className="mb-4">
               <h5 className="footer__link-title mb-4">Head Office</h5>
-              <p className="office__info">123 Zindabazar, Sylhet, Bangladesh</p>
-              <p className="office__info">Phone: +0995345875365</p>
-              <p className="office__info">Email: muhib5532@gmail.com</p>
+              <p className="office__info">123 Zarqa, New-Zarqa, Jordan</p>
+              <p className="office__info">Phone: +962-78-2111991</p>
+              <p className="office__info">Email: Rent Car@gmail.com</p>
               <p className="office__info">Office Time: 10am - 7pm</p>
-            </div>
-          </div>
-
-          <div className="col-lg-3 col-md-4 col-sm-12">
-            <div className="mb-4">
-              <h5 className="footer__link-title">Newsletter</h5>
-              <p className="section__description">Subscribe our newsletter</p>
-              <div className="newsletter">
-                <input type="email" className="form-control" placeholder="Email" />
-                <span>
-                  <i className="ri-send-plane-line"></i>
-                </span>
-              </div>
             </div>
           </div>
 
           <div className="col-lg-12">
             <div className="footer__bottom">
               <p className="section__description d-flex align-items-center justify-content-center gap-1 pt-4">
-                <i className="ri-copyright-line"></i>Copyright {year}, Developed by
-                Muhibur Rahman. All rights reserved.
+                <i className="ri-copyright-line"></i>Copyright {year}. All
+                rights reserved.
               </p>
             </div>
           </div>

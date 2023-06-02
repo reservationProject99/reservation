@@ -20,14 +20,19 @@ const navLinks = [
     display: "Service Providers",
   },
   {
-    path: "History",
+    path: "Admins",
+    icon: "ri-user-fill",
+    display: "Admins",
+  },
+  {
+    path: "RentedCars",
     icon: "ri-book-fill",
-    display: "History",
+    display: "Rented Cars",
   },
   {
     path: "settings",
-    icon: "ri-settings-2-line",
-    display: "Settings",
+    icon: "ri-user-2-line",
+    display: "Admin Profile",
   },
 ];
 

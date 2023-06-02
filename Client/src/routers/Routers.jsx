@@ -17,7 +17,8 @@ import Settings from "../pages/Dashboard/Settings";
 import Costumers from "../pages/Dashboard/Costumers";
 import Cars from "../pages/Dashboard/Cars";
 import Dashboard from "../pages/Dashboard/Dashboard";
-
+import Admins from "../pages/Dashboard/Admins";
+import RentedCars from "../pages/Dashboard/RentedCars";
 const Routers = () => {
   return (
     <Routes>
@@ -38,6 +39,8 @@ const Routers = () => {
         <Route path="Costumers" element={<Costumers />} />
         <Route path="settings" element={<Settings />} />
         <Route path="Providers" element={<Providers />} />
+        <Route path="Admins" element={<Admins />} />
+        <Route path="RentedCars" element={<RentedCars />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
