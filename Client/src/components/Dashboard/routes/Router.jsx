@@ -9,12 +9,13 @@ import Providers from "../../../pages/Dashboard/Providers";
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/Cars" element={<Cars />} />
-        <Route path="/Costumers" element={<Costumers />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/Providers" element={<Providers />} />
+      <Route>
+        <Route index element={<Dashboard />} />
+        <Route path="Dashboard" element={<Dashboard />} />
+        <Route path="Cars" element={<Cars />} />
+        <Route path="Costumers" element={<Costumers />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="Providers" element={<Providers />} />
       </Route>
     </Routes>
   );

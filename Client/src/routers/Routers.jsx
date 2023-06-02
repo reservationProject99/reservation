@@ -12,6 +12,11 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import User from "../pages/userProfile";
 import Layout from "../components/Dashboard/Layout/Layout";
+import Providers from "../pages/Dashboard/Providers";
+import Settings from "../pages/Dashboard/Settings";
+import Costumers from "../pages/Dashboard/Costumers";
+import Cars from "../pages/Dashboard/Cars";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 const Routers = () => {
   return (
@@ -27,7 +32,13 @@ const Routers = () => {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/user" element={<User />} />
-      <Route path="/dashboard" element={<Layout />} />
+      <Route path="/admin" element={<Layout />}>
+        <Route path="Dashboard" index element={<Dashboard />} />
+        <Route path="Cars" element={<Cars />} />
+        <Route path="Costumers" element={<Costumers />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="Providers" element={<Providers />} />
+      </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
