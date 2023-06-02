@@ -1,6 +1,11 @@
+.BB {
+  height: 18rem;
+}
+
 .single__member {
   border: 1px solid #7c8a972d;
   border-radius: 4px;
+  margin: 2rem;
 }
 
 .single__member-social {
@@ -41,6 +46,7 @@
 .single__member-img {
   position: relative;
   cursor: pointer;
+  /* height: 5rem; */
 }
 
 .single__member-img img {

@@ -1,49 +1,69 @@
 import "../../styles/our-member.css";
 import { Col } from "reactstrap";
-import { Link } from "react-router-dom";
-import ava01 from "../../assets/all-images/ava-1.jpg";
-import ava02 from "../../assets/all-images/ava-2.jpg";
-import ava03 from "../../assets/all-images/ava-3.jpg";
+  import fahmi from "../../assets/all-images/fahmi.png";
+import omar from "../../assets/all-images/omar.png";
+import asma from "../../assets/all-images/asma.png";
+import bushra from "../../assets/all-images/bushra.png";
+import amro from "../../assets/all-images/amro.png";
+import abd from "../../assets/all-images/abd.png";
+import iyad from "../../assets/all-images/iyad.png";
 
 const OUR__MEMBERS = [
   {
-    name: "Jhon Doe",
+    name: "Fahmi Aldairi",
+    jobTitle: "Scrum Master",
     experience: "5 years of experience",
-    fbUrl: "#",
-    instUrl: "#",
-    twitUrl: "#",
-    linkedinUrl: "#",
-    imgUrl: ava01,
+    githubUrl: "https://github.com/fahmi-aldairi",
+    linkedinUrl: "https://www.linkedin.com/in/fahmialdairi99/",
+    imgUrl: fahmi,
   },
 
   {
-    name: "David Lisa",
+    name: "Amro Alkhazaleh",
     experience: "5 years of experience",
-    fbUrl: "#",
-    instUrl: "#",
-    twitUrl: "#",
-    linkedinUrl: "#",
-    imgUrl: ava02,
+    githubUrl: "https://github.com/amrokh1996",
+    linkedinUrl: "https://www.linkedin.com/in/amro-alkhazaleh-3097b9219/",
+    imgUrl: amro,
   },
 
   {
-    name: "Hilton King",
+    name: "Iyad Raslan",
     experience: "5 years of experience",
-    fbUrl: "#",
-    instUrl: "#",
-    twitUrl: "#",
-    linkedinUrl: "#",
-    imgUrl: ava03,
+    githubUrl: "https://github.com/IyadAbed",
+    linkedinUrl: "https://www.linkedin.com/in/iyad-raslan/",
+    imgUrl: iyad,
   },
 
   {
-    name: "Jhon Doe",
+    name: "Abdalrahman Alzaro",
     experience: "5 years of experience",
-    fbUrl: "#",
-    instUrl: "#",
-    twitUrl: "#",
-    linkedinUrl: "#",
-    imgUrl: ava01,
+    githubUrl: "https://github.com/AbdalrahmanAlzaro",
+    linkedinUrl: "https://www.linkedin.com/in/abd-alrahman-al-zaro-07b6a4269/",
+    imgUrl: abd,
+  },
+
+  {
+    name: "Bushra-AbuRahma",
+    experience: "5 years of experience",
+    githubUrl: "https://github.com/Bushra1995",
+    linkedinUrl: "https://www.linkedin.com/in/bushra-abu-rahmeh-686b38165/",
+    imgUrl: bushra,
+  },
+
+  {
+    name: "Asma Rasheed",
+    experience: "5 years of experience",
+    githubUrl: "https://github.com/AsmaRasheed99",
+    linkedinUrl: "https://www.linkedin.com/in/asma-rasheed-18b441267/",
+    imgUrl: asma,
+  },
+
+  {
+    name: "Omar Hassouna",
+    experience: "5 years of experience",
+    githubUrl: "https://github.com/OmarHassouna-PS",
+    linkedinUrl: "https://www.linkedin.com/in/omar-hassouna-97b76b1aa/",
+    imgUrl: omar,
   },
 ];
 
@@ -52,25 +72,18 @@ const OurMembers = () => {
     <>
       {OUR__MEMBERS.map((item, index) => (
         <Col lg="3" md="3" sm="4" xs="6" key={index} className="mb-4">
-          <div className="single__member">
+          <div className="single__member ">
             <div className="single__member-img">
-              <img src={item.imgUrl} alt="" className="w-100" />
+              <img src={item.imgUrl} alt="" className="w-100 BB" />
 
               <div className="single__member-social">
-                <Link to={item.fbUrl}>
-                  <i className="ri-facebook-line"></i>
-                </Link>
-                <Link to={item.twitUrl}>
-                  <i className="ri-twitter-line"></i>
-                </Link>
+                <a href={item.githubUrl}>
+                  <i className="ri-github-line"></i>
+                </a>
 
-                <Link to={item.linkedinUrl}>
+                <a href={item.linkedinUrl}>
                   <i className="ri-linkedin-line"></i>
-                </Link>
-
-                <Link to={item.instUrl}>
-                  <i className="ri-instagram-line"></i>
-                </Link>
+                </a>
               </div>
             </div>
 

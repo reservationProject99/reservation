@@ -6,7 +6,6 @@ import CarProvider from "../components/UI/CarProvider";
 import CarRental from "../components/UI/CarRental";
 
 const Provider = () => {
-  document.body.style = " background: white";
   const defult = () => {
     return (
       <>
@@ -79,97 +78,104 @@ const Provider = () => {
             <div className="row">
               <div className="col">
                 {/* Name input */}
+                {/* <label className="form-label" htmlFor="form8Example1">
+                    Car Name
+                  </label> */}
                 <div className="form-outline">
                   <input
+                    placeholder="Car Name"
                     type="text"
                     id="form8Example1"
                     className="form-control"
                   />
-                  <label className="form-label" htmlFor="form8Example1">
-                    Car Name
-                  </label>
                 </div>
               </div>
               <div className="col">
                 {/* Email input */}
+                {/* <label className="form-label" htmlFor="form8Example2">
+                    Car Type
+                  </label> */}
                 <div className="form-outline">
                   <input
+                    placeholder="Car Type"
                     type="email"
                     id="form8Example2"
                     className="form-control"
                   />
-                  <label className="form-label" htmlFor="form8Example2">
-                    Car Type
-                  </label>
                 </div>
               </div>
               <div className="col">
                 {/* Email input */}
+                {/* <label className="form-label" htmlFor="form8Example">
+                    Energy Type
+                  </label> */}
                 <div className="form-outline">
                   <input
+                    placeholder="Energy Type"
                     type="email"
                     id="form8Example"
                     className="form-control"
                   />
-                  <label className="form-label" htmlFor="form8Example">
-                    Energy Type
-                  </label>
                 </div>
               </div>
             </div>
-            <hr />
+            <br />
             <div className="row">
               <div className="col">
                 {/* Name input */}
                 <div className="form-outline">
                   <input
+                    placeholder=" Rental Price per Day"
                     type="text"
                     id="form8Example3"
                     className="form-control"
                   />
-                  <label className="form-label" htmlFor="form8Example3">
+                  {/* <label className="form-label" htmlFor="form8Example3">
                     Rental Price per Day
-                  </label>
+                  </label> */}
                 </div>
               </div>
               <div className="col">
                 {/* Name input */}
                 <div className="form-outline">
                   <input
+                    placeholder=" Seat's Number"
                     type="text"
                     id="form8Example4"
                     className="form-control"
                   />
-                  <label className="form-label" htmlFor="form8Example4">
+                  {/* <label className="form-label" htmlFor="form8Example4">
                     Seat's Num
-                  </label>
+                  </label> */}
                 </div>
               </div>
               <div className="col">
                 {/* Email input */}
                 <div className="form-outline">
                   <input
+                    placeholder=" Year of made"
                     type="email"
                     id="form8Example5"
                     className="form-control"
                   />
-                  <label className="form-label" htmlFor="form8Example5">
+                  {/* <label className="form-label" htmlFor="form8Example5">
                     Year of made
-                  </label>
+                  </label> */}
                 </div>
               </div>
             </div>
-            <hr />
+            <br />
+
             <div className="row">
               <div className="col">
-                <div className="input-group">
-                  <div className="input-group-prepend">
-                    <span
+                <div className="input-group  d-flex justify-content-center">
+                  <div className="input-group-prepend ">
+                    {/* <span
                       className="input-group-text"
                       id="inputGroupFileAddon01"
                     >
                       Upload
-                    </span>
+                    </span> */}
                   </div>
                   <div className="custom-file">
                     <input
@@ -187,8 +193,11 @@ const Provider = () => {
                   </div>
                 </div>
               </div>
-              <div className="d-flex justify-content-end">
-                <button className=" w-50 header__btn btn text-white">
+              <br />
+              <br />
+
+              <div className="d-flex justify-content-center">
+                <button className=" w-50 header__btn btn text-white ">
                   Add Car
                 </button>
               </div>
@@ -202,7 +211,12 @@ const Provider = () => {
   const rentalCar = () => {
     setElementToDisplay(
       <Helmet title="Cars">
-        <div className="d-flex justify-content-evenly">
+        <div className="d-flex justify-content-around">
+          <div className="d-flex flex-column align-items-center">
+            {carData.map((item) => (
+              <CarRental item={item} key={item.id} />
+            ))}
+          </div>
           <div className="d-flex flex-column align-items-center">
             {carData.map((item) => (
               <CarRental item={item} key={item.id} />

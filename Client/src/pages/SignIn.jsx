@@ -132,73 +132,94 @@ export default function SignIn({ updateIsLog, setUserLogged }) {
 
   return (
     <>
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-lg-6 col-md-8 col-10">
-            <div className="mt-5 text-center">
-              <h1 className="display-4">Sign Up to Join Us!</h1>
-            </div>
-            <div className="mt-4">
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
-                  <input
-                    onChange={handleEmail}
-                    type="text"
-                    id="email"
-                    className="form-control"
-                    placeholder="Enter your email"
-                  />
-                  <p className="mt-2 text-warning">{massageWarning.email}</p>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
-                  <input
-                    onChange={handlePassword}
-                    type="password"
-                    id="password"
-                    className="form-control"
-                    placeholder="Enter your password"
-                  />
-                  <p className="mt-2 text-warning">{massageWarning.password}</p>
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100 py-3 rounded-lg"
-                >
-                  <svg
-                    className="w-6 h-6 -ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                    <circle cx="8.5" cy="7" r="4" />
-                  </svg>
-                  <span className="ml-3">Sign in</span>
-                </button>
-                <p className="mt-2 text-warning">{massageWarning.submit}</p>
-                <p className="mt-2 text-primary">
-                  Don't have an account!
-                  <a
-                    href={
-                      path === "/payment"
-                        ? "/signUp?search=CheckOut"
-                        : "/signUp"
-                    }
-                    className="font-weight-bold text-primary"
-                  >
-                    Sign Up
-                  </a>
-                </p>
-              </form>
+      <div className="row bg-gray-100 text-gray-900 justify-content-center">
+        <div className="row max-w-screen-lg m-0 m-sm-20 bg-white shadow-sm rounded-lg justify-content-center">
+          <div className="col-lg-5 col-md-7 col-10">
+            <div className="mt-12 d-flex flex-column align-items-center">
+              <h1 className="text-2xl text-xl-3xl font-weight-bold text-blue-600">
+                Sign Up to Join Us!
+              </h1>
+              <div className="w-100 flex-1 mt-8">
+                <form onSubmit={handleSubmit}>
+                  <div className="mx-auto max-w-xs">
+                    <div className="mb-6">
+                      <label
+                        htmlFor="email"
+                        className={`block mb-2 text-sm font-weight-medium"`}
+                      >
+                        Email
+                      </label>
+                      <input
+                        onChange={handleEmail}
+                        type="text"
+                        id="email"
+                        className={`form-control rounded-lg`}
+                        placeholder="Enter your email"
+                      />
+                      <p className={`mt-2 text-sm text-warning-600`}>
+                        {massageWarning.email}
+                      </p>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="password"
+                        className={`block mb-2 text-sm font-weight-medium"`}
+                      >
+                        Password
+                      </label>
+                      <input
+                        onChange={handlePassword}
+                        type="password"
+                        id="password"
+                        className={`form-control rounded-lg`}
+                        placeholder="Enter your password"
+                      />
+                      <p className={`mt-2 text-sm text-warning-600`}>
+                        {massageWarning.password}
+                      </p>
+                    </div>
+                    <Link to="/userProfile" className="text-decoration-none">
+                      <button
+                        type="submit"
+                        className={`mt-3 btn btn-primary w-100 py-3 rounded-lg d-flex align-items-center justify-content-center`}
+                      >
+                        <svg
+                          className="w-6 h-6 -ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="8.5" cy="7" r="4" />
+                        </svg>
+                        <span className="ml-3">Sign in</span>
+                      </button>
+                    </Link>
+                    <p className={`mt-2 text-sm text-warning-600`}>
+                      {massageWarning.submit}
+                    </p>
+                    <p className={`mt-2 text-sm text-primary-600`}>
+                      Don't have an account!
+                      <Link
+                        to={
+                          path === "/payment"
+                            ? { pathname: "/signUp", search: "CheckOut" }
+                            : "/signUp"
+                        }
+                        className={`font-weight-bold text-primary-600`}
+                      >
+                        Sign Up
+                      </Link>
+                    </p>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
 }

@@ -19,6 +19,9 @@ import Cars from "../pages/Dashboard/Cars";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Admins from "../pages/Dashboard/Admins";
 import RentedCars from "../pages/Dashboard/RentedCars";
+import ProfilePage from "../components/UI/UserProfile";
+import Checkout from "../pages/Checkout";
+import Edit from "../components/UI/ProfileProvider";
 const Routers = () => {
   return (
     <Routes>
@@ -33,6 +36,9 @@ const Routers = () => {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/user" element={<User />} />
+      <Route path="/userProfile" element={<ProfilePage />} />
+      <Route path="/Checkout" element={<Checkout />} />
+      <Route path="/Edit" element={<Edit />} />
       <Route path="/admin" element={<Layout />}>
         <Route path="Dashboard" index element={<Dashboard />} />
         <Route path="Cars" element={<Cars />} />

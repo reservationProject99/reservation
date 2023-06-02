@@ -25,7 +25,6 @@ const socialLinks = [
 ];
 
 const Contact = () => {
-  document.body.style = " background: white";
   return (
     <Helmet title="Contact">
       <CommonSection title="Contact" />
@@ -60,16 +59,18 @@ const Contact = () => {
               <div className="contact__info">
                 <h6 className="fw-bold">Contact Information</h6>
                 <p className="section__description mb-0">
-                  123 ZindaBazar, Sylhet, Bangladesh
+                  123 New Zarqa, Zarqa, Jordan
                 </p>
                 <div className=" d-flex align-items-center gap-2">
                   <h6 className="fs-6 mb-0">Phone:</h6>
-                  <p className="section__description mb-0">+88683896366</p>
+                  <p className="section__description mb-0">+962-78-2111991</p>
                 </div>
 
                 <div className=" d-flex align-items-center gap-2">
                   <h6 className="mb-0 fs-6">Email:</h6>
-                  <p className="section__description mb-0">example@gmail.com</p>
+                  <p className="section__description mb-0">
+                    Quick Ride@gmail.com
+                  </p>
                 </div>
 
                 <h6 className="fw-bold mt-4">Follow Us</h6>

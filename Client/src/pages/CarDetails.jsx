@@ -3,12 +3,10 @@ import { useEffect } from "react";
 import carData from "../assets/data/carData";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
-import { useParams } from "react-router-dom";
-import BookingForm from "../components/UI/BookingForm";
-import PaymentMethod from "../components/UI/PaymentMethod";
+import { Link, useParams } from "react-router-dom";
+import Button from "@mui/material/Button";
 
 const CarDetails = () => {
-  document.body.style = " background: white";
   const { slug } = useParams();
 
   const singleCarItem = carData.find((item) => item.carName === slug);
@@ -110,8 +108,13 @@ const CarDetails = () => {
                 </div>
               </div>
             </Col>
+            <Link to="/Checkout" className="text-decoration-none">
+              <span className="d-flex justify-content-center">
+                <Button variant="contained">Rent</Button>
+              </span>
+            </Link>
 
-            <Col lg="7" className="mt-5">
+            {/* <Col lg="7" className="mt-5">
               <div className="booking-info mt-5">
                 <h5 className="mb-4 fw-bold ">Booking Information</h5>
                 <BookingForm />
@@ -123,7 +126,7 @@ const CarDetails = () => {
                 <h5 className="mb-4 fw-bold ">Payment Information</h5>
                 <PaymentMethod />
               </div>
-            </Col>
+            </Col> */}
           </Row>
         </Container>
       </section>
