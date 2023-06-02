@@ -6,7 +6,7 @@ const dbConfig = {
     host: 'localhost',
     database: 'QuickRide',
     password: process.env.PASSWORD_POSTGRES,
-    port: 4000,
+    port: process.env.PORT,
 };
 
 const db = new Client(dbConfig);
