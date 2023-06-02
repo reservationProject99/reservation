@@ -6,6 +6,7 @@ import CarProvider from "../components/UI/CarProvider";
 import CarRental from "../components/UI/CarRental";
 
 const Provider = () => {
+  document.body.style = " background: white";
   const defult = () => {
     return (
       <>

@@ -6,7 +6,7 @@ function CarRental(props) {
 
   return (
     <div className="col-lg-10 col-md-4 col-sm-6 mb-5">
-      <div className="car__item">
+      <div className="car__item"style={{backgroundColor:"white"}}>
         <div className="car__img">
           <img src={imgUrl} alt="" className="w-100" />
         </div>

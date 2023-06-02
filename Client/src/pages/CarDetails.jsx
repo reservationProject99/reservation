@@ -8,6 +8,7 @@ import BookingForm from "../components/UI/BookingForm";
 import PaymentMethod from "../components/UI/PaymentMethod";
 
 const CarDetails = () => {
+  document.body.style = " background: white";
   const { slug } = useParams();
 
   const singleCarItem = carData.find((item) => item.carName === slug);
@@ -84,7 +85,10 @@ const CarDetails = () => {
                   style={{ columnGap: "2.8rem" }}
                 >
                   <span className=" d-flex align-items-center gap-1 section__description">
-                    <i className="ri-map-pin-line" style={{ color: "#f9a826" }}></i>{" "}
+                    <i
+                      className="ri-map-pin-line"
+                      style={{ color: "#f9a826" }}
+                    ></i>{" "}
                     {singleCarItem.gps}
                   </span>
 

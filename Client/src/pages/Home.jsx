@@ -13,6 +13,7 @@ import Testimonial from "../components/UI/Testimonial";
 import BlogList from "../components/UI/BlogList";
 
 const Home = () => {
+  document.body.style = " background: white";
   return (
     <Helmet title="Home">
       {/* ============= hero section =========== */}

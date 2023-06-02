@@ -25,6 +25,7 @@ const socialLinks = [
 ];
 
 const Contact = () => {
+  document.body.style = " background: white";
   return (
     <Helmet title="Contact">
       <CommonSection title="Contact" />

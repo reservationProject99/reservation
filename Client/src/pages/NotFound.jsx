@@ -1,4 +1,5 @@
 const NotFound = () => {
+  document.body.style = " background: white";
   return <div>NotFound</div>;
 };
 

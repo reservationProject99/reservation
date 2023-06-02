@@ -3,6 +3,7 @@ import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
 
 const CarListing = () => {
+  document.body.style = " background: white";
   return (
     <Helmet title="Cars">
       <div className="container">

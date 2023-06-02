@@ -9,6 +9,7 @@ import OurMembers from "../components/UI/OurMembers";
 import "../styles/about.css";
 
 const About = () => {
+  document.body.style = " background: white";
   return (
     <Helmet title="About">
       <CommonSection title="About Us" />

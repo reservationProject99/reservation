@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
+import img from "../assets/all-images/cars-img/bmw-offer.png";
 
 export default function SignUp() {
   useEffect(() => {
@@ -216,206 +217,217 @@ export default function SignUp() {
   }
 
   return (
-    <div className="row bg-gray-100 text-gray-900 justify-content-center">
-      <div className="row max-w-screen-lg m-0 m-sm-20 bg-white shadow-sm rounded-lg justify-content-center">
-        <div className="col-lg-5 col-md-7 col-10">
-          <div className="mt-12 d-flex flex-column align-items-center">
-            <h1 className="text-2xl text-xl-3xl font-weight-bold text-blue-600">
-              Sign Up to Join Us!
-            </h1>
-            <div className="w-100 flex-1 mt-8">
-              <form onSubmit={handleSubmit}>
-                <div className="mx-auto max-w-xs">
-                  <div className="d-flex mt-4  align-items-center justify-content-around border border-primary border-opacity-50 rounded-3">
-                    <div className="form-check my-3">
-                      <label
-                        htmlFor="provider"
-                        className="form-check-label block text-sm font-weight-medium"
+    <div className="container-fluid">
+      <div className="row bg-gray-100 text-gray-900 justify-content-center ">
+        <div className="col-lg-8 col-md-8 w-100">
+          <div className="row m-0 m-sm-20 bg-white shadow-sm rounded-lg">
+            <div className="col-lg-5 col-md-12">
+              <div className="mt-12 d-flex flex-column align-items-center">
+                <h1 className="text-2xl text-xl-3xl font-weight-bold text-blue-600">
+                  Sign Up to Join Us!
+                </h1>
+                <div className="w-100 flex-1 mt-8">
+                  <form onSubmit={handleSubmit}>
+                    <div className="mx-auto max-w-xs">
+                      <div className="d-flex flex-wrap mt-4 align-items-center justify-content-around border border-primary border-opacity-50 rounded-3">
+                        <div className="form-check my-3">
+                          <label
+                            htmlFor="provider"
+                            className="form-check-label block text-sm font-weight-medium"
+                          >
+                            Provider
+                          </label>
+                          <input
+                            onChange={handleUserType}
+                            value="provider"
+                            checked={selectedUserType === "provider"}
+                            type="radio"
+                            id="provider"
+                            name="flexRadioDefault"
+                            className="form-check-input"
+                          />
+                        </div>
+                        <div className="form-check">
+                          <label
+                            htmlFor="customer"
+                            className="form-check-label block text-sm font-weight-medium"
+                          >
+                            Customer
+                          </label>
+                          <input
+                            onChange={handleUserType}
+                            value="customer"
+                            checked={selectedUserType === "customer"}
+                            type="radio"
+                            id="customer"
+                            name="flexRadioDefault"
+                            className="form-check-input"
+                          />
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="name"
+                          className="block mb-2 text-sm font-weight-medium"
+                        >
+                          User name
+                        </label>
+                        <input
+                          onChange={handleUsername}
+                          type="text"
+                          id="name"
+                          className="form-control rounded-lg"
+                          placeholder="Enter your name"
+                        />
+                        <p className="mt-2 text-sm text-warning-600">
+                          <span className="font-weight-medium">
+                            {massageWarning.username}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="phone"
+                          className="block mb-2 text-sm font-weight-medium"
+                        >
+                          Phone
+                        </label>
+                        <input
+                          onChange={handlePhone}
+                          type="text"
+                          id="phone"
+                          className="form-control rounded-lg"
+                          placeholder="Enter your phone"
+                        />
+                        <p className="mt-2 text-sm text-warning-600">
+                          <span className="font-weight-medium">
+                            {massageWarning.phone}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="email"
+                          className="block mb-2 text-sm font-weight-medium"
+                        >
+                          Email
+                        </label>
+                        <input
+                          onChange={handleEmail}
+                          type="text"
+                          id="email"
+                          className="form-control rounded-lg"
+                          placeholder="Enter your email"
+                        />
+                        <p className="mt-2 text-sm text-warning-600">
+                          <span className="font-weight-medium">
+                            {massageWarning.email}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="address"
+                          className="block mb-2 text-sm font-weight-medium"
+                        >
+                          Address
+                        </label>
+                        <input
+                          onChange={handleAddress}
+                          type="text"
+                          id="address"
+                          className="form-control rounded-lg"
+                          placeholder="Enter your address"
+                        />
+                        <p className="mt-2 text-sm text-warning-600">
+                          <span className="font-weight-medium">
+                            {massageWarning.address}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="password"
+                          className="block mb-2 text-sm font-weight-medium"
+                        >
+                          Password
+                        </label>
+                        <input
+                          onChange={handlePassword}
+                          type="password"
+                          id="password"
+                          className="form-control rounded-lg"
+                          placeholder="Enter your password"
+                        />
+                        <p className="mt-2 text-sm text-warning-600">
+                          <span className="font-weight-medium">
+                            {massageWarning.password}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="confirmPassword"
+                          className="block mb-2 text-sm font-weight-medium"
+                        >
+                          Confirm Password
+                        </label>
+                        <input
+                          onChange={handleConfirmPassword}
+                          type="password"
+                          id="confirmPassword"
+                          className="form-control rounded-lg"
+                          placeholder="Confirm password"
+                        />
+                        <p className="mt-2 text-sm text-warning-600">
+                          <span className="font-weight-medium">
+                            {massageWarning.confirmPassword}
+                          </span>
+                        </p>
+                      </div>
+                      <button
+                        type="submit"
+                        className="mt-3 btn btn-primary w-100 py-3 rounded-lg d-flex align-items-center justify-content-center Abd"
                       >
-                        Provider
-                      </label>
-                      <input
-                        onChange={handleUserType}
-                        value="provider"
-                        checked={selectedUserType === "provider"}
-                        type="radio"
-                        id="provider"
-                        name="flexRadioDefault"
-                        className="form-check-input"
-                      />
+                        <svg
+                          className="w-6 h-6 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="8.5" cy="7" r="4" />
+                          <path d="M20 8v6M23 11h-6" />
+                        </svg>
+                        <span>Sign Up</span>
+                      </button>
+                      <p className="mt-2 text-sm text-warning-600">
+                        <span className="font-weight-medium">
+                          {massageWarning.submit}
+                        </span>
+                      </p>
+                      <p className="mt-2 text-sm text-primary-600">
+                        You already have an account!{" "}
+                        <Link
+                          to="/signIn"
+                          className="font-weight-bold text-primary-600"
+                        >
+                          Sign In
+                        </Link>
+                      </p>
                     </div>
-                    <div className="form-check">
-                      <label
-                        htmlFor="customer"
-                        className="form-check-label block text-sm font-weight-medium"
-                      >
-                        Customer
-                      </label>
-                      <input
-                        onChange={handleUserType}
-                        value="customer"
-                        checked={selectedUserType === "customer"}
-                        type="radio"
-                        id="customer"
-                        name="flexRadioDefault"
-                        className="form-check-input"
-                      />
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="name"
-                      className="block mb-2 text-sm font-weight-medium"
-                    >
-                      User name
-                    </label>
-                    <input
-                      onChange={handleUsername}
-                      type="text"
-                      id="name"
-                      className="form-control rounded-lg"
-                      placeholder="Enter your name"
-                    />
-                    <p className="mt-2 text-sm text-warning-600">
-                      <span className="font-weight-medium">
-                        {massageWarning.username}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="phone"
-                      className="block mb-2 text-sm font-weight-medium"
-                    >
-                      Phone
-                    </label>
-                    <input
-                      onChange={handlePhone}
-                      type="text"
-                      id="phone"
-                      className="form-control rounded-lg"
-                      placeholder="Enter your phone"
-                    />
-                    <p className="mt-2 text-sm text-warning-600">
-                      <span className="font-weight-medium">
-                        {massageWarning.phone}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-weight-medium"
-                    >
-                      Email
-                    </label>
-                    <input
-                      onChange={handleEmail}
-                      type="text"
-                      id="email"
-                      className="form-control rounded-lg"
-                      placeholder="Enter your email"
-                    />
-                    <p className="mt-2 text-sm text-warning-600">
-                      <span className="font-weight-medium">
-                        {massageWarning.email}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-weight-medium"
-                    >
-                      Address
-                    </label>
-                    <input
-                      onChange={handleAddress}
-                      type="text"
-                      id="email"
-                      className="form-control rounded-lg"
-                      placeholder="Enter your email"
-                    />
-                    <p className="mt-2 text-sm text-warning-600">
-                      <span className="font-weight-medium">
-                        {massageWarning.address}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-weight-medium"
-                    >
-                      Password
-                    </label>
-                    <input
-                      onChange={handlePassword}
-                      type="password"
-                      id="password"
-                      className="form-control rounded-lg"
-                      placeholder="Enter your password"
-                    />
-                    <p className="mt-2 text-sm text-warning-600">
-                      <span className="font-weight-medium">
-                        {massageWarning.password}
-                      </span>
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="confirmPassword"
-                      className="block mb-2 text-sm font-weight-medium"
-                    >
-                      Confirm Password
-                    </label>
-                    <input
-                      onChange={handleConfirmPassword}
-                      type="password"
-                      id="confirmPassword"
-                      className="form-control rounded-lg"
-                      placeholder="Confirm password"
-                    />
-                    <p className="mt-2 text-sm text-warning-600">
-                      <span className="font-weight-medium">
-                        {massageWarning.confirmPassword}
-                      </span>
-                    </p>
-                  </div>
-                  <button
-                    type="submit"
-                    className="mt-3 btn btn-primary w-100 py-3 rounded-lg d-flex align-items-center justify-content-center"
-                  >
-                    <svg
-                      className="w-6 h-6 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="8.5" cy="7" r="4" />
-                      <path d="M20 8v6M23 11h-6" />
-                    </svg>
-                    <span>Sign Up</span>
-                  </button>
-                  <p className="mt-2 text-sm text-warning-600">
-                    <span className="font-weight-medium">
-                      {massageWarning.submit}
-                    </span>
-                  </p>
-                  <p className="mt-2 text-sm text-primary-600">
-                    You already have an account!{" "}
-                    <Link
-                      to="/signIn"
-                      className="font-weight-bold text-primary-600"
-                    >
-                      Sign In
-                    </Link>
-                  </p>
+                  </form>
                 </div>
-              </form>
+              </div>
+            </div>
+            <div className="col-lg-7 col-md-12 d-flex align-items-center justify-content-center ">
+              <img
+                src="https://media.istockphoto.com/id/175169737/photo/combi-car-in-studio-isolated-with-clipping-path.jpg?s=612x612&w=0&k=20&c=4gF6f2SCmhXpid9nsMOGkM0DUrVN_J_bPVpbZJv9VME="
+                alt="Your Image"
+                className="img-fluid h-75 "
+              />
             </div>
           </div>
         </div>
