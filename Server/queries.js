@@ -1,8 +1,8 @@
-const pool = require('./Database/DB_Connection')
+const pool = require("./DB");
 
 const getCustomer = (req, res) => {
   pool.query(
-    'SELECT * FROM public.customers WHERE is_delete = false ORDER BY customers_id ASC',
+    "SELECT * FROM public.customers WHERE is_delete = false ORDER BY customers_id ASC",
     (error, results) => {
       if (error) {
         throw error;
@@ -14,7 +14,7 @@ const getCustomer = (req, res) => {
 
 const getCustomercount = (req, res) => {
   pool.query(
-    'SELECT * FROM public.customers WHERE is_delete = false',
+    "SELECT * FROM public.customers WHERE is_delete = false",
     (error, results) => {
       if (error) {
         throw error;
@@ -28,7 +28,7 @@ const getCustomerById = (req, res) => {
   const id = parseInt(req.params.id);
 
   pool.query(
-    'SELECT * FROM public.customers WHERE customers_id = $1',
+    "SELECT * FROM public.customers WHERE customers_id = $1",
     [id],
     (error, results) => {
       if (error) {
@@ -42,22 +42,35 @@ const getCustomerById = (req, res) => {
 const createCustomer = async (req, res) => {
   const { name, email, password, phone, address } = req.body;
 
-  let sql = 'SELECT * FROM public.customers where email = $1'
+  let sql = "SELECT * FROM public.customers where email = $1";
   const oldUser = await pool.query(sql, [email]);
 
   if (oldUser.rows.length != 0) {
     res.status(409).send("User Already Exist.");
   } else {
     pool.query(
-      'INSERT INTO public.customers (role,username, email,password,phone,address,popular_cars,credit_card,cardholder_name,card_expiration_date,cvv_cvc_code,is_delete) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *',
-      ["user", name, email, password, phone, address, null, null, null, null, null, false],
+      "INSERT INTO public.customers (role,username, email,password,phone,address,popular_cars,credit_card,cardholder_name,card_expiration_date,cvv_cvc_code,is_delete) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *",
+      [
+        "user",
+        name,
+        email,
+        password,
+        phone,
+        address,
+        null,
+        null,
+        null,
+        null,
+        null,
+        false,
+      ],
       (error, results) => {
         if (error) {
           throw error;
         }
         res.status(201).json(results.rows[0]);
       }
-    )
+    );
   }
 };
 
@@ -66,7 +79,7 @@ const updateCustomerCreaditCard = (req, res) => {
   const { creditcard, cardholdername, cardexp, cardcvc } = req.body;
 
   pool.query(
-    'UPDATE public.customers SET credit_card = $1, cardholder_name = $2,card_expiration_date=$3,cvv_cvc_code=$4 WHERE customers_id = $5',
+    "UPDATE public.customers SET credit_card = $1, cardholder_name = $2,card_expiration_date=$3,cvv_cvc_code=$4 WHERE customers_id = $5",
     [creditcard, cardholdername, cardexp, cardcvc, id],
     (error, results) => {
       if (error) {
@@ -81,7 +94,7 @@ const deleteCustomer = (req, res) => {
   const id = parseInt(req.params.id);
 
   pool.query(
-    'UPDATE public.customers SET is_delete = $1 WHERE customers_id = $2',
+    "UPDATE public.customers SET is_delete = $1 WHERE customers_id = $2",
     [true, id],
     (error, results) => {
       if (error) {
@@ -95,7 +108,7 @@ const deleteCustomer = (req, res) => {
 /////////////////
 const getProvider = (req, res) => {
   pool.query(
-    'SELECT * FROM public.provider WHERE is_delete = false AND active = true  ORDER BY provider_id ASC',
+    "SELECT * FROM public.provider WHERE is_delete = false AND active = true  ORDER BY provider_id ASC",
     (error, results) => {
       if (error) {
         throw error;
@@ -107,7 +120,7 @@ const getProvider = (req, res) => {
 
 const getNotAcceptedProvider = (req, res) => {
   pool.query(
-    'SELECT * FROM public.provider WHERE active = false AND is_delete = false  ORDER BY provider_id ASC',
+    "SELECT * FROM public.provider WHERE active = false AND is_delete = false  ORDER BY provider_id ASC",
     (error, results) => {
       if (error) {
         throw error;
@@ -119,7 +132,7 @@ const getNotAcceptedProvider = (req, res) => {
 
 const getProvidercount = (req, res) => {
   pool.query(
-    'SELECT * FROM public.provider WHERE is_delete = false',
+    "SELECT * FROM public.provider WHERE is_delete = false",
     (error, results) => {
       if (error) {
         throw error;
@@ -133,7 +146,7 @@ const getProviderById = (req, res) => {
   const id = parseInt(req.params.id);
 
   pool.query(
-    'SELECT * FROM public.provider WHERE provider_id = $1',
+    "SELECT * FROM public.provider WHERE provider_id = $1",
     [id],
     (error, results) => {
       if (error) {
@@ -147,31 +160,32 @@ const getProviderById = (req, res) => {
 const createProvider = async (req, res) => {
   const { name, email, password, phone, address } = req.body;
 
-  let sql = 'SELECT * FROM public.provider where email = $1'
+  let sql = "SELECT * FROM public.provider where email = $1";
   const oldprovider = await pool.query(sql, [email]);
 
   if (oldprovider.rows.length != 0) {
     res.status(409).send("Provider Email Already Exist.");
   } else {
     pool.query(
-      'INSERT INTO public.provider (role,username, email,password,phone,address,is_delete,active) VALUES ($1, $2,$3,$4,$5,$6,$7,$8) RETURNING *',
+      "INSERT INTO public.provider (role,username, email,password,phone,address,is_delete,active) VALUES ($1, $2,$3,$4,$5,$6,$7,$8) RETURNING *",
       ["provider", name, email, password, phone, address, false, false],
       (error, results) => {
         if (error) {
           throw error;
         }
-        res.status(201).send(`provider added with ID: ${results.rows[0].provider_id}`);
+        res
+          .status(201)
+          .send(`provider added with ID: ${results.rows[0].provider_id}`);
       }
-    )
+    );
   }
 };
-
 
 const acceptProvider = (req, res) => {
   const id = parseInt(req.params.id);
 
   pool.query(
-    'UPDATE public.provider SET active = $1 WHERE provider_id = $2',
+    "UPDATE public.provider SET active = $1 WHERE provider_id = $2",
     [true, id],
     (error, results) => {
       if (error) {
@@ -186,7 +200,7 @@ const deleteProvider = (req, res) => {
   const id = parseInt(req.params.id);
 
   pool.query(
-    'UPDATE public.provider SET is_delete = $1 WHERE provider_id = $2',
+    "UPDATE public.provider SET is_delete = $1 WHERE provider_id = $2",
     [true, id],
     (error, results) => {
       if (error) {
@@ -198,11 +212,9 @@ const deleteProvider = (req, res) => {
 };
 ////////////////////
 
-
-
 const getAdmin = (req, res) => {
   pool.query(
-    'SELECT * FROM public.admin ORDER BY admin_id ASC',
+    "SELECT * FROM public.admin ORDER BY admin_id ASC",
     (error, results) => {
       if (error) {
         throw error;
@@ -212,34 +224,34 @@ const getAdmin = (req, res) => {
   );
 };
 
-
-
 const createAdmin = async (req, res) => {
   const { name, email, password, phone, address } = req.body;
 
-  let sql = 'SELECT * FROM public.admin where email = $1'
+  let sql = "SELECT * FROM public.admin where email = $1";
   const oldAdmin = await pool.query(sql, [email]);
 
   if (oldAdmin.rows.length != 0) {
     res.status(409).send("Admin Email Already Exist.");
   } else {
     pool.query(
-      'INSERT INTO public.admin (role,username, email,password,phone,address) VALUES ($1, $2,$3,$4,$5,$6) RETURNING *',
+      "INSERT INTO public.admin (role,username, email,password,phone,address) VALUES ($1, $2,$3,$4,$5,$6) RETURNING *",
       ["admin", name, email, password, phone, address],
       (error, results) => {
         if (error) {
           throw error;
         }
-        res.status(201).send(`Admin added with ID: ${results.rows[0].admin_id}`);
+        res
+          .status(201)
+          .send(`Admin added with ID: ${results.rows[0].admin_id}`);
       }
-    )
+    );
   }
 };
 
 ///////////////////////////////
 const getCar = (req, res) => {
   pool.query(
-    'SELECT * FROM public.cars WHERE is_delete = false ORDER BY cars_id DESC',
+    "SELECT * FROM public.cars WHERE is_delete = false ORDER BY cars_id DESC",
     (error, results) => {
       if (error) {
         throw error;
@@ -251,7 +263,19 @@ const getCar = (req, res) => {
 
 const getCarscount = (req, res) => {
   pool.query(
-    'SELECT * FROM public.cars WHERE is_delete = false',
+    "SELECT * FROM public.cars WHERE is_delete = false",
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows.length);
+    }
+  );
+};
+
+const getRentedCarscount = (req, res) => {
+  pool.query(
+    "SELECT * FROM public.cars WHERE available = false",
     (error, results) => {
       if (error) {
         throw error;
@@ -265,7 +289,7 @@ const getCarsById = (req, res) => {
   const id = parseInt(req.params.id);
 
   pool.query(
-    'SELECT * FROM public.cars WHERE cars_id = $1',
+    "SELECT * FROM public.cars WHERE cars_id = $1",
     [id],
     (error, results) => {
       if (error) {
@@ -277,26 +301,50 @@ const getCarsById = (req, res) => {
 };
 
 const createCar = async (req, res) => {
-  const { type, energy_type, model, year, rental_price, images_data, seats_number, provider_id } = req.body;
+  const {
+    type,
+    energy_type,
+    model,
+    year,
+    rental_price,
+    images_data,
+    seats_number,
+    provider_id,
+  } = req.body;
 
   pool.query(
-    'INSERT INTO public.cars (type,energy_type,model,year,rental_price,available,images_data,start_date,end_date,is_delete,provider_id,start_location,end_location,seats_number) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *',
-    [type, energy_type, model, year, rental_price, true, images_data, null, null, false, provider_id, null, null, seats_number],
+    "INSERT INTO public.cars (type,energy_type,model,year,rental_price,available,images_data,start_date,end_date,is_delete,provider_id,start_location,end_location,seats_number) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *",
+    [
+      type,
+      energy_type,
+      model,
+      year,
+      rental_price,
+      true,
+      images_data,
+      null,
+      null,
+      false,
+      provider_id,
+      null,
+      null,
+      seats_number,
+    ],
     (error, results) => {
       if (error) {
         throw error;
       }
       res.status(201).send(`Car added with ID: ${results.rows[0].cars_id}`);
     }
-  )
+  );
 };
-
 const bookCar = (req, res) => {
   const id = parseInt(req.params.id);
-  const { start_date, end_date, start_location, end_location, user_id } = req.body;
+  const { start_date, end_date, start_location, end_location, user_id } =
+    req.body;
 
   pool.query(
-    'UPDATE public.cars SET user_id = $1, start_date = $2,end_date=$3,start_location=$4,end_location=$5,available=$6 WHERE cars_id = $7',
+    "UPDATE public.cars SET user_id = $1, start_date = $2,end_date=$3,start_location=$4,end_location=$5,available=$6 WHERE cars_id = $7",
     [user_id, start_date, end_date, start_location, end_location, false, id],
     (error, results) => {
       if (error) {
@@ -311,7 +359,7 @@ const deleteCars = (req, res) => {
   const id = parseInt(req.params.id);
 
   pool.query(
-    'UPDATE public.cars SET is_delete = $1 WHERE cars_id = $2',
+    "UPDATE public.cars SET is_delete = $1 WHERE cars_id = $2",
     [true, id],
     (error, results) => {
       if (error) {
@@ -324,30 +372,30 @@ const deleteCars = (req, res) => {
 
 const checkAdmin = (req, res, next) => {
   const user = req.user.role;
-  if (user === 'admin') {
-    next()
+  if (user === "admin") {
+    next();
   } else {
-    res.json("user not admin")
+    res.send("user not admin");
   }
-}
+};
 
 const checkProvider = (req, res, next) => {
   const user = req.user.role;
-  if (user === 'provider') {
-    next()
+  if (user === "provider") {
+    next();
   } else {
-    res.json("user not provider")
+    res.send("user not provider");
   }
-}
+};
 
 const checkRegularUser = (req, res, next) => {
   const user = req.user.role;
-  if (user === 'user') {
-    next()
+  if (user === "user") {
+    next();
   } else {
-    res.json("cant access this page")
+    res.send("cant access this page");
   }
-}
+};
 
 module.exports = {
   getCustomer,
@@ -368,7 +416,15 @@ module.exports = {
   acceptProvider,
   deleteProvider,
 
+  getCar,
+  getCarscount,
+  getCarsById,
+  createCar,
+  bookCar,
+  deleteCars,
+  getRentedCarscount,
+
   checkAdmin,
   checkProvider,
-  checkRegularUser
+  checkRegularUser,
 };
