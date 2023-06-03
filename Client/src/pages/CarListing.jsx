@@ -4,6 +4,8 @@ import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
 import carData from "../assets/data/carData";
+import '../styles/CarLLII.css'
+
 const CarListing = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
@@ -33,7 +35,7 @@ const CarListing = () => {
     if (selectedType && car.type !== selectedType) {
       return false;
     }
-    if (selectedEnergyType && car.EnergyType !== selectedEnergyType) {
+    if (selectedEnergyType && car.energy_Type !== selectedEnergyType) {
       return false;
     }
     if (search && !car.brand.toLowerCase().includes(search.toLowerCase())) {
@@ -56,39 +58,43 @@ const CarListing = () => {
       <section>
         <Container>
           <Row>
-            <Col>
-              <div className="mb-5">
-                <input
-                  style={{
-                    borderRadius: "5px",
-                    borderStyle: "hidden",
-                    boxShadow: "-1px 1px 4px 1px lightgrey",
-                    width: "50%",
-                    backgroundColor: "#f2f2f2",
-                  }}
-                  type="text"
-                  placeholder="Search"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />{" "}
-                <span>
-                  <i className="ri-search-line"></i>
-                </span>
+          <Col>
+              <div className="d-flex justify-content-center mb-5">
+                <div style={{ position: "relative", width: "50%" }}>
+                  <input
+                    style={{
+                      borderRadius: "5px",
+                      borderStyle: "hidden",
+                      boxShadow: "-1px 1px 4px 1px lightgrey",
+                      width: "100%",
+                      padding: "0.5rem 2rem 0.5rem 1rem",
+                      backgroundColor: "#f2f2f2",
+                    }}
+                    type="text"
+                    placeholder="Search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <span style={{ position: "absolute", top: "50%", right: "0.5rem", transform: "translateY(-50%)" }}>
+                    <i className="ri-search-line"></i>
+                  </span>
+                </div>
               </div>
+
             </Col>
             <Col lg="12">
               <div className="d-flex align-items-center gap-3 mb-5">
-                <span className="d-flex align-items-center gap-2">
+                <span className="row d-flex align-items-center gap-2 mb-1">
                   <i className="ri-sort-asc"></i> Sort By
                 </span>
 
-                <select onChange={handleBrandChange} value={selectedBrand}>
+                <select onChange={handleBrandChange} value={selectedBrand} className="select__group">
                   <option value="">Select Brand</option>
                   <option value="Tesla">Tesla</option>
                   <option value="Toyota">Toyota</option>
                   <option value="Ferrari">Ferrari</option>
                 </select>
-                <select onChange={handleTypeChange} value={selectedType}>
+                <select onChange={handleTypeChange} value={selectedType} className="select__group">
                   <option value="">Select Type</option>
                   <option value="Sport">Sport</option>
                   <option value="Bus">Bus</option>
@@ -98,6 +104,7 @@ const CarListing = () => {
                 <select
                   onChange={handleEnergyTypeChange}
                   value={selectedEnergyType}
+                  className="select__group"
                 >
                   <option value="">Select Energy Type</option>
                   <option value="Hybrid">Hybrid</option>
@@ -105,14 +112,13 @@ const CarListing = () => {
                   <option value="Gas">Gas</option>
                 </select>
 
-                <select onChange={handlePriceChange} value={selectedPrice}>
+                <select onChange={handlePriceChange} value={selectedPrice} className="select__group">
                   <option value="">Select Price</option>
                   <option value="low">Low to High</option>
                   <option value="high">High to Low</option>
                 </select>
               </div>
             </Col>
-
             {filteredCars.map((item) => (
               <CarItem item={item} key={item.id} />
             ))}

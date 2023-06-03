@@ -9,42 +9,41 @@ import Button from "@mui/material/Button";
 const CarDetails = () => {
   const { slug } = useParams();
 
-  const singleCarItem = carData.find((item) => item.carName === slug);
+  const singleCarItem = carData.find((item) => item.model === slug);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [singleCarItem]);
 
   return (
-    <Helmet title={singleCarItem.carName}>
+    <Helmet title={singleCarItem.type}>
       <section>
         <Container>
           <Row>
             <Col lg="6">
-              <img src={singleCarItem.imgUrl} alt="" className="w-100" />
+              <img src={`http://localhost:8000/${singleCarItem.images_data}`} alt="" className="w-100" />
             </Col>
 
             <Col lg="6">
               <div className="car__info">
-                <h2 className="section__title">{singleCarItem.carName}</h2>
+                <h2 className="section__title">{singleCarItem.model}</h2>
 
                 <div className=" d-flex align-items-center gap-5 mb-4 mt-3">
                   <h6 className="rent__price fw-bold fs-4">
-                    ${singleCarItem.price}.00 / Day
+                    ${singleCarItem.rental_price}.00 / Day
                   </h6>
 
                   <span className=" d-flex align-items-center gap-2">
-                    <span style={{ color: "#f9a826" }}>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
-                      <i className="ri-star-s-fill"></i>
+                    <span >
+                      <i className="ri-star-s-fill" style={{ color: `${singleCarItem.rating >= 1 ? '#f9a826' : 'gray' }` }}></i>
+                      <i className="ri-star-s-fill" style={{ color: `${singleCarItem.rating >= 2 ? '#f9a826' : 'gray' }` }}></i>
+                      <i className="ri-star-s-fill" style={{ color: `${singleCarItem.rating >= 3 ? '#f9a826' : 'gray' }` }}></i>
+                      <i className="ri-star-s-fill" style={{ color: `${singleCarItem.rating >= 4 ? '#f9a826' : 'gray' }` }}></i>
+                      <i className="ri-star-s-fill" style={{ color: `${singleCarItem.rating >= 5 ? '#f9a826' : 'gray' }` }}></i>
                     </span>
                     ({singleCarItem.rating} ratings)
                   </span>
                 </div>
-
                 <p className="section__description">
                   {singleCarItem.description}
                 </p>
@@ -57,24 +56,21 @@ const CarDetails = () => {
                     <i
                       className="ri-roadster-line"
                       style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {singleCarItem.model}
+                    ></i>
+                    {singleCarItem.type}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
                       className="ri-settings-2-line"
                       style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {singleCarItem.automatic}
+                    ></i>
+                    {singleCarItem.energy_type}
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      className="ri-timer-flash-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {singleCarItem.speed}
+                  <i class="ri-calendar-line" style={{ color: "#f9a826" }}></i>
+                    {singleCarItem.year}
                   </span>
                 </div>
 
@@ -82,28 +78,13 @@ const CarDetails = () => {
                   className=" d-flex align-items-center mt-3"
                   style={{ columnGap: "2.8rem" }}
                 >
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      className="ri-map-pin-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {singleCarItem.gps}
-                  </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
                       className="ri-wheelchair-line"
                       style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {singleCarItem.seatType}
-                  </span>
-
-                  <span className=" d-flex align-items-center gap-1 section__description">
-                    <i
-                      className="ri-building-2-line"
-                      style={{ color: "#f9a826" }}
-                    ></i>{" "}
-                    {singleCarItem.brand}
+                    ></i>
+                    {singleCarItem.seats_number}
                   </span>
                 </div>
               </div>
@@ -113,20 +94,6 @@ const CarDetails = () => {
                 <Button variant="contained">Rent</Button>
               </span>
             </Link>
-
-            {/* <Col lg="7" className="mt-5">
-              <div className="booking-info mt-5">
-                <h5 className="mb-4 fw-bold ">Booking Information</h5>
-                <BookingForm />
-              </div>
-            </Col>
-
-            <Col lg="5" className="mt-5">
-              <div className="payment__info mt-5">
-                <h5 className="mb-4 fw-bold ">Payment Information</h5>
-                <PaymentMethod />
-              </div>
-            </Col> */}
           </Row>
         </Container>
       </section>

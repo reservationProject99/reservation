@@ -95,7 +95,7 @@ const Edit = () => {
                                         <Form.Control type="text" value={address} onChange={handleAddressChange} />
                                     </Form.Group>
 
-                                    <div className="text-center">
+                                    <div className="text-center mt-4">
                                         <Button variant="primary" type="submit">Save Changes</Button>
                                     </div>
                                 </Form>

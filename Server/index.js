@@ -11,104 +11,43 @@ app.use(cors());
 
 app.use(express.json());
 
+// getByToken
+app.get("/get_user", authenticateToken, db.getCustomerByToken);
+app.get("/get_provider", authenticateToken, db.getProviderByToken);
 
-app.get("/", (request, response) => {
-  response.json({ info: "Node.js, Express, and Postgres API" });
-});
-
-app.get(
-  "/users",
-  authenticateToken,
-  (req, res, next) => {
-    const user = req.user.role;
-    if (user === "admin") {
-      next();
-    } else {
-      res.send("user not admin");
-    }
-  },
-  db.getCustomer
-);
-
-app.get(
-  "/users_count",
-  authenticateToken,
-  (req, res, next) => {
-    const user = req.user.role;
-    if (user === "admin") {
-      next();
-    } else {
-      res.send("user not admin");
-    }
-  },
-  db.getCustomercount
-);
-
-app.get("/users/:id", db.getCustomerById);
+// Customer
 app.post("/users", db.createCustomer);
-app.put("/users/:id", db.updateCustomerCreaditCard);
-app.put("/delete_user/:id", db.deleteCustomer);
+app.get("/users", authenticateToken, db.getCustomer);
+app.get("/users_count", authenticateToken, db.getCustomercount);
+app.get("/users/:id", authenticateToken, db.getCustomerById);
+app.put("/users/:id", authenticateToken, db.updateCustomerCreaditCard);
+app.put("/delete_user/:id", authenticateToken, db.deleteCustomer);
 
+// admin
 app.get("/admin", authenticateToken, db.getAdmin);
-app.post("/admin", db.createAdmin);
+app.post("/admin", authenticateToken, db.createAdmin);
 
-app.get("/provider", db.getProvider);
-app.get("/not_active_provider", db.getNotAcceptedProvider);
-
-app.get(
-  "/provider_count",
-  authenticateToken,
-  (req, res, next) => {
-    const user = req.user.role;
-    if (user === "admin") {
-      next();
-    } else {
-      res.send("user not admin");
-    }
-  },
-  db.getProvidercount
-);
-
-app.get("/provider/:id", db.getProviderById);
+// provider
 app.post("/provider", db.createProvider);
-app.put("/delete_provider/:id", db.deleteProvider);
-app.put("/accept_provider/:id", db.acceptProvider);
+app.get("/provider", authenticateToken, db.getProvider);
+app.get("/not_active_provider", authenticateToken, db.getNotAcceptedProvider);
+app.get("/provider_count", authenticateToken, authenticateToken, db.getProvidercount);
+app.get("/provider/:id", authenticateToken, db.getProviderById);
+app.put("/delete_provider/:id", authenticateToken, db.deleteProvider);
+app.put("/accept_provider/:id", authenticateToken, db.acceptProvider);
 
+// cars
 app.get("/cars", db.getCar);
+app.get("/cars_count", authenticateToken, db.getCarscount);
+app.get("/rented_Carscount", authenticateToken, db.getRentedCarscount);
 
-app.get(
-  "/cars_count",
-  authenticateToken,
-  (req, res, next) => {
-    const user = req.user.role;
-    if (user === "admin") {
-      next();
-    } else {
-      res.send("user not admin");
-    }
-  },
-  db.getCarscount
-);
+app.get("/cars/:id", authenticateToken, db.getCarsById);
+app.post("/cars", authenticateToken, db.createCar);
+app.put("/delete_car/:id", authenticateToken, db.deleteCars);
+app.put("/bookCar/:id", authenticateToken, db.bookCar);
 
-app.get(
-  "/rented_Carscount",
-  authenticateToken,
-  (req, res, next) => {
-    const user = req.user.role;
-    if (user === "admin") {
-      next();
-    } else {
-      res.send("user not admin");
-    }
-  },
-  db.getRentedCarscount
-);
 
-app.get("/cars/:id", db.getCarsById);
-app.post("/cars", db.createCar);
-app.put("/delete_car/:id", db.deleteCars);
-app.put("/bookCar/:id", db.bookCar);
-
+// Sign
 app.post("/checkToken", authenticateToken);
 
 app.post("/logIn_customer", db.checkCustomer, (req, res) => {

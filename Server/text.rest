@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/logIn_provider
+POST http://localhost:5000/logIn_customer
 Content-Type: application/json
 
 {
@@ -36,8 +36,8 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/users
-authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJuYW1lIjoib21hciIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTY4NTQ1NjQyMCwiZXhwIjoxNjg1ODg4NDIwfQ.96EBN7qdOuLsWqC2KhIxZ51vzz3-zLwI1fyKzmRT4tQ
+GET http://localhost:5000/get_user
+authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lcnNfaWQiOjEsInJvbGUiOiJ1c2VyIiwidXNlcm5hbWUiOiJPbWFyIiwiZW1haWwiOiJvbWFyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzT21hciEiLCJwaG9uZSI6IjA3Nzg3ODgwMTQiLCJhZGRyZXNzIjoiYWFhIiwicG9wdWxhcl9jYXJzIjpudWxsLCJjcmVkaXRfY2FyZCI6bnVsbCwiY2FyZGhvbGRlcl9uYW1lIjpudWxsLCJjYXJkX2V4cGlyYXRpb25fZGF0ZSI6bnVsbCwiY3Z2X2N2Y19jb2RlIjpudWxsLCJpc19kZWxldGUiOmZhbHNlLCJpYXQiOjE2ODU4MTI2ODR9.ofjOT_Eb6BpdXlipU_TLRohCmkA52jaNSzFU7IgrQw0
 
 
 ###

@@ -7,55 +7,79 @@ import {
     MDBCardText,
     MDBCardBody,
     MDBCardImage,
-    MDBBreadcrumb,
-    MDBBreadcrumbItem,
 } from 'mdb-react-ui-kit';
 import { MDBInput } from 'mdb-react-ui-kit';
 import { Button as BootstrapButton } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagic } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import img01 from "../../assets/all-images/cars-img/bmw-offer.png";
-import img02 from "../../assets/all-images/cars-img/mercedes-offer.png";
-import img03 from "../../assets/all-images/cars-img/mercedes-offer.png";
-import img04 from "../../assets/all-images/cars-img/mercedes-offer.png";
-import img05 from "../../assets/all-images/cars-img/mercedes-offer.png";
+
 
 
 
 const cardData = [
     {
-        imageSrc: img01,
-        title: 'Card 1',
-        description: 'Some quick example text for Card 1.',
-        listItems: ['Cras justo odio', 'Dapibus ac facilisis in', 'Vestibulum at eros'],
+        cars_id: 6,
+        rating: 4,
+        description: 'toyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyota',
+        type: "toyota",
+        energy_type: "electric",
+        model: "T-120",
+        year: 2020,
+        rental_price: 100,
+        available: true,
+        start_date: null,
+        end_date: null,
+        is_delete: false,
+        provider_id: 1,
+        start_location: null,
+        end_location: null,
+        seats_number: 4,
+        user_id: null,
+        images_data: "https://www.vhv.rs/dpng/d/483-4831619_outlander-phev-mitsubishi-outlander-phev-2020-ruby-black.png"
     },
     {
-        imageSrc: img02,
-        title: 'Card 2',
-        description: 'Some quick example text for Card 2.',
-        listItems: ['Item 1', 'Item 2', 'Item 3'],
+        cars_id: 5,
+        rating: 2,
+        description: 'toyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyota',
+        type: "mitsubishi",
+        energy_type: "electric",
+        model: "m-120",
+        year: 2020,
+        rental_price: 100,
+        available: true,
+        start_date: null,
+        end_date: null,
+        is_delete: false,
+        provider_id: 1,
+        start_location: null,
+        end_location: null,
+        seats_number: 4,
+        user_id: null,
+        images_data: "https://www.vhv.rs/dpng/d/483-4831619_outlander-phev-mitsubishi-outlander-phev-2020-ruby-black.png"
     },
     {
-        imageSrc: img03,
-        title: 'Card 2',
-        description: 'Some quick example text for Card 2.',
-        listItems: ['Item 1', 'Item 2', 'Item 3'],
-    },
-    {
-        imageSrc: img04,
-        title: 'Card 2',
-        description: 'Some quick example text for Card 2.',
-        listItems: ['Item 1', 'Item 2', 'Item 3'],
-    },
-    {
-        imageSrc: img05,
-        title: 'Card 2',
-        description: 'Some quick example text for Card 2.',
-        listItems: ['Item 1', 'Item 2', 'Item 3'],
-    },
-];
 
+        cars_id: 4,
+        rating: 3,
+        description: 'toyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyota',
+        type: "mitsubishi",
+        energy_type: "electric",
+        model: "m-120",
+        year: 2020,
+        rental_price: 100,
+        available: true,
+        start_date: null,
+        end_date: null,
+        is_delete: false,
+        provider_id: 1,
+        start_location: null,
+        end_location: null,
+        seats_number: 3,
+        user_id: null,
+        images_data: "https://www.vhv.rs/dpng/d/483-4831619_outlander-phev-mitsubishi-outlander-phev-2020-ruby-black.png"
+    }
+];
 
 export default function ProfilePage() {
     const [showPopover, setShowPopover] = useState(false);
@@ -67,18 +91,10 @@ export default function ProfilePage() {
 
     return (
         <section style={{ backgroundColor: '#eee' }}>
+            <div className='text-center'>
+                <h1 className='fw-bold' style={{ color: '#000d6b' }}>Profile Page</h1>
+            </div>
             <MDBContainer className="py-5">
-                <MDBRow>
-                    <MDBCol>
-                        <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-                            <MDBBreadcrumbItem>
-                                <Link to="/">Home</Link>
-                            </MDBBreadcrumbItem>
-                            <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
-                        </MDBBreadcrumb>
-                    </MDBCol>
-                </MDBRow>
-
                 <MDBRow>
                     <MDBCol lg="4">
                         <MDBCard className="mb-4">
@@ -98,15 +114,6 @@ export default function ProfilePage() {
                                             <FontAwesomeIcon icon={faMagic} />
                                         </BootstrapButton>
                                     </Link>
-
-                                    {/* <MDBPopover className="btn-floating" show={showPopover} onHide={() => setShowPopover(false)}>
-                                        <MDBPopoverHeader>Edit Profile</MDBPopoverHeader>
-                                        <MDBPopoverBody>
-                                            <MDBInput type="text" className="text-muted" placeholder="Edit Name" />
-                                            <MDBInput type="email" className="text-muted" placeholder="Edit Email" />
-                                        </MDBPopoverBody>
-                                    </MDBPopover> */}
-
                                 </div>
                             </MDBCardBody>
                         </MDBCard>
@@ -151,54 +158,68 @@ export default function ProfilePage() {
                                                 <MDBInput type="text" className="text-muted" placeholder="Bay Area, San Francisco, CA" />
                                             </MDBCol>
                                         </MDBRow>
-                                        
+
                                         <div className="d-flex justify-content-end">
-                                        <Link to="/Edit">
-                                        <BootstrapButton variant="danger" className="btn-floating" onClick={handlePopover}>
-                                            <FontAwesomeIcon icon={faMagic} />
-                                        </BootstrapButton>
-                                    </Link>
-                                    </div>
+                                            <Link to="/Edit">
+                                                <BootstrapButton variant="danger" className="btn-floating" onClick={handlePopover}>
+                                                    <FontAwesomeIcon icon={faMagic} />
+                                                </BootstrapButton>
+                                            </Link>
+                                        </div>
 
                                     </form>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>
-
                     </MDBCol>
                 </MDBRow>
 
 
-            <div className="row d-flex justify-content-around">
-                <h2 className="row d-flex justify-content-center">Last Preservations</h2>
-                {cardData.map((card, index) => (
-                    <div className="card" style={{ width: '25rem', marginTop: '1.5rem' }} key={index}>
-                        <img src={card.imageSrc} className="card-img-top" alt="Card Image" />
-                        <div className="card-body">
-                            <h5 className="card-title">{card.title}</h5>
-                            <p className="card-text">{card.description}</p>
+                <div className="row d-flex justify-content-around">
+                    <h1 className="row d-flex justify-content-center fw-bold mb-4" style={{ color: '#000d6b' }}>Last Preservations</h1>
+
+                    {cardData.map((card, index) => (
+                        <div key={index} className="col-lg-4 col-md-4 col-sm-6 mb-5">
+                            <div className="car__item" style={{ backgroundColor: "white" }}>
+                                <div className="car__img">
+                                    <img src={`http://localhost:8000/${card.images_data}`} alt="" className="w-100" />
+                                </div>
+
+                                <div className="car__item-content mt-4">
+                                    <h4 className="section__title text-center">{card.model}</h4>
+                                    <h6 className="rent__price text-center mt-">
+                                        ${card.rental_price}.00 <span>/ Day</span>
+                                    </h6>
+
+                                    <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
+                                        <span className="d-flex align-items-center gap-1">
+                                            <i className="ri-car-line"></i> {card.type}
+                                        </span>
+                                        <span className="d-flex align-items-center gap-1">
+                                            <i className="ri-settings-2-line"></i> {card.energy_type}
+                                        </span>
+                                        <span className="d-flex align-items-center gap-1">
+                                            <i class="ri-calendar-line" style={{ color: "#f9a826" }}></i>{card.year}
+                                        </span>
+                                    </div>
+                                    <Link to="/Checkout">
+                                        <button className="w-50 car__item-btn car__btn-rent">
+                                            Rent it again 
+                                        </button>
+                                    </Link>
+                                    <Link to={`/cars/${card.model}`}>
+                                        <button className="w-50 car__item-btn car__btn-details">
+                                            Details
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
-                        {/* <ul className="list-group list-group-light list-group-small">
-                            {card.listItems.map((item, idx) => (
-                                <li className="list-group-item px-4" key={idx}>
-                                    {item}
-                                </li>
-                            ))}
-                        </ul> */}
-                        <div className="card-body d-flex justify-content-around">
-                            <Link to="/Checkout" className="card-link">
-                                Rent Again
-                            </Link>
-                            <Link to="/" className="card-link">
-                                Details
-                            </Link>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
 
             </MDBContainer>
 
-        </section>
+        </section >
     );
 }

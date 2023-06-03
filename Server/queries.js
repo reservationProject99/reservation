@@ -106,6 +106,21 @@ const deleteCustomer = (req, res) => {
   );
 };
 
+const getCustomerByToken = (req, res) => {
+  const { customers_id } = req.user;
+  console.log(customers_id)
+  db.query(
+    "SELECT * FROM public.customers WHERE customers_id = $1",
+    [customers_id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
 // Provider
 const getProvider = (req, res) => {
   db.query(
@@ -208,6 +223,20 @@ const deleteProvider = (req, res) => {
         return res.status(400).json(error);
       }
       res.status(200).send(`Provider deleted with ID: ${id}`);
+    }
+  );
+};
+
+const getProviderByToken = (req, res) => {
+  const { provider_id } = req.user;
+  db.query(
+    "SELECT * FROM public.provider WHERE provider_id = $1",
+    [provider_id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).json(results.rows);
     }
   );
 };
@@ -339,6 +368,7 @@ const createCar = async (req, res) => {
     }
   );
 };
+
 const bookCar = (req, res) => {
   const id = parseInt(req.params.id);
   const { start_date, end_date, start_location, end_location, user_id } =
@@ -370,34 +400,6 @@ const deleteCars = (req, res) => {
     }
   );
 };
-
-// const checkAdmin = (req, res, next) => {
-//   const user = req.user.role;
-//   if (user === "admin") {
-//     next();
-//   } else {
-//     res.send("user not admin");
-//   }
-// };
-
-// const checkProvider = (req, res, next) => {
-//   const user = req.user.role;
-//   if (user === "provider") {
-//     next();
-//   } else {
-//     res.send("user not provider");
-//   }
-// };
-
-// const checkRegularUser = (req, res, next) => {
-//   const user = req.user.role;
-//   if (user === "user") {
-//     next();
-//   } else {
-//     res.send("cant access this page");
-//   }
-// };
-
 
 const  checkCustomer = (req, res, next) => {
 
@@ -454,6 +456,7 @@ const  checkProvider = (req, res, next) => {
     }
   );
 }
+
 module.exports = {
   getCustomer,
   getCustomerById,
@@ -461,6 +464,7 @@ module.exports = {
   updateCustomerCreaditCard,
   deleteCustomer,
   getCustomercount,
+  getCustomerByToken,
 
   getAdmin,
   createAdmin,
@@ -472,6 +476,7 @@ module.exports = {
   createProvider,
   acceptProvider,
   deleteProvider,
+  getProviderByToken,
 
   getCar,
   getCarscount,

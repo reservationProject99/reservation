@@ -3,40 +3,27 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-
 import Paper from '@mui/material/Paper';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from '../components/UI/AddressForm';
 import PaymentForm from '../components/UI/PaymentForm';
 import Review from '../components/UI/Review';
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import { indigo } from '@mui/material/colors';
+import { useNavigate } from "react-router-dom";
 
 const steps = ['Your Information', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
+function getStepContent(step, handleNext) {
     switch (step) {
         case 0:
-            return <AddressForm />;
+            return <AddressForm handleNext={handleNext} />;
         case 1:
-            return <PaymentForm />;
+            return <PaymentForm handleNext={handleNext} />;
         case 2:
             return <Review />;
         default:
@@ -47,6 +34,8 @@ function getStepContent(step) {
 const defaultTheme = createTheme();
 
 export default function Checkout() {
+
+    const navigate = useNavigate(); // useNavigate hook to get access to the navigate function
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -55,6 +44,10 @@ export default function Checkout() {
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
+    };
+
+    const handleGoBackHome = () => {
+        navigate("/"); // navigate to the home page
     };
 
     return (
@@ -68,16 +61,10 @@ export default function Checkout() {
                     position: 'relative',
                     borderBottom: (t) => `1px solid ${t.palette.divider}`,
                 }}
-            >
-                {/* <Toolbar>
-                    <Typography variant="h6" color="inherit" noWrap>
-                        QuickRide
-                    </Typography>
-                </Toolbar> */}
-            </AppBar>
+            />
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-                    <Typography component="h1" variant="h4" align="center">
+                    <Typography component="h1" variant="h4" align="center" color={indigo[900]}>
                         Checkout
                     </Typography>
                     <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
@@ -93,21 +80,26 @@ export default function Checkout() {
                                 Thank you for your order.
                             </Typography>
                             <Typography variant="subtitle1">
-                                Your order number is #2001539. We have emailed your order
-                                confirmation, and will send you an update when your order has
-                                shipped.
+                                Your order number is #2001539. We have emailed your order confirmation, and will send you an update when your order has shipped.
                             </Typography>
+                            <Button
+                                variant="contained"
+                                onClick={handleGoBackHome} // call the handleGoBackHome function on button click
+                                sx={{ mt: 3, ml: 1 }}
+                            >
+                                Go Back Home
+                            </Button>
                         </React.Fragment>
+
                     ) : (
                         <React.Fragment>
-                            {getStepContent(activeStep)}
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            {getStepContent(activeStep, handleNext)}
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                                 {activeStep !== 0 && (
                                     <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                                         Back
                                     </Button>
                                 )}
-
                                 <Button
                                     variant="contained"
                                     onClick={handleNext}
@@ -119,7 +111,6 @@ export default function Checkout() {
                         </React.Fragment>
                     )}
                 </Paper>
-                {/* <Copyright /> */}
             </Container>
         </ThemeProvider>
     );

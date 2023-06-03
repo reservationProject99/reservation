@@ -252,7 +252,7 @@ export default function SignIn({ updateIsLog }) {
                     <p className={`mt-2 text-sm text-warning-600`}>
                       {massageWarning.submit}
                     </p>
-                    <p className={`mt-2 text-sm text-primary-600`}>
+                    <p className={`mt-2 text-sm`}>
                       Don't have an account!
                       <Link
                         to={

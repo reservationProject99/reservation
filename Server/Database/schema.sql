@@ -42,7 +42,7 @@ CREATE TABLE cars  (
   start_location TEXT,
   end_location TEXT,
   seats_number INTEGER,
-  user_id INTEGER ,
+  user_id INTEGER,
   is_delete BOOLEAN DEFAULT false,
   provider_id INTEGER REFERENCES provider(provider_id)
 );

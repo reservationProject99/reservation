@@ -36,7 +36,7 @@ const Header = () => {
       <div className="header__middle">
         <div className="container">
           <div className="row">
-            <div className="col-lg-10 col-md-3 col-sm-4">
+            <div className="col-lg-10 col-md-3 col-sm-4 me-auto">
               <div className="logo">
                 <h1>
                   <Link to="/home" className="d-flex align-items-center gap-2">
@@ -49,12 +49,10 @@ const Header = () => {
 
             <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
               <button className="header__btn btn">
-                {" "}
-                <Link path="/">
-                  {" "}
+                <Link to="/userProfile">
                   <i className="ri-user-line"></i>
                 </Link>
-              </button>{" "}
+              </button>
               <button className="header__btn btn">
                 <Link to="/signUp">Sign Up</Link>
               </button>
