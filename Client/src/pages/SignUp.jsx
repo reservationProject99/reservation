@@ -1,13 +1,12 @@
-/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-useless-escape */
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-undef */
+/* eslint-disable no-dupe-keys */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
-import img from "../assets/all-images/cars-img/bmw-offer.png";
+import SignUpCar from "../assets/all-images/SignUp.png";
 
 export default function SignUp() {
   useEffect(() => {
@@ -25,7 +24,7 @@ export default function SignUp() {
   }, []);
 
   const [user, setUser] = useState({
-    username: "",
+    name: "",
     phone: "",
     email: "",
     password: "",
@@ -39,6 +38,7 @@ export default function SignUp() {
     address: false,
     password: false,
     confirmPassword: false,
+    address: false,
   });
 
   const [massageWarning, setMassageWarning] = useState({
@@ -59,7 +59,7 @@ export default function SignUp() {
       setMassageWarning({ ...massageWarning, username: "Required!" });
     } else {
       setMassageWarning({ ...massageWarning, username: "" });
-      setUser({ ...user, username: name });
+      setUser({ ...user, name: name });
       setCheckInput({ ...checkInput, username: true });
     }
   }
@@ -93,39 +93,15 @@ export default function SignUp() {
     }
   }
 
-  async function checkUsers(email) {
-    try {
-      const response = await axios.get("http://localhost:5000/users");
-
-      const result = response.data.filter((user) => {
-        return user.email === email;
-      });
-
-      return result.length === 0 ? false : true;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-
   async function handleEmail(event) {
     const patternEmail = /^[A-z0-9\.]+@[A-z0-9]+\.[A-z]{3,5}$/;
     setCheckInput({ ...checkInput, email: false });
     const email = event.target.value;
 
-    let isEmailExist = true;
-
-    await checkUsers(email).then((res) => {
-      isEmailExist = res;
-    });
-
     if (email === "") {
       setMassageWarning({ ...massageWarning, email: "Required!" });
     } else if (!patternEmail.test(email)) {
       setMassageWarning({ ...massageWarning, email: "Invalid email" });
-    } else if (isEmailExist) {
-      setMassageWarning({ ...massageWarning, email: "Email is already exist" });
-      setUser({ ...user, email: email });
     } else {
       setMassageWarning({ ...massageWarning, email: "" });
       setUser({ ...user, email: email });
@@ -173,6 +149,10 @@ export default function SignUp() {
     }
   }
 
+  function handleUserType(e) {
+    setSelectedUserType(e.target.value);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     // console.log(checkInput.username ,checkInput.email ,checkInput.phone ,checkInput.password ,checkInput.confirmPassword, checkInput.address)
@@ -198,22 +178,35 @@ export default function SignUp() {
   }
 
   function sendDataToServer(user) {
-    axios
-      .post("http://localhost:5000/users", {
-        user: user,
-        Type: selectedUserType,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
-  function handleUserType(e) {
-    console.log(e.target.value);
-    setSelectedUserType(e.target.value);
+    if (selectedUserType === "customer") {
+      axios
+        .post("http://localhost:5000/users", user)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          setMassageWarning({
+            ...massageWarning,
+            email: "Email is already exist",
+          });
+          setUser({ ...user, email: email });
+          console.error(err);
+        });
+    } else if (selectedUserType === "provider") {
+      axios
+        .post("http://localhost:5000/provider", user)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          setMassageWarning({
+            ...massageWarning,
+            email: "Email is already exist",
+          });
+          setUser({ ...user, email: email });
+          console.error(err);
+        });
+    }
   }
 
   return (
@@ -223,7 +216,10 @@ export default function SignUp() {
           <div className="row m-0 m-sm-20 bg-white shadow-sm rounded-lg">
             <div className="col-lg-5 col-md-12">
               <div className="mt-12 d-flex flex-column align-items-center">
-                <h1 className="text-2xl text-xl-3xl font-weight-bold text-blue-600">
+                <h1
+                  className="text-2xl text-xl-3xl font-weight-bold"
+                  style={{ color: "#000d6b" }}
+                >
                   Sign Up to Join Us!
                 </h1>
                 <div className="w-100 flex-1 mt-8">
@@ -387,7 +383,8 @@ export default function SignUp() {
                       </div>
                       <button
                         type="submit"
-                        className="mt-3 btn btn-primary w-100 py-3 rounded-lg d-flex align-items-center justify-content-center Abd"
+                        className="mt-3 btn w-100 py-3 rounded-lg d-flex align-items-center justify-content-center Abd"
+                        style={{ backgroundColor: "#000d6b" }}
                       >
                         <svg
                           className="w-6 h-6 mr-2"
@@ -396,20 +393,22 @@ export default function SignUp() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
+                          style={{ color: "white" }}
                         >
                           <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                           <circle cx="8.5" cy="7" r="4" />
                           <path d="M20 8v6M23 11h-6" />
                         </svg>
-                        <span>Sign Up</span>
+
+                        <span style={{ color: "white" }}>Sign Up</span>
                       </button>
                       <p className="mt-2 text-sm text-warning-600">
                         <span className="font-weight-medium">
                           {massageWarning.submit}
                         </span>
                       </p>
-                      <p className="mt-2 text-sm text-primary-600">
-                        You already have an account!{" "}
+                      <p className="mt-2 text-sm">
+                        You already have an account!
                         <Link
                           to="/signIn"
                           className="font-weight-bold text-primary-600"
@@ -424,9 +423,9 @@ export default function SignUp() {
             </div>
             <div className="col-lg-7 col-md-12 d-flex align-items-center justify-content-center ">
               <img
-                src="https://media.istockphoto.com/id/175169737/photo/combi-car-in-studio-isolated-with-clipping-path.jpg?s=612x612&w=0&k=20&c=4gF6f2SCmhXpid9nsMOGkM0DUrVN_J_bPVpbZJv9VME="
+                src={SignUpCar}
                 alt="Your Image"
-                className="img-fluid h-75 "
+                className="img-fluid h-75"
               />
             </div>
           </div>

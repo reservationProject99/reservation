@@ -1,23 +1,55 @@
 
-POST http://localhost:5000/createToken
+
+POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "id": "1",
     "name": "omar",
+    "email" : "omar3@gmail.com",
     "password" : "1234",
-    "role" : "admin"
-
+    "phone" : "1234",
+    "address" : "1234"
 }
 
 ###
-GET http://localhost:5000/users
-// Admin
-authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJuYW1lIjoiRmFobWkiLCJlbWFpbCI6IkZhaG1pQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMzY5NiIsInBob25lIjoiMDc4ODAwMDAwMCIsImFkZHJlc3MiOiJBbW1hbiIsImlhdCI6MTY4NTcyNTgzMH0.PlS6Q5KmtkVx5_OO8_dSR0yJ4Uc8SHk007OOvsbSdFI
-// Provider
-authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicHJvdmlkZXIiLCJuYW1lIjoiT2JpZGEiLCJlbWFpbCI6Ik9iaWRhQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMzY5NiIsInBob25lIjoiMDc4ODAwMDAwMCIsImFkZHJlc3MiOiJBbW1hbiIsImlhdCI6MTY4NTcyNTk2MH0.buFJxWAnERDT8fQW44bV97VUho7Il8HbAsNlfsOusUE
-// Provider
-authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciIsIm5hbWUiOiJBYmVkIiwiZW1haWwiOiJBYmVkQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMzY5NiIsInBob25lIjoiMDc4ODAwMDAwMCIsImFkZHJlc3MiOiJBbW1hbiIsImlhdCI6MTY4NTcyNjAyN30.NZ3RVr2TmWgAthwV2VBN1u1cRh04NQYGGdKWJYnTKOA
+
+POST http://localhost:5000/provider
+Content-Type: application/json
+
+{
+    "name": "omar",
+    "email" : "omar5@gmail.com",
+    "password" : "1234",
+    "phone" : "1234",
+    "address" : "1234"
+}
 
 ###
+
+POST http://localhost:5000/logIn_provider
+Content-Type: application/json
+
+{
+    "email" : "omar@gmail.com",
+    "password" : "123Omar!"
+}
+
+###
+
 GET http://localhost:5000/users
+authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJuYW1lIjoib21hciIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTY4NTQ1NjQyMCwiZXhwIjoxNjg1ODg4NDIwfQ.96EBN7qdOuLsWqC2KhIxZ51vzz3-zLwI1fyKzmRT4tQ
+
+
+###
+
+
+GET http://localhost:5000/provider
+authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJuYW1lIjoib21hciIsInBhc3N3b3JkIjoiMTIzNCIsImlhdCI6MTY4NTQ1NjQyMCwiZXhwIjoxNjg1ODg4NDIwfQ.96EBN7qdOuLsWqC2KhIxZ51vzz3-zLwI1fyKzmRT4tQ
+
+
+// Admin
+authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjEiLCJyb2xlIjoiYWRtaW4iLCJ1c2VybmFtZSI6Im9tYXIiLCJlbWFpbCI6Im9tYXJAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0IiwiYWRkcmVzcyI6IjEyMzQiLCJpc19kZWxldGUiOmZhbHNlLCJhY3RpdmUiOmZhbHNlLCJpYXQiOjE2ODU3Nzg4Mzh9.l2QXMxyV_Y3b6QKM6xU5uV46pLrHGS0DZSR_RV-zuIY
+// user
+authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjEiLCJyb2xlIjoidXNlciIsInVzZXJuYW1lIjoib21hciIsImVtYWlsIjoib21hckBnbWFpbC5jb20iLCJwYXNzd29yZCI6IjEyMzQiLCJhZGRyZXNzIjoiMTIzNCIsImlzX2RlbGV0ZSI6ZmFsc2UsImFjdGl2ZSI6ZmFsc2UsImlhdCI6MTY4NTc3ODg2M30.iqv9Tr5iFrS79nJaTheSqJSyzamTKll2SrjLDUepAII
+// Provider
+authorization : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm92aWRlcl9pZCI6IjEiLCJyb2xlIjoicHJvdmlkZXIiLCJ1c2VybmFtZSI6Im9tYXIiLCJlbWFpbCI6Im9tYXJAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0IiwiYWRkcmVzcyI6IjEyMzQiLCJpc19kZWxldGUiOmZhbHNlLCJhY3RpdmUiOmZhbHNlLCJpYXQiOjE2ODU3Nzg4OTF9.SYcXSMVfkooIYF9U2EnJlpBusAFbCwFgRhVCgRrX7fc

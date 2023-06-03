@@ -1,14 +1,13 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-useless-escape */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState } from "react";
+/* eslint-disable no-useless-escape */
+/* eslint-disable react/no-unescaped-entities */
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
 
-export default function SignIn({ updateIsLog, setUserLogged }) {
+export default function SignIn({ updateIsLog }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -16,18 +15,20 @@ export default function SignIn({ updateIsLog, setUserLogged }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
   const [path, setPath] = useState("/");
-  const [accessToken, setAccessToken] = useState(false);
+  const [selectedUserType, setSelectedUserType] = useState("");
 
   useEffect(() => {
-    setAccessToken(JSON.parse(localStorage.getItem("token")));
+    const token = JSON.parse(localStorage.getItem("token")) || false;
 
-    if (accessToken) {
-      checkToken().then((resultUsers) => {
-        setUserLogged(resultUsers);
-        navigate(path);
+    if (token) {
+      checkToken(token).then((resultUsers) => {
+        if (resultUsers) {
+          updateIsLog(true);
+          navigate(path);
+        }
       });
     }
-  });
+  }, []);
 
   const [massageWarning, setMassageWarning] = useState({
     email: "",
@@ -65,68 +66,78 @@ export default function SignIn({ updateIsLog, setUserLogged }) {
     }
   }
 
+  function handleUserType(e) {
+    setSelectedUserType(e.target.value);
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    const userCheck = await checkUsers(email, password);
-    const token = await checkToken();
-
-    if (token) {
-      setUserLogged(token);
-      updateIsLog(true);
-      event.target.reset();
-      navigate(path);
-    } else if (userCheck) {
-      localStorage.setItem("user", JSON.stringify(userCheck));
+    if (selectedUserType === "customer") {
       await axios
-        .post("http://localhost:5000/createToken", userCheck)
+        .post(`http://localhost:5000/logIn_customer`, {
+          email: email,
+          password: password,
+        })
         .then((res) => {
           localStorage.setItem("token", JSON.stringify(res.data));
           console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          setMassageWarning({
+            ...massageWarning,
+            submit: "Password or email is incorrect.",
+          });
+          console.error(err);
         });
 
       updateIsLog(true);
       event.target.reset();
       navigate(path);
-    } else {
+    } else if (selectedUserType === "provider") {
+      await axios
+        .post(`http://localhost:5000/logIn_provider`, {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          localStorage.setItem("token", JSON.stringify(res.data));
+          console.log(res);
+        })
+        .catch((err) => {
+          setMassageWarning({
+            ...massageWarning,
+            submit: "Password or email is incorrect.",
+          });
+          console.error(err);
+        });
+
+      updateIsLog(true);
+      event.target.reset();
+      navigate(path);
+    }
+    else {
       setMassageWarning({
         ...massageWarning,
-        submit: "Password or email is incorrect.",
+        submit: "Please select a user type",
       });
     }
   }
 
-  async function checkToken() {
+  async function checkToken(token) {
     try {
-      const response = await axios.get("http://localhost:5000/LogIn", {
+      const response = await axios.get("http://localhost:5000/checkToken", {
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          authorization: `Bearer ${token}`,
         },
       });
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return false;
-    }
-  }
-
-  async function checkUsers(email, password) {
-    try {
-      const response = await axios.get("http://localhost:5000/user");
-
-      const result = response.data.filter((user) => {
-        return user.email === email && user.password === password;
-      });
-      return result[0];
-    } catch (error) {
-      console.log(error);
-      return null;
     }
   }
 
@@ -136,10 +147,49 @@ export default function SignIn({ updateIsLog, setUserLogged }) {
         <div className="row max-w-screen-lg m-0 m-sm-20 bg-white shadow-sm rounded-lg justify-content-center">
           <div className="col-lg-5 col-md-7 col-10">
             <div className="mt-12 d-flex flex-column align-items-center">
-              <h1 className="text-2xl text-xl-3xl font-weight-bold text-blue-600">
-                Sign Up to Join Us!
+              <h1
+                className="text-2xl text-xl-3xl font-weight-bold text-blue-600"
+                style={{ color: "rgb(0, 13, 107)" }}
+              >
+                Sign In
               </h1>
               <div className="w-100 flex-1 mt-8">
+                <div className="d-flex flex-wrap mt-4 align-items-center justify-content-around border border-primary border-opacity-50 rounded-3">
+                  <div className="form-check my-3">
+                    <label
+                      htmlFor="provider"
+                      className="form-check-label block text-sm font-weight-medium"
+                    >
+                      Provider
+                    </label>
+                    <input
+                      onChange={handleUserType}
+                      checked={selectedUserType === "provider"}
+                      value="provider"
+                      type="radio"
+                      id="provider"
+                      name="flexRadioDefault"
+                      className="form-check-input"
+                    />
+                  </div>
+                  <div className="form-check">
+                    <label
+                      htmlFor="customer"
+                      className="form-check-label block text-sm font-weight-medium"
+                    >
+                      Customer
+                    </label>
+                    <input
+                      onChange={handleUserType}
+                      checked={selectedUserType === "customer"}
+                      value="customer"
+                      type="radio"
+                      id="customer"
+                      name="flexRadioDefault"
+                      className="form-check-input"
+                    />
+                  </div>
+                </div>
                 <form onSubmit={handleSubmit}>
                   <div className="mx-auto max-w-xs">
                     <div className="mb-6">
@@ -178,25 +228,27 @@ export default function SignIn({ updateIsLog, setUserLogged }) {
                         {massageWarning.password}
                       </p>
                     </div>
-                    <Link to="/userProfile" className="text-decoration-none">
-                      <button
-                        type="submit"
-                        className={`mt-3 btn btn-primary w-100 py-3 rounded-lg d-flex align-items-center justify-content-center`}
+                    <button
+                      type="submit"
+                      className={`mt-3 btn w-100 py-3 rounded-lg d-flex align-items-center justify-content-center Abd`}
+                      style={{ backgroundColor: "#000d6b" }}
+                    >
+                      <svg
+                        className="w-6 h-6 -ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{ color: "white" }}
                       >
-                        <svg
-                          className="w-6 h-6 -ml-2"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                          <circle cx="8.5" cy="7" r="4" />
-                        </svg>
-                        <span className="ml-3">Sign in</span>
-                      </button>
-                    </Link>
+                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                        <circle cx="8.5" cy="7" r="4" />
+                      </svg>
+                      <span className="ml-3" style={{ color: "white" }}>
+                        Sign in
+                      </span>
+                    </button>
                     <p className={`mt-2 text-sm text-warning-600`}>
                       {massageWarning.submit}
                     </p>

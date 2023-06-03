@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import CarListing from "../pages/CarListing";
 import CarDetails from "../pages/CarDetails";
-// import Blog from "../pages/Blog";
 import BlogDetails from "../pages/BlogDetails";
 import NotFound from "../pages/NotFound";
 import Contact from "../pages/Contact";
@@ -22,7 +22,10 @@ import RentedCars from "../pages/Dashboard/RentedCars";
 import ProfilePage from "../components/UI/UserProfile";
 import Checkout from "../pages/Checkout";
 import Edit from "../components/UI/ProfileProvider";
+import { useState } from "react";
 const Routers = () => {
+  const [isLog, updateIsLog] = useState(false);
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
@@ -33,8 +36,8 @@ const Routers = () => {
       <Route path="/provider" element={<Provider />} />
       <Route path="/blogs/:slug" element={<BlogDetails />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signIn" element={<SignIn updateIsLog={updateIsLog} />} />
+      <Route path="/signUp" element={<SignUp />} />
       <Route path="/user" element={<User />} />
       <Route path="/userProfile" element={<ProfilePage />} />
       <Route path="/Checkout" element={<Checkout />} />

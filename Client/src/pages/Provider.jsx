@@ -70,6 +70,9 @@ const Provider = () => {
     );
   };
 
+
+  
+
   const addCars = () => {
     setElementToDisplay(
       <div className=" m-5">
@@ -87,6 +90,7 @@ const Provider = () => {
                     type="text"
                     id="form8Example1"
                     className="form-control"
+                    required
                   />
                 </div>
               </div>
@@ -98,9 +102,10 @@ const Provider = () => {
                 <div className="form-outline">
                   <input
                     placeholder="Car Type"
-                    type="email"
+                    type="text"
                     id="form8Example2"
                     className="form-control"
+                    required
                   />
                 </div>
               </div>
@@ -109,13 +114,18 @@ const Provider = () => {
                 {/* <label className="form-label" htmlFor="form8Example">
                     Energy Type
                   </label> */}
-                <div className="form-outline">
-                  <input
-                    placeholder="Energy Type"
-                    type="email"
-                    id="form8Example"
-                    className="form-control"
-                  />
+                <div className="input-group mb-3">
+                  <select
+                    className="form-select"
+                    id="inputGroupSelect01"
+                    required
+                  >
+                    <option selected>Energy Type...</option>
+                    <option value="1">Hybrid</option>
+                    <option value="2">Electric</option>
+                    <option value="3">Petrol</option>
+                    <option value="3">Diesel</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -129,6 +139,7 @@ const Provider = () => {
                     type="text"
                     id="form8Example3"
                     className="form-control"
+                    required
                   />
                   {/* <label className="form-label" htmlFor="form8Example3">
                     Rental Price per Day
@@ -140,9 +151,13 @@ const Provider = () => {
                 <div className="form-outline">
                   <input
                     placeholder=" Seat's Number"
-                    type="text"
+                    type="number"
                     id="form8Example4"
                     className="form-control"
+                    min="1"
+                    max="10"
+                    step="1"
+                    required
                   />
                   {/* <label className="form-label" htmlFor="form8Example4">
                     Seat's Num
@@ -154,9 +169,13 @@ const Provider = () => {
                 <div className="form-outline">
                   <input
                     placeholder=" Year of made"
-                    type="email"
+                    type="number"
                     id="form8Example5"
                     className="form-control"
+                    min="1900"
+                    max="2099"
+                    step="1"
+                    required
                   />
                   {/* <label className="form-label" htmlFor="form8Example5">
                     Year of made
@@ -183,6 +202,7 @@ const Provider = () => {
                       className="custom-file-input"
                       id="inputGroupFile01"
                       aria-describedby="inputGroupFileAddon01"
+                      required
                     />
                     <label
                       className="custom-file-label"
