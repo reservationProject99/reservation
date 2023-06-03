@@ -46,6 +46,7 @@ app.post("/cars", authenticateToken, db.createCar);
 app.put("/delete_car/:id", authenticateToken, db.deleteCars);
 app.put("/bookCar/:id", authenticateToken, db.bookCar);
 
+app.get('/rented_cars_count',authenticateToken, db.getRentedCarscount)
 
 // Sign
 app.post("/checkToken", authenticateToken);

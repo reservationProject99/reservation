@@ -100,13 +100,15 @@ export default function Checkout() {
                                         Back
                                     </Button>
                                 )}
-                                <Button
-                                    variant="contained"
-                                    onClick={handleNext}
-                                    sx={{ mt: 3, ml: 1 }}
-                                >
-                                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                                </Button>
+                                {activeStep == 2 ? (
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleNext}
+                                        sx={{ mt: 3, ml: 1 }}>
+                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                    </Button>
+                                ) : null
+                                }
                             </Box>
                         </React.Fragment>
                     )}

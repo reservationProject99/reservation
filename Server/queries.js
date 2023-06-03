@@ -401,9 +401,9 @@ const deleteCars = (req, res) => {
   );
 };
 
-const  checkCustomer = (req, res, next) => {
+const checkCustomer = (req, res, next) => {
 
-  const {email, password} = req.body;
+  const { email, password } = req.body;
 
   db.query(
     'SELECT * FROM public.customers WHERE is_delete = false ORDER BY customers_id ASC',
@@ -428,12 +428,12 @@ const  checkCustomer = (req, res, next) => {
   );
 }
 
-const  checkProvider = (req, res, next) => {
+const checkProvider = (req, res, next) => {
 
-  const {email, password} = req.body;
+  const { email, password } = req.body;
 
   console.log(email, password);
-  
+
   db.query(
     'SELECT * FROM public.provider WHERE is_delete = false ORDER BY provider_id ASC',
     (error, results) => {
@@ -456,6 +456,18 @@ const  checkProvider = (req, res, next) => {
     }
   );
 }
+
+const getCarWithProvider = (req, res) => {
+  pool.query(
+    'SELECT * FROM public.cars INNER JOIN public.provider ON public.cars.provider_id  = public.provider.provider_id WHERE is_delete = falseORDER BY cars_id DESC',
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
 
 module.exports = {
   getCustomer,
@@ -487,5 +499,6 @@ module.exports = {
   getRentedCarscount,
 
   checkProvider,
-  checkCustomer
+  checkCustomer,
+  getCarWithProvider
 };
