@@ -30,6 +30,8 @@ CREATE TABLE customers  (
 
 CREATE TABLE cars  (
   cars_id SERIAL PRIMARY KEY,
+  rating INTEGER NOT NULL,
+  discrabtion TEXT NOT NULL,
   type VARCHAR(20) NOT NULL,
   energy_type VARCHAR(20) NOT NULL,
   model VARCHAR(20) NOT NULL,

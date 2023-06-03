@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/Cars.css";
-import carData from "../../assets/data/carData";
 import CarItemAdmin from "../../components/Dashboard/UI/CarItemAdmin";
+import axios from "axios";
 
 const Cars = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
+  const [carData, setCarsData] = useState();
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
@@ -14,15 +15,24 @@ const Cars = () => {
     setSelectedStatus(event.target.value);
   };
 
-  const filteredCars = carData.filter((car) => {
-    if (selectedBrand && car.brand !== selectedBrand) {
-      return false;
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/getCarWithProvider", {
+        headers: {
+          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+        }
+      });
+      const data = response.data;
+      console.log(data);
+      setCarsData(data);
+
+    } catch (error) {
+      console.error(error);
     }
-    if (selectedStatus && car.Status !== selectedStatus) {
-      return false;
-    }
-    return true;
-  });
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <div className="bookings">
@@ -55,9 +65,35 @@ const Cars = () => {
             justifyContent: "center",
           }}
         >
-          {filteredCars.map((item) => (
-            <CarItemAdmin item={item} key={item.id} />
+
+          {carData?.map((car) => (
+            <div className="car__item">
+              <div className="car__item-top">
+                <div className="car__item-tile">
+                  <h3>{car.model}</h3>
+                  <span>
+                    <i className="ri-delete-bin-line"></i>
+
+                  </span>
+                </div>
+                <p>{car.type}</p>
+              </div>
+
+              <div className="car__img">
+                <img src={car.images_data} alt="" />
+              </div>
+
+              <div className="car__item-bottom">
+                <div className="car__bottom-left">
+
+                  <p>
+                    {car.available}
+                  </p>
+                </div>
+              </div>
+            </div>
           ))}
+
         </div>
       </div>
     </div>

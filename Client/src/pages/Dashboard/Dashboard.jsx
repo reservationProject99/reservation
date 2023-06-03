@@ -1,34 +1,105 @@
 import "../../styles/dashboard.css";
 import SingleCard from "../../components/Dashboard/reuseable/SingleCard";
+import axios from 'axios'
 
 import CarStatsChart from "../../charts/CarStatsChart";
 
 import UsersChart from "../../charts/UsersChart";
+import { useEffect, useState } from "react";
 
-const clientObj1 = {
-  title: "Costumers",
-  totalNumber: 1697,
-  icon: "ri-user-line",
-};
 
-const clientObj2 = {
-  title: "Service Provider",
-  totalNumber: 50,
-  icon: "ri-user-line",
-};
-const carObj = {
-  title: "Total Cars",
-  totalNumber: 750,
-  icon: "ri-car-line",
-};
 
-const RentedObj = {
-  title: "Cars Rented",
-  totalNumber: 167,
-  icon: "ri-car-line",
-};
+
 
 const Dashboard = () => {
+  const [userCount, setuserCount] = useState()
+  const [providerCount, setproviderCount] = useState()
+  const [carsCount, setcarsCount] = useState()
+  const [carsRentedCount, setcarsRentedCount] = useState()
+  console.log(sessionStorage.getItem("token"))
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/users_count", {
+        headers: {
+          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+        }
+      });
+      const data = response.data;
+      setuserCount(data);
+
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      const response = await axios.get("http://localhost:5000/provider_count", {
+        headers: {
+          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+        }
+      });
+      const data = response.data;
+      setproviderCount(data);
+
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      const response = await axios.get("http://localhost:5000/cars_count", {
+        headers: {
+          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+        }
+      });
+      const data = response.data;
+      setcarsCount(data);
+
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      const response = await axios.get("http://localhost:5000/rented_cars_count", {
+        headers: {
+          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+        }
+      });
+      const data = response.data;
+      setcarsRentedCount(data);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const clientObj1 = {
+    title: "Costumers",
+    totalNumber: userCount,
+    icon: "ri-user-line",
+  };
+
+  const clientObj2 = {
+    title: "Service Provider",
+    totalNumber: providerCount,
+    icon: "ri-user-line",
+  };
+  const carObj = {
+    title: "Total Cars",
+    totalNumber: carsCount,
+    icon: "ri-car-line",
+  };
+
+  const RentedObj = {
+    title: "Cars Rented",
+    totalNumber: carsRentedCount,
+    icon: "ri-car-line",
+  };
   return (
     <div className="dashboard">
       <div className="dashboard__wrapper">

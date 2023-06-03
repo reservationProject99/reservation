@@ -32,10 +32,6 @@ export default function Review() {
                     <Typography gutterBottom>{addresses.join(', ')}</Typography>
                 </Grid>
             </Grid>
-
-            {/* <Button variant="contained" type="submit" sx={{ mt: 3, ml: 1 }}>
-                Next
-            </Button> */}
             
         </React.Fragment>
     );

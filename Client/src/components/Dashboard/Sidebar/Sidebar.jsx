@@ -9,13 +9,13 @@ const Sidebar = () => {
         <h2>
           <span>
             <i className="ri-taxi-line"></i>
-          </span>{" "}
+          </span>
           Rent A Car
         </h2>
       </div>
 
       <div className="sidebar__content">
-        <div className="menu">
+        <div className="menu0">
           <ul className="nav__list">
             {navLinks.map((item, index) => (
               <li className="nav__item" key={index}>

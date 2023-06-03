@@ -29,23 +29,22 @@ const CarListing = () => {
   };
 
   const filteredCars = carData.filter((car) => {
-    if (selectedBrand && car.brand !== selectedBrand) {
+    if (selectedBrand && car.type !== selectedBrand) {
       return false;
     }
-    if (selectedType && car.type !== selectedType) {
+    if (selectedType && car.usage !== selectedType) {
       return false;
     }
-    if (selectedEnergyType && car.energy_Type !== selectedEnergyType) {
+    if (selectedEnergyType && car.energy_type !== selectedEnergyType) {
       return false;
     }
-    if (search && !car.brand.toLowerCase().includes(search.toLowerCase())) {
+    if (search && !car.model.toLowerCase().includes(search.toLowerCase())) {
       return false;
     }
-
-    if (selectedPrice === "low" && car.price > 50) {
+    if (selectedPrice === "low" && car.rental_price > 50) {
       return false;
     }
-    if (selectedPrice === "high" && car.price <= 50) {
+    if (selectedPrice === "high" && car.rental_price <= 50) {
       return false;
     }
     return true;
@@ -58,7 +57,7 @@ const CarListing = () => {
       <section>
         <Container>
           <Row>
-          <Col>
+            <Col>
               <div className="d-flex justify-content-center mb-5">
                 <div style={{ position: "relative", width: "50%" }}>
                   <input
@@ -90,16 +89,16 @@ const CarListing = () => {
 
                 <select onChange={handleBrandChange} value={selectedBrand} className="select__group">
                   <option value="">Select Brand</option>
-                  <option value="Tesla">Tesla</option>
-                  <option value="Toyota">Toyota</option>
-                  <option value="Ferrari">Ferrari</option>
+                  <option value="tesla">Tesla</option>
+                  <option value="toyota">Toyota</option>
+                  <option value="ferrari">Ferrari</option>
                 </select>
                 <select onChange={handleTypeChange} value={selectedType} className="select__group">
                   <option value="">Select Type</option>
-                  <option value="Sport">Sport</option>
-                  <option value="Bus">Bus</option>
-                  <option value="Truck">Truck</option>
-                  <option value="Car">Family Car</option>
+                  <option value="sport">Sport</option>
+                  <option value="bus">Bus</option>
+                  <option value="truck">Truck</option>
+                  <option value="car">Family Car</option>
                 </select>
                 <select
                   onChange={handleEnergyTypeChange}
