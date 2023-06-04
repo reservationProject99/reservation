@@ -16,13 +16,13 @@ const Dashboard = () => {
   const [providerCount, setproviderCount] = useState()
   const [carsCount, setcarsCount] = useState()
   const [carsRentedCount, setcarsRentedCount] = useState()
-  console.log(sessionStorage.getItem("token"))
+  console.log(localStorage.getItem("token"))
 
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/users_count", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;
@@ -35,7 +35,7 @@ const Dashboard = () => {
     try {
       const response = await axios.get("http://localhost:5000/provider_count", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;
@@ -48,7 +48,7 @@ const Dashboard = () => {
     try {
       const response = await axios.get("http://localhost:5000/cars_count", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;
@@ -61,7 +61,7 @@ const Dashboard = () => {
     try {
       const response = await axios.get("http://localhost:5000/rented_cars_count", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;

@@ -19,7 +19,7 @@ const Cars = () => {
     try {
       const response = await axios.get("http://localhost:5000/getCarWithProvider", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;
