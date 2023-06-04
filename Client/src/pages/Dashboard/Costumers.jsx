@@ -15,7 +15,7 @@ function Customers() {
     try {
       const response = await axios.put(`http://localhost:5000/delete_user/${id}`, {}, {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       fetchData()
@@ -29,7 +29,7 @@ function Customers() {
     try {
       const response = await axios.get("http://localhost:5000/users", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;

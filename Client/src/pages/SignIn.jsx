@@ -2,8 +2,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/no-unescaped-entities */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { userLogged } from "../App";
 import axios from "axios";
 import "../styles/SignUp.css";
 
@@ -12,13 +13,15 @@ export default function SignIn({ updateIsLog }) {
     window.scrollTo(0, 0);
   }, []);
 
+  const context = useContext(userLogged);
+
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
   const [path, setPath] = useState("/");
   const [selectedUserType, setSelectedUserType] = useState("");
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token")) || false;
+    const token = localStorage.getItem("token") || false;
 
     if (token) {
       checkToken(token).then((resultUsers) => {
@@ -28,6 +31,7 @@ export default function SignIn({ updateIsLog }) {
         }
       });
     }
+    console.log(context.userData)
   }, []);
 
   const [massageWarning, setMassageWarning] = useState({
@@ -77,13 +81,14 @@ export default function SignIn({ updateIsLog }) {
     const password = event.target.password.value;
 
     if (selectedUserType === "customer") {
+      context.setUserType("customer")
       await axios
         .post(`http://localhost:5000/logIn_customer`, {
           email: email,
           password: password,
         })
         .then((res) => {
-          localStorage.setItem("token", JSON.stringify(res.data));
+          localStorage.setItem("token", res.data);
           console.log(res);
         })
         .catch((err) => {
@@ -98,13 +103,14 @@ export default function SignIn({ updateIsLog }) {
       event.target.reset();
       navigate(path);
     } else if (selectedUserType === "provider") {
+      context.setUserType("provider")
       await axios
         .post(`http://localhost:5000/logIn_provider`, {
           email: email,
           password: password,
         })
         .then((res) => {
-          localStorage.setItem("token", JSON.stringify(res.data));
+          localStorage.setItem("token", res.data);
           console.log(res);
         })
         .catch((err) => {
@@ -120,10 +126,25 @@ export default function SignIn({ updateIsLog }) {
       navigate(path);
     }
     else {
-      setMassageWarning({
-        ...massageWarning,
-        submit: "Please select a user type",
-      });
+      context.setUserType("admin")
+      await axios
+        .post(`http://localhost:5000/logIn_admin`, {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          localStorage.setItem("token", res.data);
+          navigate('/admin');
+          console.log(res);
+        })
+        .catch((err) => {
+          setMassageWarning({
+            ...massageWarning,
+            submit: "Please select a user type",
+          });
+          console.error(err);
+        });
+      updateIsLog(false);
     }
   }
 

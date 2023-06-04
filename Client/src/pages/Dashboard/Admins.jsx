@@ -30,7 +30,7 @@ function Admins() {
 
     }, {
       headers: {
-        'authorization': `Bearer ${sessionStorage.getItem("token")}`
+        'authorization': `Bearer ${token}`
       }
     })
       .then((response) => {
@@ -44,10 +44,13 @@ function Admins() {
 
 
   const fetchData = async () => {
+
+    const token = localStorage.getItem("token");
+
     try {
       const response = await axios.get("http://localhost:5000/admin", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${token}`
         }
       });
       const data = response.data;

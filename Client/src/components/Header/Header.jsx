@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const navLinks = [
   {
@@ -23,12 +23,26 @@ const navLinks = [
     path: "/contact",
     display: "Contact",
   },
+  {
+    path: "/providerAddCar",
+    display: "Add Cars",
+  },
+  {
+    path: "/ProviderUplodedCar",
+    display: "Edit Your Cars",
+  },
 ];
 
-const Header = () => {
+const Header = ({ isLog, updateIsLog }) => {
+
   const menuRef = useRef(null);
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
+
+  function handleButton () {
+    updateIsLog(false);
+    localStorage.removeItem('token'); 
+  }
 
   return (
     <header className="header">
@@ -47,16 +61,25 @@ const Header = () => {
               </div>
             </div>
 
-            <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
-              <button className="header__btn btn">
-                <Link to="/userProfile">
-                  <i className="ri-user-line"></i>
-                </Link>
-              </button>
-              <button className="header__btn btn">
-                <Link to="/signUp">Sign Up</Link>
-              </button>
-            </div>
+              <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
+            {isLog ?
+                <button className="header__btn btn">
+                  <Link to="/userProfile">
+                    <i className="ri-user-line"></i>
+                  </Link>
+                </button>
+             : null}
+
+                <button  className="header__btn btn">
+                {isLog ? 
+                  <Link onClick={handleButton} to="/signIn">Log Out</Link>
+                  :
+                  <Link to="/signIn">Sign In</Link>
+                }
+                </button>
+              </div>
+
+
           </div>
         </div>
       </div>

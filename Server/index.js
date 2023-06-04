@@ -17,36 +17,36 @@ app.get("/get_provider", authenticateToken, db.getProviderByToken);
 
 // Customer
 app.post("/users", db.createCustomer);
-app.get("/users", authenticateToken, db.getCustomer);
-app.get("/users_count", authenticateToken, db.getCustomercount);
-app.get("/users/:id", authenticateToken, db.getCustomerById);
-app.put("/users/:id", authenticateToken, db.updateCustomerCreaditCard);
-app.put("/delete_user/:id", authenticateToken, db.deleteCustomer);
+app.get("/users", db.getCustomer);
+app.get("/users_count", db.getCustomercount);
+app.get("/users/:id", db.getCustomerById);
+app.put("/users/:id", db.updateCustomerCreaditCard);
+app.put("/delete_user/:id", db.deleteCustomer);
 
 // admin
-app.get("/admin", authenticateToken, db.getAdmin);
-app.post("/admin", authenticateToken, db.createAdmin);
+app.get("/admin", db.getAdmin);
+app.post("/admin", db.createAdmin);
 
 // provider
 app.post("/provider", db.createProvider);
-app.get("/provider", authenticateToken, db.getProvider);
-app.get("/not_active_provider", authenticateToken, db.getNotAcceptedProvider);
-app.get("/provider_count", authenticateToken, authenticateToken, db.getProvidercount);
-app.get("/provider/:id", authenticateToken, db.getProviderById);
-app.put("/delete_provider/:id", authenticateToken, db.deleteProvider);
-app.put("/accept_provider/:id", authenticateToken, db.acceptProvider);
+app.get("/provider", db.getProvider);
+app.get("/not_active_provider", db.getNotAcceptedProvider);
+app.get("/provider_count", db.getProvidercount);
+app.get("/provider/:id", db.getProviderById);
+app.put("/delete_provider/:id", db.deleteProvider);
+app.put("/accept_provider/:id", db.acceptProvider);
 
 // cars
 app.get("/cars", db.getCar);
-app.get("/cars_count", authenticateToken, db.getCarscount);
-app.get("/rented_Carscount", authenticateToken, db.getRentedCarscount);
+app.get("/cars_count", db.getCarscount);
+app.get("/rented_Carscount", db.getRentedCarscount);
 
-app.get("/cars/:id", authenticateToken, db.getCarsById);
-app.post("/cars", authenticateToken, db.createCar);
-app.put("/delete_car/:id", authenticateToken, db.deleteCars);
-app.put("/bookCar/:id", authenticateToken, db.bookCar);
+app.get("/cars/:id", db.getCarsById);
+app.post("/cars", db.createCar);
+app.put("/delete_car/:id", db.deleteCars);
+app.put("/bookCar/:id", db.bookCar);
 
-app.get('/rented_cars_count',authenticateToken, db.getRentedCarscount)
+app.get('/rented_cars_count', db.getRentedCarscount)
 
 // Sign
 app.post("/checkToken", authenticateToken);
@@ -67,6 +67,15 @@ app.post("/logIn_provider", db.checkProvider, (req, res) => {
   const token = jwt.sign(user, process.env.ACCESS_TOKEN_KEY);
   console.log("Generated token:", token);
   res.json(token);
+});
+
+app.post("/logIn_admin", db.checkAdmin, (req, res) => {
+  const user = req.body;
+
+  const token = jwt.sign(user, process.env.ACCESS_TOKEN_KEY);
+  console.log("Generated token:", token);
+  res.json(token);
+
 });
 
 

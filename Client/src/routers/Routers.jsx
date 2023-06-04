@@ -22,14 +22,16 @@ import RentedCars from "../pages/Dashboard/RentedCars";
 import ProfilePage from "../components/UI/UserProfile";
 import Checkout from "../pages/Checkout";
 import Edit from "../components/UI/ProfileProvider";
-import { useState } from "react";
-const Routers = () => {
-  const [isLog, updateIsLog] = useState(false);
+import ProviderUplodedCar from "../pages/PoviderUplodedCar";
+import ProviderAddCar from "../pages/providerAddCar";
+
+
+const Routers = ({updateIsLog}) => {
 
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
-      <Route path="/home" element={<Home />} />
+      <Route exact path="/home" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/cars" element={<CarListing />} />
       <Route path="/cars/:slug" element={<CarDetails />} />
@@ -39,6 +41,8 @@ const Routers = () => {
       <Route path="/signIn" element={<SignIn updateIsLog={updateIsLog} />} />
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/user" element={<User />} />
+      <Route path="/providerAddCar" element={<ProviderAddCar />} />
+      <Route path="/ProviderUplodedCar" element={<ProviderUplodedCar/>} />
       <Route path="/userProfile" element={<ProfilePage />} />
       <Route path="/Checkout" element={<Checkout />} />
       <Route path="/Edit" element={<Edit />} />

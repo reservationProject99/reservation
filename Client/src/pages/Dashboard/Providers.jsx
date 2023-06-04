@@ -19,7 +19,7 @@ const Providers = () => {
     try {
       const response = await axios.get("http://localhost:5000/provider", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;
@@ -32,7 +32,7 @@ const Providers = () => {
     try {
       const response = await axios.get("http://localhost:5000/not_active_provider", {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       const data = response.data;
@@ -47,7 +47,7 @@ const Providers = () => {
     try {
       const response = await axios.put(`http://localhost:5000/delete_provider/${id}`, {}, {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       fetchData()
@@ -61,7 +61,7 @@ const Providers = () => {
     try {
       const response = await axios.put(`http://localhost:5000/delete_provider/${id}`, {}, {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       fetchData()
@@ -75,7 +75,7 @@ const Providers = () => {
     try {
       const response = await axios.put(`http://localhost:5000/accept_provider/${id}`, {}, {
         headers: {
-          'authorization': `Bearer ${sessionStorage.getItem("token")}`
+          'authorization': `Bearer ${localStorage.getItem("token")}`
         }
       });
       fetchData()

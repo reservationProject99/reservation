@@ -428,6 +428,33 @@ const checkCustomer = (req, res, next) => {
   );
 }
 
+const checkAdmin = (req, res, next) => {
+
+  const { email, password } = req.body;
+
+  db.query(
+    'SELECT * FROM public.admin WHERE is_delete = false ORDER BY admin_id ASC',
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error)
+      }
+
+      const result = results.rows.find((user) => {
+        return user.email === email && user.password === password;
+      });
+
+      if (result) {
+        req.body = result;
+        next();
+      }
+      else {
+        res.status(404).send("admin not exist");
+      }
+
+    }
+  );
+}
+
 const checkProvider = (req, res, next) => {
 
   const { email, password } = req.body;
@@ -500,5 +527,6 @@ module.exports = {
 
   checkProvider,
   checkCustomer,
-  getCarWithProvider
+  getCarWithProvider,
+  checkAdmin
 };

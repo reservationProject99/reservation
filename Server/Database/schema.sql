@@ -30,7 +30,6 @@ CREATE TABLE customers  (
 
 CREATE TABLE cars  (
   cars_id SERIAL PRIMARY KEY,
-  rating INTEGER NOT NULL,
   discrabtion TEXT NOT NULL,
   type VARCHAR(20) NOT NULL,
   energy_type VARCHAR(20) NOT NULL,
@@ -72,5 +71,6 @@ CREATE TABLE admin  (
   email VARCHAR(50) NOT NULL,
   password VARCHAR(50) NOT NULL,
   phone VARCHAR(20) NOT NULL,
-  address VARCHAR(50) NOT NULL
+  address VARCHAR(50) NOT NULL,
+  is_delete BOOLEAN DEFAULT false 
 );
