@@ -49,7 +49,9 @@ app.put("/bookCar/:id", db.bookCar);
 app.get('/rented_cars_count', db.getRentedCarscount)
 
 // Sign
-app.post("/checkToken", authenticateToken);
+app.get("/checkToken", authenticateToken, (req, res) => {
+  res.send(req.user);
+} )
 
 app.post("/logIn_customer", db.checkCustomer, (req, res) => {
 
@@ -81,8 +83,8 @@ app.post("/logIn_admin", db.checkAdmin, (req, res) => {
 
 function authenticateToken(req, res, next) {
 
-  const authHeader = req.headers["authorization"];
-
+  const authHeader = req.headers.authorization;
+  console.log(authHeader)
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {

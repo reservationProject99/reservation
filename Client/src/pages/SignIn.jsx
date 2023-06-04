@@ -4,7 +4,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { userLogged } from "../App";
 import axios from "axios";
 import "../styles/SignUp.css";
 
@@ -13,7 +12,6 @@ export default function SignIn({ updateIsLog }) {
     window.scrollTo(0, 0);
   }, []);
 
-  const context = useContext(userLogged);
 
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
@@ -22,7 +20,6 @@ export default function SignIn({ updateIsLog }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token") || false;
-
     if (token) {
       checkToken(token).then((resultUsers) => {
         if (resultUsers) {
@@ -31,7 +28,6 @@ export default function SignIn({ updateIsLog }) {
         }
       });
     }
-    console.log(context.userData)
   }, []);
 
   const [massageWarning, setMassageWarning] = useState({
@@ -81,7 +77,7 @@ export default function SignIn({ updateIsLog }) {
     const password = event.target.password.value;
 
     if (selectedUserType === "customer") {
-      context.setUserType("customer")
+      
       await axios
         .post(`http://localhost:5000/logIn_customer`, {
           email: email,
@@ -103,7 +99,6 @@ export default function SignIn({ updateIsLog }) {
       event.target.reset();
       navigate(path);
     } else if (selectedUserType === "provider") {
-      context.setUserType("provider")
       await axios
         .post(`http://localhost:5000/logIn_provider`, {
           email: email,
@@ -126,7 +121,6 @@ export default function SignIn({ updateIsLog }) {
       navigate(path);
     }
     else {
-      context.setUserType("admin")
       await axios
         .post(`http://localhost:5000/logIn_admin`, {
           email: email,
