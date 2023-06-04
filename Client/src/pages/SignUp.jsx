@@ -7,8 +7,13 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
 import SignUpCar from "../assets/all-images/SignUp.png";
+import Facebook from './SignInWithFacebook'
+import Google from './SignInWithGoogle'
+import 'bootstrap-social/bootstrap-social.css';
+
 
 export default function SignUp() {
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -222,6 +227,30 @@ export default function SignUp() {
                 >
                   Sign Up to Join Us!
                 </h1>
+                <div className="mt-5 d-flex flex-column align-items-center">
+                  <div className="w-100 mt-4">
+                    <div className="d-flex flex-column align-items-center">
+
+                    <Facebook massage={"Sign in with Facebook"} />
+                    <Google massage={"Sign in with Google"}/>
+
+                      {/* <div>
+                        <a href="#" className="btn btn-social btn-facebook">
+                          <i className="fa fa-facebook"></i> Sign in with Facebook
+                        </a>
+                        <a href="#" className="btn btn-social btn-google">
+                          <i className="fa fa-google"></i> Sign in with Google
+                        </a>
+                      </div> */}
+
+                    </div>
+                    <div className="my-4 border-bottom text-center">
+                      <div className="px-2 d-inline-block text-sm text-secondary font-weight-medium bg-white translate-middle-y">
+                        Or sign in with e-mail
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div className="w-100 flex-1 mt-8">
                   <form onSubmit={handleSubmit}>
                     <div className="mx-auto max-w-xs">
