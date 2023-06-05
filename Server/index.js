@@ -24,6 +24,7 @@ app.get("/users/:id", db.getCustomerById);
 app.put("/users/:id", db.updateCustomerCreaditCard);
 app.put("/delete_user/:id", db.deleteCustomer);
 app.put("/update_user/:id", db.updateUser);
+app.put("/user_intrested_cars/:id", db.intrestedCars);
 
 // admin
 app.get("/admin", db.getAdmin);
@@ -55,6 +56,9 @@ app.put("/bookCar/:id", db.bookCar);
 app.get("/rented_cars_count", db.getRentedCarscount);
 app.get("/rentedCars", db.rentedCars);
 app.put("/update_car/:id", db.updateCar);
+app.put("/update_carUserId/:id", db.updatecarUserId);
+app.put("/update_startEndDate/:id", db.updatestartEndDate);
+app.put("/update_caravailable/:id", db.updatecaravailable);
 
 // Sign
 app.get("/checkToken", authenticateToken, (req, res) => {

@@ -18,12 +18,36 @@ import { indigo } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import axios from "axios";
 
 const steps = ["Your Information", "Payment details", "Review your order"];
 
 const defaultTheme = createTheme();
 
 export default function Checkout() {
+  const [userData, setUserData] = useState();
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const response = await axios.get(`http://localhost:5000/get_user`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data[0];
+      console.log(data);
+      setUserData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
   const [date, setDate] = useState({
     startDate: "",
     finalDate: "",
@@ -76,7 +100,20 @@ export default function Checkout() {
       });
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    const id = sessionStorage.getItem("CarID");
+    try {
+      const updateCar = await axios.put(
+        `http://localhost:5000/update_startEndDate/${id}`,
+        {
+          start_date: date.startDate,
+          end_date: date.finalDate,
+        }
+      );
+      console.log(updateCar);
+    } catch (err) {
+      console.log(err);
+    }
     if (activeStep === steps.length - 1) {
       sendConfirmationEmail();
     }
@@ -105,6 +142,19 @@ export default function Checkout() {
         throw new Error("Unknown step");
     }
   }
+
+  const handlePlaceOrder = async () => {
+    const id = sessionStorage.getItem("CarID");
+    try {
+      const updateCar = await axios.put(
+        `http://localhost:5000/update_caravailable/${id}`,
+        {}
+      );
+      console.log(updateCar);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -167,7 +217,11 @@ export default function Checkout() {
                 {activeStep === 2 ? (
                   <Button
                     variant="contained"
-                    onClick={handleNext}
+                    onClick={
+                      activeStep === steps.length - 1
+                        ? handlePlaceOrder
+                        : handleNext
+                    }
                     sx={{ mt: 3, ml: 1 }}
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}

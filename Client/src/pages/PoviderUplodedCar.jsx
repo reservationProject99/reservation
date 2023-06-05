@@ -35,6 +35,7 @@ function ProviderUploadedCar() {
   const [yearOfMade, setYearOfMade] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [carDesciption, setCarDesciption] = useState();
+  const [carId, setCarId] = useState();
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
@@ -124,9 +125,9 @@ function ProviderUploadedCar() {
     setShow(true);
   };
 
-  const handleUpate = (id) => {
+  const handleUpate = () => {
     axios
-      .put(`http://localhost:5000/update_car/${id}`, {
+      .put(`http://localhost:5000/update_car/${carId}`, {
         discrabtion: carDesciption,
         type: carType,
         energy_type: energyType,
@@ -144,7 +145,6 @@ function ProviderUploadedCar() {
         console.error(error);
         toast.error("Failed to delete car.");
       });
-    console.log(id);
   };
 
   return (
@@ -208,7 +208,12 @@ function ProviderUploadedCar() {
             <div className="col-lg-4 col-md-4 col-sm-6 mb-5" key={item.cars_id}>
               <div className="car__item" style={{ backgroundColor: "white" }}>
                 <div className="car__img w-100">
-                  <img src={item.images_data} alt="" className="w-100" />
+                  <img
+                    src={item.images_data}
+                    alt=""
+                    className="w-100"
+                    style={{ height: "15rem" }}
+                  />
                 </div>
                 <div className="car__item-content mt-4">
                   <h4 className="section__title text-center">{item.model}</h4>
@@ -230,7 +235,11 @@ function ProviderUploadedCar() {
 
                   <button
                     className="w-50 car__item-btn car__btn-rent"
-                    onClick={() => handleShow(item.cars_id)}
+                    onClick={() => {
+                      handleShow(item.cars_id);
+
+                      setCarId(item.cars_id);
+                    }}
                   >
                     Edit
                   </button>

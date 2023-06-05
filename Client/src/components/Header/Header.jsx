@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 const navLinks = [
   {
@@ -34,14 +35,36 @@ const navLinks = [
 ];
 
 const Header = ({ isLog, updateIsLog }) => {
+  const [userData, setUserData] = useState();
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const response = await axios.get(`http://localhost:5000/get_user`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data[0];
+      console.log(data);
+      setUserData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const menuRef = useRef(null);
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
-  function handleButton () {
+  function handleButton() {
     updateIsLog(false);
-    localStorage.removeItem('token'); 
+    localStorage.removeItem("token");
   }
 
   return (
@@ -61,25 +84,25 @@ const Header = ({ isLog, updateIsLog }) => {
               </div>
             </div>
 
-              <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
-            {isLog ?
+            <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
+              {isLog ? (
                 <button className="header__btn btn">
                   <Link to="/userProfile">
                     <i className="ri-user-line"></i>
                   </Link>
                 </button>
-             : null}
+              ) : null}
 
-                <button  className="header__btn btn">
-                {isLog ? 
-                  <Link onClick={handleButton} to="/signIn">Log Out</Link>
-                  :
+              <button className="header__btn btn">
+                {isLog ? (
+                  <Link onClick={handleButton} to="/signIn">
+                    Log Out
+                  </Link>
+                ) : (
                   <Link to="/signIn">Sign In</Link>
-                }
-                </button>
-              </div>
-
-
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
