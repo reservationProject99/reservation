@@ -9,7 +9,6 @@ import "../styles/SignUp.css";
 import SignUpCar from "../assets/all-images/SignUp.png";
 import Facebook from './SignInWithFacebook'
 import Google from './SignInWithGoogle'
-import 'bootstrap-social/bootstrap-social.css';
 
 
 export default function SignUp() {
@@ -234,18 +233,9 @@ export default function SignUp() {
                     <Facebook massage={"Sign in with Facebook"} />
                     <Google massage={"Sign in with Google"}/>
 
-                      {/* <div>
-                        <a href="#" className="btn btn-social btn-facebook">
-                          <i className="fa fa-facebook"></i> Sign in with Facebook
-                        </a>
-                        <a href="#" className="btn btn-social btn-google">
-                          <i className="fa fa-google"></i> Sign in with Google
-                        </a>
-                      </div> */}
-
                     </div>
                     <div className="my-4 border-bottom text-center">
-                      <div className="px-2 d-inline-block text-sm text-secondary font-weight-medium bg-white translate-middle-y">
+                      <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
                         Or sign in with e-mail
                       </div>
                     </div>
@@ -454,7 +444,7 @@ export default function SignUp() {
               <img
                 src={SignUpCar}
                 alt="Your Image"
-                className="img-fluid h-75"
+                className="img-fluid  d-md-block d-none"
               />
             </div>
           </div>

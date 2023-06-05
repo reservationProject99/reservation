@@ -37,7 +37,7 @@ CREATE TABLE cars  (
   year INTEGER NOT NULL,
   rental_price INTEGER NOT NULL,
   available BOOLEAN DEFAULT true,
-  images_data BYTEA,
+  images_data TEXT,
   start_date DATE,
   end_date DATE,
   start_location TEXT,

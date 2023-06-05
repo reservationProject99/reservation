@@ -6,6 +6,8 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
+import Facebook from './SignInWithFacebook'
+import Google from './SignInWithGoogle'
 
 export default function SignIn({ updateIsLog }) {
   useEffect(() => {
@@ -85,6 +87,9 @@ export default function SignIn({ updateIsLog }) {
         })
         .then((res) => {
           localStorage.setItem("token", res.data);
+          updateIsLog(true);
+          event.target.reset();
+          navigate(path);
           console.log(res);
         })
         .catch((err) => {
@@ -95,10 +100,8 @@ export default function SignIn({ updateIsLog }) {
           console.error(err);
         });
 
-      updateIsLog(true);
-      event.target.reset();
-      navigate(path);
     } else if (selectedUserType === "provider") {
+
       await axios
         .post(`http://localhost:5000/logIn_provider`, {
           email: email,
@@ -106,6 +109,9 @@ export default function SignIn({ updateIsLog }) {
         })
         .then((res) => {
           localStorage.setItem("token", res.data);
+          updateIsLog(true);
+          event.target.reset();
+          navigate(path);
           console.log(res);
         })
         .catch((err) => {
@@ -115,10 +121,6 @@ export default function SignIn({ updateIsLog }) {
           });
           console.error(err);
         });
-
-      updateIsLog(true);
-      event.target.reset();
-      navigate(path);
     }
     else {
       await axios
@@ -168,6 +170,21 @@ export default function SignIn({ updateIsLog }) {
               >
                 Sign In
               </h1>
+              <div className="mt-5 d-flex flex-column align-items-center">
+                  <div className="w-100 mt-4">
+                    <div className="d-flex flex-column align-items-center">
+
+                    <Facebook massage={"Sign in with Facebook"} />
+                    <Google massage={"Sign in with Google"}/>
+
+                    </div>
+                    <div className="my-4 border-bottom text-center">
+                      <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
+                        Or sign in with e-mail
+                      </div>
+                    </div>
+                  </div>
+                </div>
               <div className="w-100 flex-1 mt-8">
                 <div className="d-flex flex-wrap mt-4 align-items-center justify-content-around border border-primary border-opacity-50 rounded-3">
                   <div className="form-check my-3">

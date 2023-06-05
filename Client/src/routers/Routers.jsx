@@ -44,7 +44,7 @@ const Routers = ({updateIsLog}) => {
       <Route path="/providerAddCar" element={<ProviderAddCar />} />
       <Route path="/ProviderUplodedCar" element={<ProviderUplodedCar/>} />
       <Route path="/userProfile" element={<ProfilePage />} />
-      <Route path="/Checkout" element={<Checkout />} />
+      <Route path="/Checkout/:slug" element={<Checkout />} />
       <Route path="/Edit" element={<Edit />} />
       <Route path="/admin" element={<Layout />}>
         <Route path="Dashboard" index element={<Dashboard />} />

@@ -14,6 +14,7 @@ app.use(express.json());
 // getByToken
 app.get("/get_user", authenticateToken, db.getCustomerByToken);
 app.get("/get_provider", authenticateToken, db.getProviderByToken);
+app.get("/get_admin", authenticateToken, db.getAdminByToken);
 
 // Customer
 app.post("/users", db.createCustomer);
@@ -22,10 +23,15 @@ app.get("/users_count", db.getCustomercount);
 app.get("/users/:id", db.getCustomerById);
 app.put("/users/:id", db.updateCustomerCreaditCard);
 app.put("/delete_user/:id", db.deleteCustomer);
+app.put("/update_user/:id", db.updateUser);
+
 
 // admin
 app.get("/admin", db.getAdmin);
 app.post("/admin", db.createAdmin);
+app.put("/delete_admin/:id", db.deleteAdmin);
+app.put("/update_admin/:id", db.updateAdmin);
+
 
 // provider
 app.post("/provider", db.createProvider);
@@ -35,6 +41,8 @@ app.get("/provider_count", db.getProvidercount);
 app.get("/provider/:id", db.getProviderById);
 app.put("/delete_provider/:id", db.deleteProvider);
 app.put("/accept_provider/:id", db.acceptProvider);
+app.put("/update_provider/:id", db.updateProvider);
+
 
 // cars
 app.get("/cars", db.getCar);
@@ -47,6 +55,7 @@ app.put("/delete_car/:id", db.deleteCars);
 app.put("/bookCar/:id", db.bookCar);
 
 app.get('/rented_cars_count', db.getRentedCarscount)
+app.get("/rentedCars", db.rentedCars);
 
 // Sign
 app.get("/checkToken", authenticateToken, (req, res) => {

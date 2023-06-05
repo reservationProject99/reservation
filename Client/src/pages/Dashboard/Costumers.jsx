@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.min.css";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 function Customers() {
   const [selectedOption, setSelectedOption] = useState("Customers");
@@ -13,12 +16,16 @@ function Customers() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/delete_user/${id}`, {}, {
-        headers: {
-          'authorization': `Bearer ${localStorage.getItem("token")}`
+      const response = await axios.put(
+        `http://localhost:5000/delete_user/${id}`,
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-      });
-      fetchData()
+      );
+      fetchData();
       toast.success(`User with id: ${id} deleted!`);
     } catch (error) {
       console.error(error);
@@ -29,25 +36,29 @@ function Customers() {
     try {
       const response = await axios.get("http://localhost:5000/users", {
         headers: {
-          'authorization': `Bearer ${localStorage.getItem("token")}`
-        }
+          authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
       });
       const data = response.data;
       setusersData(data);
-
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   return (
     <div>
       <div
         className="radio-inputs"
-        style={{ marginTop: "5rem", width: "fit-content", columnGap: "2rem" }}
+        style={{
+          marginTop: "5rem",
+          marginLeft: "0.8rem",
+          width: "fit-content",
+          columnGap: "2rem",
+        }}
       >
         <label className="radio">
           <input
@@ -71,49 +82,80 @@ function Customers() {
         </label>
       </div>
       {selectedOption === "Customers" ? (
-        <table
-          className="table align-middle mb-0 bg-white"
-          style={{ marginTop: "5rem" }}
-        >
-          <thead className="bg-light">
-            <tr>
-              <th>ID</th>
-              <th>UserName</th>
-              <th>Email</th>
-              <th>Phone Number</th>
-              <th>Address</th>
-              <th>Remove</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usersData?.map(user => (
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center">{user.customers_id}</div>
-                </td>
-                <td>
-                  <div className="d-flex align-items-center">
-                    <div className="ms-3">
-                      <p className="fw-bold mb-1">{user.username}</p>
+        <section class="intro">
+          <div
+            className="bg-image h-100"
+            style={{ backgroundColor: "#f5f7fa" }}
+          >
+            <div className="mask d-flex align-items-center h-100">
+              <div className="container">
+                <div className="row justify-content-center">
+                  <div className="col-12 bg-black">
+                    <div className="card cardT">
+                      <div className="card-body p-0">
+                        <div
+                          className="table-responsive table-scroll"
+                          data-mdb-perfect-scrollbar="true"
+                          style={{ position: "relative", height: "700px" }}
+                        >
+                          <table className="table table-striped mb-0">
+                            <thead style={{ backgroundColor: "#002d72" }}>
+                              <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">UserName</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Address</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {usersData?.map((user) => (
+                                <tr>
+                                  <td>
+                                    <div className="d-flex align-items-center">
+                                      {user.customers_id}
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div className="d-flex align-items-center">
+                                      <div className="ms-3">
+                                        <p className="fw-bold mb-1">
+                                          {user.username}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <p className="fw-normal mb-1">
+                                      {user.email}
+                                    </p>
+                                  </td>
+
+                                  <td>{user.phone}</td>
+                                  <td>{user.address}</td>
+                                  <td>
+                                    <i
+                                      onClick={() =>
+                                        handleDelete(user.customers_id)
+                                      }
+                                      className="ri-delete-bin-line"
+                                      style={{ fontSize: "20px", color: "red" }}
+                                    ></i>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </td>
-                <td>
-                  <p className="fw-normal mb-1">{user.email}</p>
-                </td>
-                <td>{user.phone}</td>
-                <td>{user.address}</td>
-                <td>
-                  <button onClick={() => handleDelete(user.customers_id)} className="btn rounded-lg px-4 py-2 btn-outline-danger">
-                    <i className="ri-delete-bin-line"></i>
-                  </button>
-                </td>
-              </tr>
-
-            ))}
-
-          </tbody>
-        </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       ) : (
         <table
           className="table align-middle mb-0 bg-white"
@@ -149,7 +191,7 @@ function Customers() {
           </tbody>
         </table>
       )}
-      < ToastContainer />
+      <ToastContainer />
     </div>
   );
 }

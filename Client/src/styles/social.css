@@ -1,8 +1,6 @@
-#customBtn {
+#customBtn, #customBtnFac {
     width: 100%;
-    max-width: 12rem;
     font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 0.375rem;
     padding: 0.75rem 1rem;
     background-color: #a1d0ff;
@@ -13,27 +11,17 @@
     transition: box-shadow 0.3s, transform 0.3s;
   }
   
-  #customBtn:hover {
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+  #customBtn:hover, #customBtnFac:hover  {
     transform: translateY(-1px) scale(1.1);
   }
   
-  #customBtn:focus {
+  #customBtn:focus, #customBtnFac:focus {
     box-shadow: none;
     transform: translateY(0.5px) scale(1.1);
   }
   
-  #customBtn svg {
-    width: 1.5rem;
-  }
-  
-  #customBtn .bg-white {
-    padding: 0.5rem;
-    border-radius: 50%;
-  }
-  
-  .mt-2 {
-    margin-top: 0.5rem;
+  #customBtn svg, #customBtnFac svg{
+    width: 2rem;
   }
   
   .text-sm {
@@ -41,7 +29,7 @@
   }
   
   .text-warning-600 {
-    color: #ff922b;
+    color: #ff0000;
   }
   
   .dark .text-warning-500 {

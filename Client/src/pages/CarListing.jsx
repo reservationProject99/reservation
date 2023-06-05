@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import CarItem from "../components/UI/CarItem";
-import carData from "../assets/data/carData";
-import '../styles/CarLLII.css'
+import "../styles/CarLLII.css";
+import axios from "axios";
 
 const CarListing = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedType, setSelectedType] = useState("");
-  const [selectedEnergyType, setselectedEnergyType] = useState("");
+  const [selectedEnergyType, setSelectedEnergyType] = useState("");
   const [search, setSearch] = useState("");
+  const [carData, setCarData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/cars`)
+      .then((response) => {
+        setCarData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
@@ -20,19 +32,20 @@ const CarListing = () => {
   const handlePriceChange = (event) => {
     setSelectedPrice(event.target.value);
   };
+
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
 
   const handleEnergyTypeChange = (event) => {
-    setselectedEnergyType(event.target.value);
+    setSelectedEnergyType(event.target.value);
   };
 
   const filteredCars = carData.filter((car) => {
-    if (selectedBrand && car.type !== selectedBrand) {
+    if (selectedBrand && car.model !== selectedBrand) {
       return false;
     }
-    if (selectedType && car.usage !== selectedType) {
+    if (selectedType && car.type !== selectedType) {
       return false;
     }
     if (selectedEnergyType && car.energy_type !== selectedEnergyType) {
@@ -50,6 +63,19 @@ const CarListing = () => {
     return true;
   });
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const brand = queryParams.get("brand");
+    const type = queryParams.get("type");
+    const energyType = queryParams.get("energyType");
+    const price = queryParams.get("price");
+
+    setSelectedBrand(brand || "");
+    setSelectedType(type || "");
+    setSelectedEnergyType(energyType || "");
+    setSelectedPrice(price || "");
+  }, []);
+
   return (
     <Helmet title="Cars">
       <CommonSection title="Car Listing" />
@@ -59,7 +85,12 @@ const CarListing = () => {
           <Row>
             <Col>
               <div className="d-flex justify-content-center mb-5">
-                <div style={{ position: "relative", width: "50%" }}>
+                <div
+                  style={{
+                    position: "relative",
+                    width: "50%",
+                  }}
+                >
                   <input
                     style={{
                       borderRadius: "5px",
@@ -74,12 +105,18 @@ const CarListing = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
-                  <span style={{ position: "absolute", top: "50%", right: "0.5rem", transform: "translateY(-50%)" }}>
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      right: "0.5rem",
+                      transform: "translateY(-50%)",
+                    }}
+                  >
                     <i className="ri-search-line"></i>
                   </span>
                 </div>
               </div>
-
             </Col>
             <Col lg="12">
               <div className="d-flex align-items-center gap-3 mb-5">
@@ -87,18 +124,33 @@ const CarListing = () => {
                   <i className="ri-sort-asc"></i> Sort By
                 </span>
 
-                <select onChange={handleBrandChange} value={selectedBrand} className="select__group">
+                <select
+                  onChange={handleBrandChange}
+                  value={selectedBrand}
+                  className="select__group"
+                >
                   <option value="">Select Brand</option>
-                  <option value="tesla">Tesla</option>
-                  <option value="toyota">Toyota</option>
-                  <option value="ferrari">Ferrari</option>
+                  {[...new Set(carData.map((item) => item.model))].map(
+                    (model) => (
+                      <option key={model} value={model}>
+                        {model}
+                      </option>
+                    )
+                  )}
                 </select>
-                <select onChange={handleTypeChange} value={selectedType} className="select__group">
+                <select
+                  onChange={handleTypeChange}
+                  value={selectedType}
+                  className="select__group"
+                >
                   <option value="">Select Type</option>
-                  <option value="sport">Sport</option>
-                  <option value="bus">Bus</option>
-                  <option value="truck">Truck</option>
-                  <option value="car">Family Car</option>
+                  {[...new Set(carData.map((item) => item.type))].map(
+                    (type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    )
+                  )}
                 </select>
                 <select
                   onChange={handleEnergyTypeChange}
@@ -106,12 +158,20 @@ const CarListing = () => {
                   className="select__group"
                 >
                   <option value="">Select Energy Type</option>
-                  <option value="Hybrid">Hybrid</option>
-                  <option value="Electric">Electric</option>
-                  <option value="Gas">Gas</option>
+                  {[...new Set(carData.map((item) => item.energy_type))].map(
+                    (energyType) => (
+                      <option key={energyType} value={energyType}>
+                        {energyType}
+                      </option>
+                    )
+                  )}
                 </select>
 
-                <select onChange={handlePriceChange} value={selectedPrice} className="select__group">
+                <select
+                  onChange={handlePriceChange}
+                  value={selectedPrice}
+                  className="select__group"
+                >
                   <option value="">Select Price</option>
                   <option value="low">Low to High</option>
                   <option value="high">High to Low</option>
