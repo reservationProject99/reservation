@@ -1,6 +1,8 @@
+
+/* eslint-disable react/jsx-key */
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import "../../styles/Cars.css";
-import CarItemAdmin from "../../components/Dashboard/UI/CarItemAdmin";
 import axios from "axios";
 
 const Cars = () => {
@@ -17,7 +19,7 @@ const Cars = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/getCarWithProvider", {
+      const response = await axios.get("http://localhost:5000/cars", {
         headers: {
           'authorization': `Bearer ${localStorage.getItem("token")}`
         }

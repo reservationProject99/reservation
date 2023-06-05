@@ -105,9 +105,7 @@
 }
 
 .car__img {
-  width: 15rem;
-  width: 15rem;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
 /* .car__item:nth-child(2) .car__img img,

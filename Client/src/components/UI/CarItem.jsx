@@ -1,15 +1,37 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import "../../styles/car-item.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CarItem = (props) => {
-  const { images_data, model, type, energy_type, year, rental_price } = props.item;
+
+  const [userType, setUserType] = useState(false);
+
+  useEffect(() => {
+
+    const token = localStorage.getItem('token') || false;
+
+    axios.get(`http://localhost:5000/checkToken`, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    }).then((response) => {
+      setUserType(response.data);
+    })
+      .catch((error) => {
+        console.error(error);
+      });
+
+  }, [])
+
+  const { cars_id, images_data, model, type, energy_type, year, rental_price } = props.item;
 
   return (
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5">
       <div className="car__item" style={{ backgroundColor: "white" }}>
         <div className="car__img">
-          <img src={`http://localhost:8000/${images_data}`} alt="" className="w-100" />
+          <img src={`${images_data}`} alt="" className="w-100" />
         </div>
 
         <div className="car__item-content mt-4">
@@ -29,19 +51,33 @@ const CarItem = (props) => {
               <i class="ri-calendar-line" style={{ color: "#f9a826" }}></i>{year}
             </span>
           </div>
-          <Link to="/Checkout">
-            <button className="w-50 car__item-btn car__btn-rent">
-              Rent
-            </button>
-          </Link>
-          <Link to={`/cars/${model}`}>
-            <button className="w-50 car__item-btn car__btn-details">
-              Details
-            </button>
-          </Link>
+          {userType.role === 'provider' ?
+
+            <>
+              < Link to={`/cars/${cars_id}`}>
+                <button className="w-100 car__item-btn car__btn-details">
+                  Details
+                </button>
+              </Link>
+            </>
+            :
+            <>
+              <Link to={`/Checkout/${cars_id}`}>
+                <button className="w-50 car__item-btn car__btn-rent">
+                  Rent
+                </button>
+              </Link>
+              < Link to={`/cars/${cars_id}`}>
+                <button className="w-50 car__item-btn car__btn-details">
+                  Details
+                </button>
+              </Link>
+            </>
+
+          }
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

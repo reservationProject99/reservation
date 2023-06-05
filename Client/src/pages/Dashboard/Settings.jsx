@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 import {
   MDBCol,
   MDBContainer,
@@ -7,217 +8,232 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBProgress,
-  MDBBtn,
-  MDBProgressBar,
-  MDBListGroup,
-  MDBListGroupItem,
 } from "mdb-react-ui-kit";
-const Settings = () => {
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+function Settings() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [adminData, setadminData] = useState();
+  const [name, setname] = useState();
+  const [email, setemail] = useState();
+  const [phone, setphone] = useState();
+  const [address, setaddress] = useState();
+  const [password, setpassword] = useState();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(name, email, password, phone, address);
+    axios
+      .put(`http://localhost:5000/update_admin/${adminData.admin_id}`, {
+        name: name,
+        email: email,
+        password: password,
+        phone: phone,
+        address: address,
+      })
+      .then((response) => {
+        fetchData();
+        toast.success(`admin with id: ${id} is updated`);
+        handleClose;
+      });
+  };
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const response = await axios.get(`http://localhost:5000/get_admin`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data[0];
+      console.log(data);
+      setadminData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
-      <section style={{ backgroundColor: "#0b0c28" }}>
-        <MDBContainer className="py-5">
-          <MDBRow>
-            <MDBCol lg="4">
-              <MDBCard className="mb-4" style={{backgroundColor:"#181b3a",color:'white'}}>
-                <MDBCardBody className="text-center">
-                  <MDBCardImage
-                    src="https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    alt="avatar"
-                    className="rounded"
-                    style={{ width: "150px" }}
-                    fluid
-                  />
-                  <p className="mb-1 mt-4">Full Stack Developer</p>
-                  <p className="mb-4">Bay Area, San Francisco, CA</p>
-                </MDBCardBody>
-              </MDBCard>
+      <button
+        className="btn rounded-lg px-4 py-2 btn-success ms-3 "
+        style={{ marginTop: "5rem" }}
+        onClick={handleShow}
+      >
+        <i className="ri-add-line">Edite Information </i>
+      </button>
+      <div className="py-5">
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add A New Inormation </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Full Name</Form.Label>
+                <Form.Control
+                  type="email"
+                  onChange={(event) => setname(event.target.value)}
+                  placeholder="Johnatan Smith"
+                  autoFocus
+                />
+              </Form.Group>
 
-              <MDBCard className="mb-4 mb-lg-0">
-                <MDBCardBody className="p-0" >
-                  <MDBListGroup flush className="rounded-3" >
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3" style={{backgroundColor:"#181b3a",color:'white'}}>
-                      <MDBCardText>
-                        <i className="ri-github-fill"> Github</i>
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3" style={{backgroundColor:"#181b3a",color:'white'}}>
-                      <MDBCardText>
-                        <i className="ri-facebook-fill">Facebook</i>
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3"style={{backgroundColor:"#181b3a",color:'white'}}>
-                      <MDBCardText>
-                        <i className="ri-instagram-fill">Instagram</i>
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                    <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3"style={{backgroundColor:"#181b3a",color:'white'}}>
-                      <MDBCardText>
-                        <i className="ri-linkedin-fill">Linkedin</i>
-                      </MDBCardText>
-                    </MDBListGroupItem>
-                  </MDBListGroup>
-                </MDBCardBody>
-              </MDBCard>
-            </MDBCol>
-            <MDBCol lg="8">
-              <MDBCard className="mb-4"style={{backgroundColor:"#181b3a",color:'white'}}>
-                <MDBCardBody>
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Full Name</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="6">
-                      <MDBCardText className="text-base">
-                        Johnatan Smith
-                      </MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="3">
-                    <button className="btn rounded-lg px-4 py-2 btn-outline-success">
-                     <i className="ri-edit-line"></i>
-                   </button>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Email</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="6">
-                      <MDBCardText className="text-base">
-                        example@example.com
-                      </MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="3">
-                    <button className="btn rounded-lg px-4 py-2 btn-outline-success">
-                     <i className="ri-edit-line"></i>
-                   </button>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Phone</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="6">
-                      <MDBCardText className="text-base">
-                        (097) 234-5678
-                      </MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="3">
-                    <button className="btn rounded-lg px-4 py-2 btn-outline-success">
-                     <i className="ri-edit-line"></i>
-                   </button>
-                    </MDBCol>
-                  </MDBRow>
-                  <hr />
-                  <MDBRow>
-                    <MDBCol sm="3">
-                      <MDBCardText>Address</MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="6">
-                      <MDBCardText className="text-base">
-                        Bay Area, San Francisco, CA
-                      </MDBCardText>
-                    </MDBCol>
-                    <MDBCol sm="3">
-                    <button className="btn rounded-lg px-4 py-2 btn-outline-success">
-                     <i className="ri-edit-line"></i>
-                   </button>
-                    </MDBCol>
-                  </MDBRow>
-                </MDBCardBody>
-              </MDBCard>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Email address</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  placeholder="name@example.com"
+                  autoFocus
+                  onChange={(event) => setemail(event.target.value)}
+                />
+              </Form.Group>
 
-              <MDBRow>
-                <MDBCol md="12" >
-                  <MDBCard className="mb-4 mb-md-0"style={{backgroundColor:"#181b3a",color:'white'}}>
-                    <MDBCardBody>
-                      <MDBCardText className="mb-4">
-                        <span className="text-success font-italic me-1">
-                          Experience
-                        </span>
-                      </MDBCardText>
-                      <MDBCardText
-                        className="mb-1"
-                        style={{ fontSize: ".77rem" }}
-                      >
-                        Web Design
-                      </MDBCardText>
-                      <MDBProgress className="rounded">
-                        <MDBProgressBar
-                          width={80}
-                          valuemin={0}
-                          valuemax={100}
-                        />
-                      </MDBProgress>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="Password"
+                  placeholder="*********"
+                  autoFocus
+                  onChange={(event) => setpassword(event.target.value)}
+                />
+              </Form.Group>
 
-                      <MDBCardText
-                        className="mt-4 mb-1"
-                        style={{ fontSize: ".77rem" }}
-                      >
-                        Website Markup
-                      </MDBCardText>
-                      <MDBProgress className="rounded">
-                        <MDBProgressBar
-                          width={72}
-                          valuemin={0}
-                          valuemax={100}
-                        />
-                      </MDBProgress>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control
+                  type="tel"
+                  placeholder="0799999999"
+                  autoFocus
+                  onChange={(event) => setphone(event.target.value)}
+                />
+              </Form.Group>
 
-                      <MDBCardText
-                        className="mt-4 mb-1"
-                        style={{ fontSize: ".77rem" }}
-                      >
-                        One Page
-                      </MDBCardText>
-                      <MDBProgress className="rounded">
-                        <MDBProgressBar
-                          width={89}
-                          valuemin={0}
-                          valuemax={100}
-                        />
-                      </MDBProgress>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Address</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Zarqa , Jordan"
+                  autoFocus
+                  onChange={(event) => setaddress(event.target.value)}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="success" onClick={handleSubmit}>
+              Update
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
-                      <MDBCardText
-                        className="mt-4 mb-1"
-                        style={{ fontSize: ".77rem" }}
-                      >
-                        Mobile Template
-                      </MDBCardText>
-                      <MDBProgress className="rounded">
-                        <MDBProgressBar
-                          width={55}
-                          valuemin={0}
-                          valuemax={100}
-                        />
-                      </MDBProgress>
-
-                      <MDBCardText
-                        className="mt-4 mb-1"
-                        style={{ fontSize: ".77rem" }}
-                      >
-                        Backend API
-                      </MDBCardText>
-                      <MDBProgress className="rounded">
-                        <MDBProgressBar
-                          width={66}
-                          valuemin={0}
-                          valuemax={100}
-                        />
-                      </MDBProgress>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-              </MDBRow>
-            </MDBCol>
-          </MDBRow>
-        </MDBContainer>
-      </section>
+        <section style={{ marginTop: "-5rem" }}>
+          <MDBContainer>
+            <MDBRow>
+              <MDBCol lg="20">
+                <MDBCard
+                  className=""
+                  style={{
+                    color: "black",
+                    fontFamily: "bold",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <MDBCardBody>
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Name{}</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="6">
+                        <MDBCardText className="text-base">
+                          {adminData?.username}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Email</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="6">
+                        <MDBCardText className="text-base">
+                          {adminData?.email}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Password</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="6">
+                        <MDBCardText className="text-base">
+                          {adminData?.password}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Phone</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="6">
+                        <MDBCardText className="text-base">
+                          {adminData?.phone}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow>
+                      <MDBCol sm="3">
+                        <MDBCardText>Address</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="6">
+                        <MDBCardText className="text-base">
+                          {adminData?.address}
+                        </MDBCardText>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
+        </section>
+      </div>
     </>
   );
-};
+}
 
 export default Settings;

@@ -1,17 +1,39 @@
-import "../../styles/find-car-form.css";
-import "../../styles/find-car-form.css";
+
+import React, { useState, useEffect } from "react";
 import { Form, FormGroup } from "reactstrap";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import axios from "axios";
 
 const FindCarForm = () => {
-
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedType, setSelectedType] = useState("");
-  const [selectedEnergyType, setselectedEnergyType] = useState("");
+  const [selectedEnergyType, setSelectedEnergyType] = useState("");
+  const [carsArray, setCarsArray] = useState([]);
+  const [uniqueModels, setUniqueModels] = useState([]);
+  const [uniqueTypes, setUniqueTypes] = useState([]);
+  const [uniqueEnergyTypes, setUniqueEnergyTypes] = useState([]);
 
-console.log(selectedBrand,selectedEnergyType,selectedPrice,selectedType);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/cars`)
+      .then((response) => {
+        const carsData = response.data;
+        setCarsArray(carsData);
+
+        const models = [...new Set(carsData.map((car) => car.model))];
+        setUniqueModels(models);
+
+        const types = [...new Set(carsData.map((car) => car.type))];
+        setUniqueTypes(types);
+
+        const energyTypes = [...new Set(carsData.map((car) => car.energy_type))];
+        setUniqueEnergyTypes(energyTypes);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
@@ -20,12 +42,13 @@ console.log(selectedBrand,selectedEnergyType,selectedPrice,selectedType);
   const handlePriceChange = (event) => {
     setSelectedPrice(event.target.value);
   };
+
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
 
   const handleEnergyTypeChange = (event) => {
-    setselectedEnergyType(event.target.value);
+    setSelectedEnergyType(event.target.value);
   };
 
   return (
@@ -34,55 +57,45 @@ console.log(selectedBrand,selectedEnergyType,selectedPrice,selectedType);
         <h4>Find Your Car Here</h4>
       </div>
       <Form className="form">
-        <div className=" d-flex align-items-center justify-content-between flex-wrap">
+        <div className="d-flex align-items-center justify-content-between flex-wrap">
           <FormGroup className="select__group">
-            <select
-            onChange={handleBrandChange}
-            value={selectedBrand}
-            >
+            <select onChange={handleBrandChange} value={selectedBrand}>
               <option value="SB">Select Brand</option>
-              <option value="Tesla">Tesla</option>
-              <option value="toyota">Toyota</option>
-              <option value="Bmw">Bmw</option>
-              <option value="mitsubishi">Mitsubishi</option>
-              <option value="Ford">Ford</option>
-              <option value="Nissan">Nissan</option>
-              <option value="Hyundai">Hyundai</option>
-              <option value="Kia">Kia</option>
+              {uniqueModels.map((model) => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
             </select>
           </FormGroup>
 
           <FormGroup className="select__group">
-            <select
-            onChange={handleTypeChange}
-            value={selectedType}
-            >
+            <select onChange={handleTypeChange} value={selectedType}>
               <option value="ST">Select Type</option>
-              <option value="Van">Van</option>
-              <option value="Sports">Sports</option>
-              <option value="Hatchback">Hatchback</option>
-              <option value="Truck">Truck</option>
-              <option value="Family Car">Family Car</option>
+              {uniqueTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
             </select>
           </FormGroup>
 
           <FormGroup className="select__group">
             <select
-            onChange={handleEnergyTypeChange}
-            value={selectedEnergyType}
+              onChange={handleEnergyTypeChange}
+              value={selectedEnergyType}
             >
               <option value="SET">Select Energy Type</option>
-              <option value="Hybrid">Hybrid</option>
-              <option value="electric">Electric</option>
-              <option value="Gas">Gas</option>
+              {uniqueEnergyTypes.map((energyType) => (
+                <option key={energyType} value={energyType}>
+                  {energyType}
+                </option>
+              ))}
             </select>
           </FormGroup>
 
           <FormGroup className="select__group">
-            <select
-            onChange={handlePriceChange}
-            value={selectedPrice}
-            >
+            <select onChange={handlePriceChange} value={selectedPrice}>
               <option value="">Select Price</option>
               <option value="low">Low to High</option>
               <option value="high">High to Low</option>
@@ -91,7 +104,9 @@ console.log(selectedBrand,selectedEnergyType,selectedPrice,selectedType);
         </div>
         <div className="d-flex justify-content-center">
           <FormGroup className="form__group">
-            <Link to={`/cars?brand=${selectedBrand}&type=${selectedType}&energyType=${selectedEnergyType}&price=${selectedPrice}`}>
+            <Link
+              to={`/cars?brand=${selectedBrand}&type=${selectedType}&energyType=${selectedEnergyType}&price=${selectedPrice}`}
+            >
               <button className="btn find__car-btn">Find Car</button>
             </Link>
           </FormGroup>

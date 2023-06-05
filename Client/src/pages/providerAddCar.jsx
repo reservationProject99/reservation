@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function ProviderAddCar() {
   const [type, setType] = useState();
@@ -12,15 +12,27 @@ function ProviderAddCar() {
   const [seatsNumber, setSeatsNumber] = useState();
   const [cardescription, setCardescription] = useState();
 
-
-  const handleAddCar = (event) => {
+  const handleAddCar = async (event) => {
     event.preventDefault();
 
-    axios
-      .post("http://localhost:5000/cars", {
+    const token = localStorage.getItem("token") || "";
+    let id;
+
+    try {
+      const resToken = await axios.get("http://localhost:5000/checkToken", {
         headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
+          authorization: `Bearer ${token}`,
         },
+      });
+
+      id = resToken.data.provider_id;
+      console.log(resToken.data.provider_id);
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      const getCars = await axios.post("http://localhost:5000/cars", {
         discrabtion: cardescription,
         type: type,
         energy_type: energy_type,
@@ -29,14 +41,13 @@ function ProviderAddCar() {
         rental_price: rentalPrice,
         images_data: imagesData,
         seats_number: seatsNumber,
-        provider_id: 1,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
+        provider_id: id,
       });
+
+      console.log(getCars);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   function handleCarType(event) {
@@ -105,6 +116,8 @@ function ProviderAddCar() {
                     <option value="Family Car">Family Car</option>
                     <option value="Off-Road Car">Off-Road Car</option>
                     <option value="Van">Van</option>
+                    <option value="4*4">4*4</option>
+                    <option value="Classic">Classic</option>
                   </select>
                 </div>
               </div>

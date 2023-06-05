@@ -108,7 +108,8 @@ const deleteCustomer = (req, res) => {
 
 const getCustomerByToken = (req, res) => {
   const { customers_id } = req.user;
-  console.log(customers_id)
+  console.log(customers_id);
+
   db.query(
     "SELECT * FROM public.customers WHERE customers_id = $1",
     [customers_id],
@@ -117,6 +118,23 @@ const getCustomerByToken = (req, res) => {
         return res.status(400).json(error);
       }
       res.status(200).json(results.rows);
+    }
+  );
+};
+
+const updateUser = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, email, password, phone, address } = req.body;
+  console.log(req.body);
+
+  db.query(
+    "UPDATE public.customers SET username = $1, email = $2,address=$3,password=$4,phone=$5 WHERE customers_id = $6",
+    [name, email, address, password, phone, id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`Admin info  with ID: ${id} updated`);
     }
   );
 };
@@ -278,6 +296,37 @@ const createAdmin = async (req, res) => {
   }
 };
 
+const getAdminByToken = (req, res) => {
+  const { admin_id } = req.user;
+
+  console.log(req.body);
+  db.query(
+    "SELECT * FROM public.admin WHERE admin_id = $1",
+    [admin_id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
+const deleteAdmin = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  db.query(
+    "UPDATE public.admin SET is_delete = $1 WHERE admin_id = $2",
+    [true, id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`admin deleted with ID: ${id}`);
+    }
+  );
+};
+
 // Car
 const getCar = (req, res) => {
   db.query(
@@ -332,6 +381,7 @@ const getCarsById = (req, res) => {
 
 const createCar = async (req, res) => {
   const {
+    discrabtion,
     type,
     energy_type,
     model,
@@ -343,8 +393,9 @@ const createCar = async (req, res) => {
   } = req.body;
 
   db.query(
-    "INSERT INTO public.cars (type,energy_type,model,year,rental_price,available,images_data,start_date,end_date,is_delete,provider_id,start_location,end_location,seats_number) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *",
+    "INSERT INTO public.cars (discrabtion,type,energy_type,model,year,rental_price,available,images_data,start_date,end_date,is_delete,provider_id,start_location,end_location,seats_number) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING *",
     [
+      discrabtion,
       type,
       energy_type,
       model,
@@ -365,6 +416,69 @@ const createCar = async (req, res) => {
         return res.status(400).json(error);
       }
       res.status(201).send(`Car added with ID: ${results.rows[0].cars_id}`);
+    }
+  );
+};
+
+const rentedCars = (req, res) => {
+  db.query(
+    "SELECT * FROM public.cars WHERE is_delete = false AND available = false ORDER BY cars_id DESC",
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
+const getCarsByIdProvider = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  db.query(
+    "SELECT * FROM public.cars WHERE provider_id = $1 AND is_delete = false",
+    [id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
+const updateCar = (req, res) => {
+  const id = parseInt(req.params.id);
+  const {
+    discrabtion,
+    type,
+    energy_type,
+    model,
+    year,
+    rental_price,
+    images_data,
+    seats_number,
+  } = req.body;
+  console.log(req.body);
+
+  db.query(
+    "UPDATE public.cars SET discrabtion = $1, type = $2, energy_type = $3, model = $4, year = $5, rental_price = $6, images_data = $7, seats_number = $8 WHERE cars_id = $9",
+    [
+      discrabtion,
+      type,
+      energy_type,
+      model,
+      year,
+      rental_price,
+      images_data,
+      seats_number,
+      id,
+    ],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`Admin info  with ID: ${id} updated`);
     }
   );
 };
@@ -455,6 +569,40 @@ const checkAdmin = (req, res, next) => {
   );
 }
 
+const updateAdmin = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, email, password, phone, address } = req.body;
+  console.log(req.body);
+
+  db.query(
+    "UPDATE public.admin SET username = $1, email = $2,address=$3,password=$4,phone=$5 WHERE admin_id = $6",
+    [name, email, address, password, phone, id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`Admin info  with ID: ${id} updated`);
+    }
+  );
+};
+
+const updateProvider = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, email, password, phone, address } = req.body;
+  console.log(req.body);
+
+  db.query(
+    "UPDATE public.provider SET username = $1, email = $2,address=$3,password=$4,phone=$5 WHERE provider_id = $6",
+    [name, email, address, password, phone, id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`Admin info  with ID: ${id} updated`);
+    }
+  );
+};
+
 const checkProvider = (req, res, next) => {
 
   const { email, password } = req.body;
@@ -504,9 +652,13 @@ module.exports = {
   deleteCustomer,
   getCustomercount,
   getCustomerByToken,
+  updateUser,
 
   getAdmin,
   createAdmin,
+  deleteAdmin,
+  getAdminByToken,
+  updateAdmin,
 
   getProvider,
   getProvidercount,
@@ -524,9 +676,13 @@ module.exports = {
   bookCar,
   deleteCars,
   getRentedCarscount,
+  getCarsByIdProvider,
+  rentedCars,
+  updateCar,
 
   checkProvider,
   checkCustomer,
   getCarWithProvider,
+  updateProvider,
   checkAdmin
 };
