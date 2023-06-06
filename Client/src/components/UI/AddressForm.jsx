@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -7,27 +7,34 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { indigo } from '@mui/material/colors';
 
-export default function AddressForm({ handleNext }) {
-    const [formData, setFormData] = useState({
-        startLocation: '',
-        finalLocation: '',
+export default function AddressForm({ handleNext, setDate }) {
+    const [formDate, setFormDate] = useState({
         startDate: '',
-        finalDate: '',
+        endDate: '',
     });
+
     const [formErrors, setFormErrors] = useState({
-        startLocation: '',
-        finalLocation: '',
         startDate: '',
-        finalDate: '',
+        endDate: '',
     });
+    useEffect(() => {
+        setDate({
+            startDate: formDate.startDate,
+            endDate: formDate.endDate
+        })
+    }, [formDate])
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: value,
-        }));
+        if (name === 'startDate' || name === 'endDate') {
+            setFormDate((prevFormDate) => ({
+                ...prevFormDate,
+                [name]: value,
+            }));
+        }
     };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,28 +48,16 @@ export default function AddressForm({ handleNext }) {
         const errors = {};
         let isValid = true;
 
-        // Validate startLocation
-        if (!formData.startLocation.trim()) {
-            errors.startLocation = 'First name is required';
-            isValid = false;
-        }
-
-        // Validate finalLocation
-        if (!formData.finalLocation.trim()) {
-            errors.finalLocation = 'Last name is required';
-            isValid = false;
-        }
-
 
         // Validate startDate
-        if (!formData.startDate.trim()) {
+        if (!formDate.startDate.trim()) {
             errors.startDate = 'startDate is required';
             isValid = false;
         }
 
-        // Validate finalDate
-        if (!formData.finalDate.trim()) {
-            errors.finalDate = 'finalDate code is required';
+        // Validate endDate
+        if (!formDate.endDate.trim()) {
+            errors.endDate = 'endDate code is required';
             isValid = false;
         }
 
@@ -80,44 +75,13 @@ export default function AddressForm({ handleNext }) {
                     <Grid item xs={12} sm={6}>
                         <TextField
                             required
-                            id="startLocation"
-                            name="startLocation"
-                            label="Start Location"
-                            fullWidth
-                            autoComplete="given-name"
-                            variant="standard"
-                            value={formData.startLocation}
-                            onChange={handleChange}
-                            error={!!formErrors.startLocation}
-                            helperText={formErrors.startLocation}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="finalLocation"
-                            name="finalLocation"
-                            label="Final Location"
-                            fullWidth
-                            autoComplete="family-name"
-                            variant="standard"
-                            value={formData.finalLocation}
-                            onChange={handleChange}
-                            error={!!formErrors.finalLocation}
-                            helperText={formErrors.finalLocation}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
                             id="startDate"
                             name="startDate"
-                            // label="Start Date"
                             type='date'
                             fullWidth
                             autoComplete="shipping address-level2"
                             variant="standard"
-                            value={formData.startDate}
+                            value={formDate.startDate}
                             onChange={handleChange}
                             error={!!formErrors.startDate}
                             helperText={formErrors.startDate}
@@ -125,23 +89,16 @@ export default function AddressForm({ handleNext }) {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            id="finalDate"
-                            name="finalDate"
-                            // label="Final Date"
+                            id="endDate"
+                            name="endDate"
                             type='date'
                             fullWidth
                             autoComplete="shipping postal-code"
                             variant="standard"
-                            value={formData.finalDate}
+                            value={formDate.endDate}
                             onChange={handleChange}
-                            error={!!formErrors.finalDate}
-                            helperText={formErrors.finalDate}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                            label="Use this address for payment details"
+                            error={!!formErrors.endDate}
+                            helperText={formErrors.endDate}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -151,6 +108,7 @@ export default function AddressForm({ handleNext }) {
                     </Grid>
                 </Grid>
             </form>
+
         </React.Fragment>
     );
 }

@@ -35,6 +35,7 @@ function ProviderUploadedCar() {
   const [yearOfMade, setYearOfMade] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [carDesciption, setCarDesciption] = useState();
+  const [carId, setCarId] = useState();
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
@@ -124,9 +125,9 @@ function ProviderUploadedCar() {
     setShow(true);
   };
 
-  const handleUpate = (id) => {
+  const handleUpate = () => {
     axios
-      .put(`http://localhost:5000/update_car/${id}`, {
+      .put(`http://localhost:5000/update_car/${carId}`, {
         discrabtion: carDesciption,
         type: carType,
         energy_type: energyType,
@@ -144,7 +145,6 @@ function ProviderUploadedCar() {
         console.error(error);
         toast.error("Failed to delete car.");
       });
-    console.log(id);
   };
 
   return (
@@ -163,9 +163,13 @@ function ProviderUploadedCar() {
                 className="select__group"
               >
                 <option value="">Select Brand</option>
-                <option value="BMW">BMW</option>
-                <option value="TOYOTA">TOYOTA</option>
-                <option value="FERRARI">FERRARI</option>
+                {[...new Set(carsArray.map((item) => item.model))].map(
+                  (model) => (
+                    <option key={model} value={model}>
+                      {model}
+                    </option>
+                  )
+                )}
               </select>
               <select
                 onChange={handleTypeChange}
@@ -173,13 +177,13 @@ function ProviderUploadedCar() {
                 className="select__group"
               >
                 <option value="">Select Type</option>
-                <option value="Luxury Car">Luxury Car</option>
-                <option value="Vintage Car">Vintage Car</option>
-                <option value="Family Car">Family Car</option>
-                <option value="Off Road">Off Road</option>
-                <option value="Van">Van</option>
-                <option value="4*4">4*4</option>
-                <option value="Classic">Classic</option>
+                {[...new Set(carsArray.map((item) => item.type))].map(
+                  (type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  )
+                )}
               </select>
               <select
                 onChange={handleEnergyTypeChange}
@@ -187,10 +191,13 @@ function ProviderUploadedCar() {
                 className="select__group"
               >
                 <option value="">Energy Type...</option>
-                <option value="Hybrid">Hybrid</option>
-                <option value="Electric">Electric</option>
-                <option value="Petrol">Petrol</option>
-                <option value="Diesel">Diesel</option>
+                {[...new Set(carsArray.map((item) => item.energy_type))].map(
+                  (energy_type) => (
+                    <option key={energy_type} value={energy_type}>
+                      {energy_type}
+                    </option>
+                  )
+                )}
               </select>
               <select
                 onChange={handlePriceChange}
@@ -208,7 +215,12 @@ function ProviderUploadedCar() {
             <div className="col-lg-4 col-md-4 col-sm-6 mb-5" key={item.cars_id}>
               <div className="car__item" style={{ backgroundColor: "white" }}>
                 <div className="car__img w-100">
-                  <img src={item.images_data} alt="" className="w-100" />
+                  <img
+                    src={item.images_data}
+                    alt=""
+                    className="w-100"
+                    style={{ height: "15rem" }}
+                  />
                 </div>
                 <div className="car__item-content mt-4">
                   <h4 className="section__title text-center">{item.model}</h4>
@@ -230,7 +242,11 @@ function ProviderUploadedCar() {
 
                   <button
                     className="w-50 car__item-btn car__btn-rent"
-                    onClick={() => handleShow(item.cars_id)}
+                    onClick={() => {
+                      handleShow(item.cars_id);
+
+                      setCarId(item.cars_id);
+                    }}
                   >
                     Edit
                   </button>

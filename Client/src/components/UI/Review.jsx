@@ -2,15 +2,28 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Grid from '@mui/material/Grid';
 
 
-const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
+export default function Review({ review }) {
 
+    const calculateTotalPrice = () => {
+        const startDate = new Date(review.startDate);
+        const finalDate = new Date(review.finalDate);
 
-export default function Review() {
+        // Calculate the difference in milliseconds between the start and final dates
+        const timeDiff = Math.abs(finalDate - startDate);
+        // Calculate the number of days in the rental period
+        const rentalDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+        
+        // Calculate the total price by multiplying the price per day by the number of rental days
+        const totalPrice = review.price * rentalDays;
 
-    const [activeStep, setActiveStep] = React.useState(0);
+        return totalPrice;
+    };
+
+    // const pricePerDay= {
+    //     pricePerDay: 10,
+    // };
 
     return (
         <React.Fragment>
@@ -20,19 +33,19 @@ export default function Review() {
             <List disablePadding>
                 <ListItem sx={{ py: 1, px: 0 }}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        $34.06
+                        Start Date: {review.startDate}
                     </Typography>
                 </ListItem>
-            </List>
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                        Dilever To
+                <ListItem sx={{ py: 1, px: 0 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                        Final Date: {review.finalDate}
                     </Typography>
-                    <Typography gutterBottom>{addresses.join(', ')}</Typography>
-                </Grid>
-            </Grid>
-            
+                </ListItem>
+                <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                    {/* pricePerDay={pricePerDay} */}
+                    Total Price: {calculateTotalPrice()}
+                </Typography>
+            </List>
         </React.Fragment>
     );
 }

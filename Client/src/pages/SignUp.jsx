@@ -7,12 +7,10 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
 import SignUpCar from "../assets/all-images/SignUp.png";
-import Facebook from './SignInWithFacebook'
-import Google from './SignInWithGoogle'
-
+import Facebook from "./SignInWithFacebook";
+import Google from "./SignInWithGoogle";
 
 export default function SignUp() {
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -217,7 +215,7 @@ export default function SignUp() {
     <div className="container-fluid">
       <div className="row bg-gray-100 text-gray-900 justify-content-center ">
         <div className="col-lg-8 col-md-8 w-100">
-          <div className="row m-0 m-sm-20 bg-white shadow-sm rounded-lg">
+          <div className="row m-0 m-sm-20 bg-white shadow-sm rounded-lg d-flex justify-content-center">
             <div className="col-lg-5 col-md-12">
               <div className="mt-12 d-flex flex-column align-items-center">
                 <h1
@@ -226,14 +224,13 @@ export default function SignUp() {
                 >
                   Sign Up to Join Us!
                 </h1>
-                <div className="mt-5 d-flex flex-column align-items-center">
+                <div className="mt-3 d-flex flex-column align-items-center">
                   <div className="w-100 mt-4">
                     <div className="d-flex flex-column align-items-center">
-
-                    <Facebook massage={"Sign in with Facebook"} />
-                    <Google massage={"Sign in with Google"}/>
-
+                      <Facebook massage={"Sign in with Facebook"} />
+                      <Google massage={"Sign in with Google"} />
                     </div>
+
                     <div className="my-4 border-bottom text-center">
                       <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
                         Or sign in with e-mail
@@ -439,13 +436,6 @@ export default function SignUp() {
                   </form>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-7 col-md-12 d-flex align-items-center justify-content-center ">
-              <img
-                src={SignUpCar}
-                alt="Your Image"
-                className="img-fluid  d-md-block d-none"
-              />
             </div>
           </div>
         </div>

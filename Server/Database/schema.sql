@@ -20,7 +20,7 @@ CREATE TABLE customers  (
   password VARCHAR(50) NOT NULL,
   phone VARCHAR(20) NOT NULL,
   address VARCHAR(50) NOT NULL,
-  popular_cars TEXT[],
+  popular_cars TEXT,
   credit_card TEXT,
   cardholder_name TEXT,
   card_expiration_date DATE,

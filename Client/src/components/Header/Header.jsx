@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 const navLinks = [
   {
@@ -8,17 +9,17 @@ const navLinks = [
     display: "Home",
   },
   {
-    path: "/about",
-    display: "About",
-  },
-  {
     path: "/cars",
     display: "Cars",
   },
-  {
-    path: "/provider",
-    display: "provider",
-  },
+  // {
+    //   path: "/provider",
+    //   display: "provider",
+    // },
+    {
+      path: "/about",
+      display: "About",
+    },
   {
     path: "/contact",
     display: "Contact",
@@ -34,14 +35,37 @@ const navLinks = [
 ];
 
 const Header = ({ isLog, updateIsLog }) => {
+  const [userData, setUserData] = useState();
+  const [user, setUser] = useState();
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const response = await axios.get(`http://localhost:5000/get_provider`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data[0];
+      console.log(data);
+      setUserData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const menuRef = useRef(null);
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
 
-  function handleButton () {
+  function handleButton() {
     updateIsLog(false);
-    localStorage.removeItem('token'); 
+    localStorage.removeItem("token");
   }
 
   return (
@@ -61,25 +85,25 @@ const Header = ({ isLog, updateIsLog }) => {
               </div>
             </div>
 
-              <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
-            {isLog ?
+            <div className="col-lg-2 col-md-3 col-sm-0 d-flex align-items-center justify-content-end gap-2">
+              {isLog ? (
                 <button className="header__btn btn">
                   <Link to="/userProfile">
                     <i className="ri-user-line"></i>
                   </Link>
                 </button>
-             : null}
+              ) : null}
 
-                <button  className="header__btn btn">
-                {isLog ? 
-                  <Link onClick={handleButton} to="/signIn">Log Out</Link>
-                  :
+              <button className="header__btn btn">
+                {isLog ? (
+                  <Link onClick={handleButton} to="/signIn">
+                    Log Out
+                  </Link>
+                ) : (
                   <Link to="/signIn">Sign In</Link>
-                }
-                </button>
-              </div>
-
-
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -95,16 +119,42 @@ const Header = ({ isLog, updateIsLog }) => {
 
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <div className="menu">
-                {navLinks.map((item, index) => (
-                  <NavLink
-                    to={item.path}
-                    activeClassName="nav__active"
-                    className="nav__item"
-                    key={index}
-                  >
-                    {item.display}
-                  </NavLink>
-                ))}
+                {console.log("amroooo" + userData?.role)}
+                {navLinks.map((item, index) => {
+                  if (userData?.role === "provider") {
+                    if (
+                      item.path === "/providerAddCar" ||
+                      item.path === "/ProviderUplodedCar"
+                    ) {
+                      return (
+                        <NavLink
+                          to={item.path}
+                          activeClassName="nav__active"
+                          className="nav__item"
+                          key={index}
+                        >
+                          {item.display}
+                        </NavLink>
+                      );
+                    }
+                  } else {
+                    if (
+                      item.path !== "/providerAddCar" &&
+                      item.path !== "/ProviderUplodedCar"
+                    ) {
+                      return (
+                        <NavLink
+                          to={item.path}
+                          activeClassName="nav__active"
+                          className="nav__item"
+                          key={index}
+                        >
+                          {item.display}
+                        </NavLink>
+                      );
+                    }
+                  }
+                })}
               </div>
             </div>
           </div>

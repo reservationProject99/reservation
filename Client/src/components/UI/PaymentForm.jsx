@@ -1,3 +1,5 @@
+
+
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -5,13 +7,27 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import axios from "axios";
+import { useState } from 'react';
 
-export default function PaymentForm({ handleNext }) {
+
+export default function PaymentForm({ handleNext, setCridetCard }) {
+
     const [cardName, setCardName] = React.useState('');
     const [cardNumber, setCardNumber] = React.useState('');
     const [expDate, setExpDate] = React.useState('');
     const [cvv, setCvv] = React.useState('');
     const [errors, setErrors] = React.useState({});
+
+    React.useEffect(() => {
+        setCridetCard({
+            cardName: cardName,
+            cardNumber: cardNumber,
+            expDate: expDate,
+            cvv: cvv
+        })
+    }, [cardName, cardNumber, expDate, cvv])
+
 
     const handleCardNameChange = (event) => {
         setCardName(event.target.value.toUpperCase());
@@ -125,13 +141,7 @@ export default function PaymentForm({ handleNext }) {
                             value={cvv}
                             onChange={handleCvvChange}
                             error={!!errors.cvv}
-                            helperText={errors.cvv}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-                            label="Remember credit card details for next time"
+                            // helperText={errors.cvv}
                         />
                     </Grid>
                 </Grid>
