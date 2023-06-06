@@ -69,7 +69,7 @@ const Cars = () => {
         >
 
           {carData?.map((car) => (
-            <div className="car__item">
+            <div className="car__item mb-5">
               <div className="car__item-top">
                 <div className="car__item-tile">
                   <h3>{car.model}</h3>

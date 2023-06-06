@@ -36,13 +36,17 @@ const navLinks = [
 
 const Header = ({ isLog, updateIsLog }) => {
   const [userData, setUserData] = useState();
+
   const [user, setUser] = useState();
+
 
   const fetchData = async () => {
     const token = localStorage.getItem("token") || "";
 
     try {
+
       const response = await axios.get(`http://localhost:5000/get_provider`, {
+
         headers: {
           authorization: `Bearer ${token}`,
         },
