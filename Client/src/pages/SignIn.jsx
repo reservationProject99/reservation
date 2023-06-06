@@ -6,14 +6,13 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
-import Facebook from './SignInWithFacebook'
-import Google from './SignInWithGoogle'
+import Facebook from "./SignInWithFacebook";
+import Google from "./SignInWithGoogle";
 
 export default function SignIn({ updateIsLog }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
 
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
@@ -79,7 +78,6 @@ export default function SignIn({ updateIsLog }) {
     const password = event.target.password.value;
 
     if (selectedUserType === "customer") {
-      
       await axios
         .post(`http://localhost:5000/logIn_customer`, {
           email: email,
@@ -99,9 +97,7 @@ export default function SignIn({ updateIsLog }) {
           });
           console.error(err);
         });
-
     } else if (selectedUserType === "provider") {
-
       await axios
         .post(`http://localhost:5000/logIn_provider`, {
           email: email,
@@ -121,8 +117,7 @@ export default function SignIn({ updateIsLog }) {
           });
           console.error(err);
         });
-    }
-    else {
+    } else {
       await axios
         .post(`http://localhost:5000/logIn_admin`, {
           email: email,
@@ -130,7 +125,7 @@ export default function SignIn({ updateIsLog }) {
         })
         .then((res) => {
           localStorage.setItem("token", res.data);
-          navigate('/admin');
+          navigate("/admin");
           console.log(res);
         })
         .catch((err) => {
@@ -170,14 +165,13 @@ export default function SignIn({ updateIsLog }) {
               >
                 Sign In
               </h1>
-              <div className="mt-5 d-flex flex-column align-items-center">
+              <div className="mt-3 d-flex flex-column align-items-center">
                   <div className="w-100 mt-4">
                     <div className="d-flex flex-column align-items-center">
-
-                    <Facebook massage={"Sign in with Facebook"} />
-                    <Google massage={"Sign in with Google"}/>
-
+                      <Facebook massage={"Sign in with Facebook"} />
+                      <Google massage={"Sign in with Google"} />
                     </div>
+
                     <div className="my-4 border-bottom text-center">
                       <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
                         Or sign in with e-mail

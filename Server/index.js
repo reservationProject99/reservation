@@ -24,7 +24,12 @@ app.get("/users/:id", db.getCustomerById);
 app.put("/users/:id", db.updateCustomerCreaditCard);
 app.put("/delete_user/:id", db.deleteCustomer);
 app.put("/update_user/:id", db.updateUser);
-app.put("/user_intrested_cars/:id", db.intrestedCars);
+
+app.put("/update_card/:id", db.fillCreditCard);
+app.post("/createMoveCustomer/:id", db.createMoveCustomer);
+// =======
+// app.put("/user_intrested_cars/:id", db.intrestedCars);
+
 
 // admin
 app.get("/admin", db.getAdmin);

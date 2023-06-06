@@ -163,9 +163,13 @@ function ProviderUploadedCar() {
                 className="select__group"
               >
                 <option value="">Select Brand</option>
-                <option value="BMW">BMW</option>
-                <option value="TOYOTA">TOYOTA</option>
-                <option value="FERRARI">FERRARI</option>
+                {[...new Set(carsArray.map((item) => item.model))].map(
+                  (model) => (
+                    <option key={model} value={model}>
+                      {model}
+                    </option>
+                  )
+                )}
               </select>
               <select
                 onChange={handleTypeChange}
@@ -173,13 +177,13 @@ function ProviderUploadedCar() {
                 className="select__group"
               >
                 <option value="">Select Type</option>
-                <option value="Luxury Car">Luxury Car</option>
-                <option value="Vintage Car">Vintage Car</option>
-                <option value="Family Car">Family Car</option>
-                <option value="Off Road">Off Road</option>
-                <option value="Van">Van</option>
-                <option value="4*4">4*4</option>
-                <option value="Classic">Classic</option>
+                {[...new Set(carsArray.map((item) => item.type))].map(
+                  (type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  )
+                )}
               </select>
               <select
                 onChange={handleEnergyTypeChange}
@@ -187,10 +191,13 @@ function ProviderUploadedCar() {
                 className="select__group"
               >
                 <option value="">Energy Type...</option>
-                <option value="Hybrid">Hybrid</option>
-                <option value="Electric">Electric</option>
-                <option value="Petrol">Petrol</option>
-                <option value="Diesel">Diesel</option>
+                {[...new Set(carsArray.map((item) => item.energy_type))].map(
+                  (energy_type) => (
+                    <option key={energy_type} value={energy_type}>
+                      {energy_type}
+                    </option>
+                  )
+                )}
               </select>
               <select
                 onChange={handlePriceChange}

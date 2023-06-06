@@ -139,22 +139,50 @@ const updateUser = (req, res) => {
   );
 };
 
-const intrestedCars = (req, res) => {
-  const id = parseInt(req.params.id);
-  console.log(req.body);
-  const  {name}  = req.body;
 
+const fillCreditCard = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { credit_card, cardholder_name, card_expiration_date, cvv_cvc_code } = req.body;
+  console.log([credit_card, cardholder_name, card_expiration_date, cvv_cvc_code, id])
   db.query(
-    "UPDATE public.customers SET popular_cars = $1 WHERE customers_id = $2",
-    [name, id],
+    "UPDATE public.customers SET credit_card = $1,cardholder_name= $2,card_expiration_date=$3,cvv_cvc_code=$4 WHERE customers_id = $5",
+    [credit_card, cardholder_name, card_expiration_date, cvv_cvc_code, id],
+// =======
+// const intrestedCars = (req, res) => {
+//   const id = parseInt(req.params.id);
+//   console.log(req.body);
+//   const  {name}  = req.body;
+
+//   db.query(
+//     "UPDATE public.customers SET popular_cars = $1 WHERE customers_id = $2",
+//     [name, id],
+
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
       }
-      res.status(200).send(`cars interest of ${id} updated`);
+      res.status(200).send(`Car with ID: ${id} Booked`);
+// =======
+//       res.status(200).send(`cars interest of ${id} updated`);
     }
   );
 };
+
+const createMoveCustomer = async (req, res) => {
+  const { move_type, date, car_id, customers_id } = req.body;
+
+    db.query(
+      "INSERT INTO public.customer_movements (move_type, date, car_id, customers_id) VALUES ($1, $2,$3,$4) RETURNING *",
+      [move_type, date, car_id, customers_id],
+      (error, results) => {
+        if (error) {
+          return res.status(400).json(error);
+        }
+        res.status(201).json(results.rows[0]);
+      }
+    );
+};
+
 
 // Provider
 const getProvider = (req, res) => {
@@ -603,10 +631,10 @@ const checkCustomer = (req, res, next) => {
 
 const checkAdmin = (req, res, next) => {
   const { email, password } = req.body;
-
   db.query(
     "SELECT * FROM public.admin WHERE is_delete = false ORDER BY admin_id ASC",
     (error, results) => {
+      console.log(results)
       if (error) {
         return res.status(400).json(error);
       }
@@ -661,8 +689,6 @@ const updateProvider = (req, res) => {
 
 const checkProvider = (req, res, next) => {
   const { email, password } = req.body;
-
-  console.log(email, password);
 
   db.query(
     "SELECT * FROM public.provider WHERE is_delete = false ORDER BY provider_id ASC",
@@ -742,4 +768,9 @@ module.exports = {
   getCarWithProvider,
   updateProvider,
   checkAdmin,
+
+  createMoveCustomer,
+  fillCreditCard,
+
 };
+

@@ -9,17 +9,17 @@ const navLinks = [
     display: "Home",
   },
   {
-    path: "/about",
-    display: "About",
-  },
-  {
     path: "/cars",
     display: "Cars",
   },
-  {
-    path: "/provider",
-    display: "provider",
-  },
+  // {
+    //   path: "/provider",
+    //   display: "provider",
+    // },
+    {
+      path: "/about",
+      display: "About",
+    },
   {
     path: "/contact",
     display: "Contact",
@@ -37,11 +37,16 @@ const navLinks = [
 const Header = ({ isLog, updateIsLog }) => {
   const [userData, setUserData] = useState();
 
+  const [user, setUser] = useState();
+
+
   const fetchData = async () => {
     const token = localStorage.getItem("token") || "";
 
     try {
-      const response = await axios.get(`http://localhost:5000/get_user`, {
+
+      const response = await axios.get(`http://localhost:5000/get_provider`, {
+
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -118,16 +123,42 @@ const Header = ({ isLog, updateIsLog }) => {
 
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <div className="menu">
-                {navLinks.map((item, index) => (
-                  <NavLink
-                    to={item.path}
-                    activeClassName="nav__active"
-                    className="nav__item"
-                    key={index}
-                  >
-                    {item.display}
-                  </NavLink>
-                ))}
+                {console.log("amroooo" + userData?.role)}
+                {navLinks.map((item, index) => {
+                  if (userData?.role === "provider") {
+                    if (
+                      item.path === "/providerAddCar" ||
+                      item.path === "/ProviderUplodedCar"
+                    ) {
+                      return (
+                        <NavLink
+                          to={item.path}
+                          activeClassName="nav__active"
+                          className="nav__item"
+                          key={index}
+                        >
+                          {item.display}
+                        </NavLink>
+                      );
+                    }
+                  } else {
+                    if (
+                      item.path !== "/providerAddCar" &&
+                      item.path !== "/ProviderUplodedCar"
+                    ) {
+                      return (
+                        <NavLink
+                          to={item.path}
+                          activeClassName="nav__active"
+                          className="nav__item"
+                          key={index}
+                        >
+                          {item.display}
+                        </NavLink>
+                      );
+                    }
+                  }
+                })}
               </div>
             </div>
           </div>
