@@ -16,9 +16,9 @@ const Sidebar = () => {
       <div className="sidebar__top">
         <h2>
           <span>
-            <i className="ri-taxi-line"></i>
+            <i className="ri-car-line"></i>
           </span>
-          Rent A Car
+          QuickRide
         </h2>
       </div>
 
@@ -42,7 +42,7 @@ const Sidebar = () => {
           </ul>
         </div>
 
-        <div className="sidebar__bottom" >
+        <div className="sidebar__toggler" >
           <span onClick={handleLogout}>
             <i className="ri-logout-circle-r-line"></i> Logout
           </span>

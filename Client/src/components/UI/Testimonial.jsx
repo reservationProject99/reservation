@@ -41,7 +41,12 @@ const Testimonial = () => {
     <Slider {...settings}>
       <div className="testimonial py-4 px-3">
         <p className="section__description">
-          I recently rented a car from this car rental company, and I had a fantastic experience. The staff was friendly and professional, and they helped me find the perfect car for my needs. The rental process was quick and efficient, and the car was clean and well-maintained. I had no issues during my rental period, and the return process was equally smooth. I highly recommend this car rental company for their excellent service.
+          I recently rented a car from this car rental company, and I had a
+          fantastic experience. The staff was friendly and professional, and
+          they helped me find the perfect car for my needs. The rental process
+          was quick and efficient, and the car was clean and well-maintained. I
+          had no issues during my rental period, and the return process was
+          equally smooth. I highly recommend for their excellent service.
         </p>
 
         <div className="mt-3 d-flex align-items-center gap-4">
@@ -56,7 +61,13 @@ const Testimonial = () => {
 
       <div className="testimonial py-4 px-3">
         <p className="section__description">
-          I had an amazing experience renting a car from this company. The customer service was outstanding, and the staff went above and beyond to ensure my satisfaction. The car I rented was in excellent condition, and it provided a comfortable and enjoyable driving experience throughout my trip. The rental rates were also reasonable, and I appreciated the flexibility in terms of pick-up and drop-off locations. I would definitely choose this car rental company again in the future.
+          I had an amazing experience renting a car from this company. The
+          customer service was outstanding, and the staff went above and beyond
+          to ensure my satisfaction. The car I rented was in excellent
+          condition, and it provided a comfortable and enjoyable driving
+          experience throughout my trip. The rental rates were also reasonable,
+          and I appreciated the flexibility in terms of pick-up and drop-off
+          locations.
         </p>
 
         <div className="mt-3 d-flex align-items-center gap-4">
@@ -71,7 +82,13 @@ const Testimonial = () => {
 
       <div className="testimonial py-4 px-3">
         <p className="section__description">
-          I have rented cars from various companies in the past, but my recent experience with this car rental company was by far the best. The reservation process was simple and straightforward, and the staff was friendly and helpful. The car I rented was clean, fuel-efficient, and reliable. I appreciated the clear and transparent pricing, with no hidden fees or surprises. Overall, it was a hassle-free and enjoyable car rental experience, and I would highly recommend this company to others.
+          I have rented cars from various companies in the past, but my recent
+          experience with this car rental company was by far the best. The
+          reservation process was simple and straightforward, and the staff was
+          friendly and helpful. The car I rented was clean, fuel-efficient, and
+          reliable. I appreciated the clear and transparent pricing, with no
+          hidden fees or surprises. Overall, and I would highly recommend this
+          company to others.
         </p>
 
         <div className="mt-3 d-flex align-items-center gap-4">
@@ -86,7 +103,13 @@ const Testimonial = () => {
 
       <div className="testimonial py-4 px-3">
         <p className="section__description">
-          I cannot speak highly enough about my experience with this car rental company. From the moment I made the reservation, the staff was attentive and responsive, answering all my questions promptly. The car I rented exceeded my expectations in terms of cleanliness and performance. It was evident that the company takes pride in maintaining their fleet to a high standard. The return process was quick and efficient, and I received my deposit back promptly. I would definitely choose this car rental company again and recommend them to anyone in need of reliable and top-notch service.
+          I cannot speak highly enough about my experience with this car rental
+          company. From the moment I made the reservation, the staff was
+          attentive and responsive, answering all my questions promptly. The car
+          I rented exceeded my expectations in terms of cleanliness and
+          performance. It was evident that the company takes pride in
+          maintaining their fleet to a high standard. The return process was
+          quick and efficient.
         </p>
 
         <div className="mt-3 d-flex align-items-center gap-4">

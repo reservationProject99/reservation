@@ -20,10 +20,13 @@ const HeroSlider = () => {
       <div className="slider__item slider__item-01 mt0">
         <Container>
           <div className="slider__content ">
-            <h1 className="text-light mb-4">Reserve Now and Get 50% Off</h1>
+            <h1 className="text-light mb-4">
+              Secure your spot today
+              <br /> and enjoy a sensational 50% discount!
+            </h1>
 
             <button className="btn reserve__btn ">
-              <Link to="/cars">Reserve Now</Link>
+              <Link to="/cars">Rent Now</Link>
             </button>
           </div>
         </Container>
@@ -32,10 +35,13 @@ const HeroSlider = () => {
       <div className="slider__item slider__item-02 mt0">
         <Container>
           <div className="slider__content ">
-            <h1 className="text-light mb-4">Reserve Now and Get 50% Off</h1>
+            <h1 className="text-light mb-4">
+              Discover the freedom of the open road
+              <br /> with our wide range of top-quality rental cars
+            </h1>
 
             <button className="btn reserve__btn ">
-              <Link to="/cars">Reserve Now</Link>
+              <Link to="/cars">Rent Now</Link>
             </button>
           </div>
         </Container>
@@ -44,10 +50,13 @@ const HeroSlider = () => {
       <div className="slider__item slider__item-03 mt0">
         <Container>
           <div className="slider__content ">
-            <h1 className="text-light mb-4">Reserve Now and Get 50% Off</h1>
+            <h1 className="text-light mb-4">
+              Choose from our diverse fleet
+              <br /> of cars and make your next trip extraordinary
+            </h1>
 
             <button className="btn reserve__btn ">
-              <Link to="/cars">Reserve Now</Link>
+              <Link to="/cars">Rent Now</Link>
             </button>
           </div>
         </Container>

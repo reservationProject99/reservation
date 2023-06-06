@@ -3,7 +3,7 @@ const serviceData = [
     id: 1,
     title: "City Transfer",
     icon: "ri-map-pin-2-line",
-    desc: "City Transfer is your reliable partner for car rental services in the city. Whether you need a vehicle for a short trip or a longer journey, we have a wide range of well-maintained cars to cater to your needs.",
+    desc: "City Transfer is your reliable partner for car rental services in the city. Whether you need a vehicle for a short trip or a longer journey.",
   },
 
   {
@@ -24,7 +24,7 @@ const serviceData = [
     id: 4,
     title: "Fast & Easy Booking",
     icon: "ri-timer-flash-line",
-    desc: "With just a few simple steps, you can reserve your desired vehicle and get ready for your journey. Whether you're planning a weekend getaway or a long road trip, our fast and easy booking ensures that you can hit the road without any delays.",
+    desc: "With just a few simple steps, you can reserve your desired vehicle and get ready for your journey. Whether you're planning a weekend getaway or a long road trip.",
   },
 
   {
@@ -38,7 +38,7 @@ const serviceData = [
     id: 6,
     title: "Airport Transfer",
     icon: "ri-flight-takeoff-line",
-    desc: "Airport transfer services provide a convenient and hassle-free transportation option for travelers, ensuring a smooth transition between the airport and their desired destination.",
+    desc: "Airport transfer services provide a convenient and hassle-free transportation option for travelers, ensuring a smooth transition between the airport. ",
   },
 ];
 

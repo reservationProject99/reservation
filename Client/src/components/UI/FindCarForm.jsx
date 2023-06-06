@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from "react";
 import { Form, FormGroup } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../../styles/about.css";
 
 const FindCarForm = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -27,7 +27,9 @@ const FindCarForm = () => {
         const types = [...new Set(carsData.map((car) => car.type))];
         setUniqueTypes(types);
 
-        const energyTypes = [...new Set(carsData.map((car) => car.energy_type))];
+        const energyTypes = [
+          ...new Set(carsData.map((car) => car.energy_type)),
+        ];
         setUniqueEnergyTypes(energyTypes);
       })
       .catch((error) => {
@@ -52,7 +54,7 @@ const FindCarForm = () => {
   };
 
   return (
-    <>
+    <div className="amrofahmizaroasmabushraomariyad">
       <div className="text-center pt-5">
         <h4>Find Your Car Here</h4>
       </div>
@@ -112,7 +114,7 @@ const FindCarForm = () => {
           </FormGroup>
         </div>
       </Form>
-    </>
+    </div>
   );
 };
 

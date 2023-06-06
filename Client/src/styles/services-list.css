@@ -18,3 +18,13 @@
     font-size: 1.1rem;
   }
 }
+
+.service__item {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.service__item {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}

@@ -9,26 +9,23 @@ import CarItem from "../components/UI/CarItem";
 import BecomeDriverSection from "../components/UI/BecomeDriverSection";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import "../styles/services-list.css";
 
 const Home = () => {
-
   const [carData, setCarData] = useState([]);
 
   useEffect(() => {
-
-
-    axios.get(`http://localhost:5000/cars`)
+    axios
+      .get(`http://localhost:5000/cars`)
       .then((response) => {
         setCarData(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-
   }, []);
 
   return (
-    
     <Helmet title="Home">
       {/* ============= hero section =========== */}
       <section className="p-0 hero__slider-section">
@@ -38,7 +35,7 @@ const Home = () => {
           <Container>
             <Row className="form__row">
               <Col lg="4" md="4">
-                <div className="find__cars-left"></div>
+                <div className="find__cars-left amrofahmizaroasmabushraomariyad"></div>
               </Col>
 
               <Col lg="8" md="8" sm="12">
@@ -72,9 +69,11 @@ const Home = () => {
               <h2 className="section__title">Hot Offers</h2>
             </Col>
 
-            {carData.slice(0,3).map((item) => (
-              <CarItem item={item} key={item.id} />
-            ))}
+            <div className="d-flex justify-content-center flex-wrap">
+              {carData.slice(0, 3).map((item) => (
+                <CarItem item={item} key={item.id} />
+              ))}
+            </div>
           </Row>
         </Container>
       </section>

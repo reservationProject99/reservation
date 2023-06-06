@@ -5,27 +5,27 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const CarItem = (props) => {
-
   const [userType, setUserType] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token") || false;
 
-    const token = localStorage.getItem('token') || false;
-
-    axios.get(`http://localhost:5000/checkToken`, {
-      headers: {
-        'authorization': `Bearer ${token}`
-      }
-    }).then((response) => {
-      setUserType(response.data);
-    })
+    axios
+      .get(`http://localhost:5000/checkToken`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUserType(response.data);
+      })
       .catch((error) => {
         console.error(error);
       });
+  }, []);
 
-  }, [])
-
-  const { cars_id, images_data, model, type, energy_type, year, rental_price } = props.item;
+  const { cars_id, images_data, model, type, energy_type, year, rental_price } =
+    props.item;
 
   return (
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5">
@@ -48,36 +48,35 @@ const CarItem = (props) => {
               <i className="ri-settings-2-line"></i> {energy_type}
             </span>
             <span className="d-flex align-items-center gap-1">
-              <i class="ri-calendar-line" style={{ color: "#f9a826" }}></i>{year}
+              <i className="ri-calendar-line" style={{ color: "#f9a826" }}></i>
+              {year}
             </span>
           </div>
-          {userType.role === 'provider' ?
-
+          {userType.role === "provider" ? (
             <>
-              < Link to={`/cars/${cars_id}`}>
+              <Link to={`/cars/${cars_id}`}>
                 <button className="w-100 car__item-btn car__btn-details">
                   Details
                 </button>
               </Link>
             </>
-            :
+          ) : (
             <>
               <Link to={`/Checkout/${cars_id}`}>
                 <button className="w-50 car__item-btn car__btn-rent">
                   Rent
                 </button>
               </Link>
-              < Link to={`/cars/${cars_id}`}>
+              <Link to={`/cars/${cars_id}`}>
                 <button className="w-50 car__item-btn car__btn-details">
                   Details
                 </button>
               </Link>
             </>
-
-          }
+          )}
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -9,7 +9,6 @@
   padding: 0px 30px;
 }
 
-
 .sidebar__top {
   width: 100%;
   height: 70px;
@@ -84,8 +83,21 @@
 }
 
 .nav__active {
-  color: white;
-  background: #b7ffe913;
+  color: #ef621c;
+  background: #ffffff;
   padding: 6px;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    display: none;
+  }
+  .main__layout {
+    width: 100%;
+  }
+  .sidebar__top {
+    width: 100%;
+    left: 0;
+  }
 }

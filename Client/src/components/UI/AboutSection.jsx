@@ -52,7 +52,11 @@ const AboutSection = ({ aboutClass }) => {
 
           <Col lg="6" md="6">
             <div className="about__img">
-              <img src={aboutImg} alt="" className="w-100" />
+              <img
+                src="https://media.istockphoto.com/id/482317724/photo/generic-black-car.jpg?s=612x612&w=0&k=20&c=znbB4j1B28TpXF4I0ZyEGA3ZebNdmFz9MaikOHCQlUo="
+                alt=""
+                className="w-100"
+              />
             </div>
           </Col>
         </Row>

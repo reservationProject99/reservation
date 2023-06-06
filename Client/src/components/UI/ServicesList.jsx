@@ -6,9 +6,15 @@ import servicesData from "../../assets/data/serviceData";
 const ServicesList = () => {
   return (
     <>
-      {servicesData.map((item) => (
-        <ServiceItem item={item} key={item.id} />
-      ))}
+      <section className="services-list-section">
+        <div className="container">
+          <div className="row">
+            {servicesData.map((item) => (
+              <ServiceItem item={item} key={item.id} />
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 };

@@ -32,7 +32,7 @@
 
 ##### **📎 Links:**
 
-▷ [MockUp](https://www.figma.com/file/QtPi0UX1SGp9ciTLJ45Faq/Untitled?type=design&node-id=0-1&t=5GZZWyh3O6OCBYqE-0)
+▷ [MockUp](https://www.figma.com/file/CgZr80vqayihUKluWesCLL/Untitled?type=design&node-id=0%3A1&t=MAdVibYaRioPPfuI-1)
 
 ▷ [Trello](https://trello.com/invite/b/u2iz6G1V/ATTI351821a9ed9d6f87548d318dccd1440052912647/booking-and-reservation-system)
 

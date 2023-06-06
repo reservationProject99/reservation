@@ -14,11 +14,11 @@ const Links = [
   },
   {
     path: "/about",
-    display: "About",
+    display: "Who we are",
   },
   {
     path: "/contact",
-    display: "Contact",
+    display: "Get In Touch",
   },
   {
     path: "/providerAddCar",
@@ -32,7 +32,13 @@ const Links = [
 
 const Header = ({ isLog, updateIsLog }) => {
   const [userData, setUserData] = useState();
-  const [navLinks, setNavLinks] = useState()
+  const [navLinks, setNavLinks] = useState();
+  const [activeLink, setActiveLink] = useState("/home");
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+    console.log(link);
+  };
 
   const fetchData = async () => {
     const token = localStorage.getItem("token") || "";
@@ -124,7 +130,12 @@ const Header = ({ isLog, updateIsLog }) => {
                         <NavLink
                           to={item.path}
                           activeClassName="nav__active"
-                          className="nav__item"
+                          onClick={() => handleLinkClick(item.path)}
+                          className={
+                            activeLink === item.path
+                              ? "nav__item text-warning"
+                              : "nav__item"
+                          }
                           key={index}
                         >
                           {item.display}
@@ -140,7 +151,12 @@ const Header = ({ isLog, updateIsLog }) => {
                         <NavLink
                           to={item.path}
                           activeClassName="nav__active"
-                          className="nav__item"
+                          onClick={() => handleLinkClick(item.path)}
+                          className={
+                            activeLink === item.path
+                              ? "nav__item text-warning"
+                              : "nav__item"
+                          }
                           key={index}
                         >
                           {item.display}

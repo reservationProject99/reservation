@@ -4,10 +4,10 @@ import "../../styles/footer.css";
 const quickLinks = [
   {
     path: "/about",
-    display: "About",
+    display: "Who we are",
   },
   {
-    path: "#",
+    path: "*",
     display: "Privacy Policy",
   },
   {
@@ -20,7 +20,7 @@ const quickLinks = [
   // },
   {
     path: "/contact",
-    display: "Contact",
+    display: "Get in touch",
   },
 ];
 
