@@ -24,18 +24,15 @@ app.get("/users/:id", db.getCustomerById);
 app.put("/users/:id", db.updateCustomerCreaditCard);
 app.put("/delete_user/:id", db.deleteCustomer);
 app.put("/update_user/:id", db.updateUser);
-
 app.put("/update_card/:id", db.fillCreditCard);
 app.post("/createMoveCustomer/:id", db.createMoveCustomer);
-// =======
-// app.put("/user_intrested_cars/:id", db.intrestedCars);
-
 
 // admin
 app.get("/admin", db.getAdmin);
 app.post("/admin", db.createAdmin);
 app.put("/delete_admin/:id", db.deleteAdmin);
 app.put("/update_admin/:id", db.updateAdmin);
+
 
 // provider
 app.post("/provider", db.createProvider);
@@ -58,19 +55,17 @@ app.post("/cars", db.createCar);
 app.put("/delete_car/:id", db.deleteCars);
 app.put("/bookCar/:id", db.bookCar);
 
-app.get("/rented_cars_count", db.getRentedCarscount);
+app.get('/rented_cars_count', db.getRentedCarscount)
 app.get("/rentedCars", db.rentedCars);
 app.put("/update_car/:id", db.updateCar);
-app.put("/update_carUserId/:id", db.updatecarUserId);
-app.put("/update_startEndDate/:id", db.updatestartEndDate);
-app.put("/update_caravailable/:id", db.updatecaravailable);
 
 // Sign
 app.get("/checkToken", authenticateToken, (req, res) => {
   res.send(req.user);
-});
+} )
 
 app.post("/logIn_customer", db.checkCustomer, (req, res) => {
+
   const user = req.body;
 
   const token = jwt.sign(user, process.env.ACCESS_TOKEN_KEY);
@@ -79,6 +74,7 @@ app.post("/logIn_customer", db.checkCustomer, (req, res) => {
 });
 
 app.post("/logIn_provider", db.checkProvider, (req, res) => {
+
   const user = req.body;
 
   const token = jwt.sign(user, process.env.ACCESS_TOKEN_KEY);
@@ -92,11 +88,14 @@ app.post("/logIn_admin", db.checkAdmin, (req, res) => {
   const token = jwt.sign(user, process.env.ACCESS_TOKEN_KEY);
   console.log("Generated token:", token);
   res.json(token);
+
 });
 
+
 function authenticateToken(req, res, next) {
+
   const authHeader = req.headers.authorization;
-  console.log(authHeader);
+  console.log(authHeader)
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {

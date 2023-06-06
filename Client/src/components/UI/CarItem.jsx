@@ -30,8 +30,8 @@ const CarItem = (props) => {
   return (
     <div className="col-lg-4 col-md-4 col-sm-6 mb-5">
       <div className="car__item" style={{ backgroundColor: "white" }}>
-        <div className="car__img w-100 h-50">
-          <img src={`${images_data}`} alt="" className="w-100" style={{height:"15rem"}} />
+        <div className="car__img">
+          <img src={`${images_data}`} alt="" className="w-100" />
         </div>
 
         <div className="car__item-content mt-4">

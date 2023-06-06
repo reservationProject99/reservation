@@ -2,76 +2,17 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
-// import CarItem from "../components/UI/CarItem";
+import CarItem from "../components/UI/CarItem";
 import "../styles/CarLLII.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const CarListing = () => {
-  const navigate = useNavigate();
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedEnergyType, setSelectedEnergyType] = useState("");
   const [search, setSearch] = useState("");
   const [carData, setCarData] = useState([]);
-  const [userData, setUserData] = useState();
-
-  const fetchData = async () => {
-    const token = localStorage.getItem("token") || "";
-
-    try {
-      const response = await axios.get(`http://localhost:5000/get_user`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.data[0];
-      console.log(data);
-      setUserData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const handleDetails = async (id, model) => {
-    console.log(model);
-    try {
-      const details = await axios
-        .put(
-          `http://localhost:5000/user_intrested_cars/${userData.customers_id}`,
-          {
-            name: model,
-          }
-        )
-        .then(sessionStorage.setItem("CarID", id), navigate("/cars/:slug"));
-
-      // getCars();
-      console.log(details);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleRent = async (id) => {
-    // const token = localStorage.getItem("token") || "";
-
-    try {
-      const deleteCars = await axios
-        .put(`http://localhost:5000/update_carUserId/${id}`, {
-          user_id: userData.customers_id,
-        })
-        .then(sessionStorage.setItem("CarID", id), navigate("/Checkout/:slug"));
-
-      // getCars();
-      console.log(deleteCars);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     axios
@@ -238,54 +179,7 @@ const CarListing = () => {
               </div>
             </Col>
             {filteredCars.map((item) => (
-              <div
-                className="col-lg-4 col-md-4 col-sm-6 mb-5"
-                key={item.cars_id}
-              >
-                <div className="car__item" style={{ backgroundColor: "white" }}>
-                  <div className="car__img w-100">
-                    <img
-                      src={item.images_data}
-                      alt=""
-                      className="w-100"
-                      style={{ height: "15rem" }}
-                    />
-                  </div>
-                  <div className="car__item-content mt-4">
-                    <h4 className="section__title text-center">{item.model}</h4>
-                    <h6 className="rent__price text-center mt-">
-                      ${item.rental_price}.00 <span>/ Day</span>
-                    </h6>
-
-                    <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
-                      <span className="d-flex align-items-center gap-1">
-                        <i className="ri-car-line"></i> {item.type}
-                      </span>
-                      <span className="d-flex align-items-center gap-1">
-                        <i className="ri-settings-2-line"></i>{" "}
-                        {item.energy_type}
-                      </span>
-                      <span className="d-flex align-items-center gap-1">
-                        <i className="ri-timer-flash-line"></i> {item.year}
-                      </span>
-                    </div>
-
-                    <button
-                      className="w-50 car__item-btn car__btn-rent"
-                      onClick={() => handleRent(item.cars_id)}
-                    >
-                      Rent
-                    </button>
-
-                    <button
-                      className="w-50 car__item-btn car__btn-details"
-                      onClick={() => handleDetails(item.cars_id, item.model)}
-                    >
-                      Details
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <CarItem item={item} key={item.id} />
             ))}
           </Row>
         </Container>

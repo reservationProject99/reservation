@@ -15,6 +15,8 @@ const Providers = () => {
     setSelectedOption(event.target.value);
   };
 
+  
+
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:5000/provider", {
@@ -192,6 +194,15 @@ const Providers = () => {
 
                                   <td>{provider.phone}</td>
                                   <td>{provider.address}</td>
+                                  <td>
+                                    <i
+                                      onClick={() =>
+                                        handleDelete(provider.provider_id)
+                                      }
+                                      className="ri-delete-bin-line"
+                                      style={{ fontSize: "20px", color: "red" }}
+                                    ></i>
+                                  </td>
                                 </tr>
                               ))}
                             </tbody>

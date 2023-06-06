@@ -1,8 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import navLinks from "../../../assets/dummy-data/navLinks";
 import "./sidebar.css";
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    navigate('/')
+  }
+
   return (
     <div className="sidebar p-3">
       <div className="sidebar__top">
@@ -34,8 +42,8 @@ const Sidebar = () => {
           </ul>
         </div>
 
-        <div className="sidebar__bottom">
-          <span>
+        <div className="sidebar__bottom" >
+          <span onClick={handleLogout}>
             <i className="ri-logout-circle-r-line"></i> Logout
           </span>
         </div>

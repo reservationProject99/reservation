@@ -365,8 +365,8 @@ function ProviderUploadedCar() {
                   type="number"
                   id="form8Example5"
                   className="form-control"
-                  min="1900"
-                  max="2099"
+                  min="2018"
+                  max="2026"
                   step="1"
                   required
                   onChange={(e) => setYearOfMade(e.target.value)}

@@ -1,4 +1,3 @@
-
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
@@ -15,6 +14,24 @@ const Cars = () => {
   };
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/delete_car/${id}`,
+        {},
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      fetchData();
+      toast.success(`car with id: ${id} deleted!`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const fetchData = async () => {
@@ -69,12 +86,12 @@ const Cars = () => {
         >
 
           {carData?.map((car) => (
-            <div className="car__item mb-5">
+            <div className="car__item">
               <div className="car__item-top">
                 <div className="car__item-tile">
                   <h3>{car.model}</h3>
                   <span>
-                    <i className="ri-delete-bin-line"></i>
+                    <i onClick={()=>handleDelete(car.cars_id)} className="ri-delete-bin-line"></i>
 
                   </span>
                 </div>
