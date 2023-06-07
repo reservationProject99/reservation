@@ -3,12 +3,11 @@ import navLinks from "../../../assets/dummy-data/navLinks";
 import "./sidebar.css";
 
 const Sidebar = () => {
-
   const navigate = useNavigate();
 
   function handleLogout() {
     localStorage.removeItem("token");
-    navigate('/')
+    navigate("/");
   }
 
   return (
@@ -42,8 +41,16 @@ const Sidebar = () => {
           </ul>
         </div>
 
-        <div className="sidebar__toggler" >
-          <span onClick={handleLogout}>
+        <div className="sidebar__toggler">
+          <span
+            onClick={handleLogout}
+            style={{
+              position: "relative",
+              top: "-5rem",
+              color: "white",
+              cursor:"pointer"
+            }}
+          >
             <i className="ri-logout-circle-r-line"></i> Logout
           </span>
         </div>

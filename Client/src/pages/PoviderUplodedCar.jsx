@@ -49,7 +49,8 @@ function ProviderUploadedCar() {
   // const [selectedPrice, setSelectedPrice] = useState();
   const [selectedType, setSelectedType] = useState();
   const [selectedEnergyType, setSelectedEnergyType] = useState();
-  const [maxPrice, setMaxPrice] = useState("25");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
   //////
   // const [carById, setCarById] = useState([]);
   const [show, setShow] = useState(false);
@@ -74,6 +75,9 @@ function ProviderUploadedCar() {
 
   const handleMaxPriceChange = (event) => {
     setMaxPrice(Number(event.target.value));
+  };
+  const handleMinPriceChange = (event) => {
+    setMinPrice(Number(event.target.value));
   };
 
   const handleTypeChange = (event) => {
@@ -107,6 +111,9 @@ function ProviderUploadedCar() {
     //   return false;
     // }
     if (maxPrice && car.rental_price > maxPrice) {
+      return false;
+    }
+    if (minPrice && car.rental_price < minPrice) {
       return false;
     }
     return true;
@@ -187,7 +194,7 @@ function ProviderUploadedCar() {
       <div className="container">
         <div className="row">
           <div className="col-lg-12 mt-5">
-            <div className="d-flex align-items-center gap-3 mb-5">
+            <div className="d-flex justify-content-center align-items-center gap-3 mb-5">
               <select
                 onChange={handleBrandChange}
                 value={selectedBrand}
@@ -239,7 +246,7 @@ function ProviderUploadedCar() {
                 <option value="low">Low to High</option>
                 <option value="high">High to Low</option>
               </select> */}
-              <div>
+              {/* <div>
                 <label>Price Range: {maxPrice}$/Day</label>
                 <br />
                 <input
@@ -251,6 +258,29 @@ function ProviderUploadedCar() {
                   onChange={handleMaxPriceChange}
                 />
                 {console.log(maxPrice)}
+              </div> */}
+            </div>
+            <div className="d-flex align-items-center gap-3 mb-5 flex-wrap justify-content-center">
+              <div className="d-flex align-items-center">
+                <input
+                  placeholder="Min Price"
+                  name="Min"
+                  type="number"
+                  min="0"
+                  value={minPrice}
+                  onChange={handleMinPriceChange}
+                  className="select__group w-100"
+                />
+              </div>
+              <div className="d-flex align-items-center">
+                <input
+                  placeholder="Max Price"
+                  type="number"
+                  min={minPrice}
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                  className="select__group w-100"
+                />
               </div>
             </div>
           </div>

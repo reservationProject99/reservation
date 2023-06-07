@@ -12,7 +12,8 @@ const CarListing = () => {
   const [selectedType, setSelectedType] = useState("");
   const [selectedEnergyType, setSelectedEnergyType] = useState("");
   const [search, setSearch] = useState("");
-  const [maxPrice, setMaxPrice] = useState("25");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
   const [carData, setCarData] = useState([]);
 
   useEffect(() => {
@@ -45,6 +46,9 @@ const CarListing = () => {
   const handleMaxPriceChange = (event) => {
     setMaxPrice(Number(event.target.value));
   };
+  const handleMinPriceChange = (event) => {
+    setMinPrice(Number(event.target.value));
+  };
 
   const filteredCars = carData.filter((car) => {
     if (selectedBrand && car.model !== selectedBrand) {
@@ -66,6 +70,9 @@ const CarListing = () => {
     //   return false;
     // }
     if (maxPrice && car.rental_price > maxPrice) {
+      return false;
+    }
+    if (minPrice && car.rental_price < minPrice) {
       return false;
     }
     return true;
@@ -179,7 +186,7 @@ const CarListing = () => {
                   <option value="">Select Price</option>
                   <option value="low">Low to High</option>
                   <option value="high">High to Low</option>
-                </select> */}
+                </select>
                 <div>
                   <label>Price Range: {maxPrice}$/Day</label>
                   <br />
@@ -191,12 +198,37 @@ const CarListing = () => {
                     value={maxPrice}
                     onChange={handleMaxPriceChange}
                   />
+                </div>*/}
+              </div>
+              <div className="d-flex align-items-center gap-3 mb-5 flex-wrap justify-content-center">
+                <div className="d-flex align-items-center">
+                  <input
+                    placeholder="Min Price"
+                    name="Min"
+                    type="number"
+                    min="0"
+                    value={minPrice}
+                    onChange={handleMinPriceChange}
+                    className="select__group w-100"
+                  />
+                </div>
+                <div className="d-flex align-items-center">
+                  <input
+                    placeholder="Max Price"
+                    type="number"
+                    min={minPrice}
+                    value={maxPrice}
+                    onChange={handleMaxPriceChange}
+                    className="select__group w-100"
+                  />
                 </div>
               </div>
             </Col>
-            {filteredCars.map((item) => (
-              <CarItem item={item} key={item.id} />
-            ))}
+            <div className="d-flex flex-row justify-content-center flex-wrap mt-5 ">
+              {filteredCars.map((item) => (
+                <CarItem item={item} key={item.id} />
+              ))}
+            </div>
           </Row>
         </Container>
       </section>

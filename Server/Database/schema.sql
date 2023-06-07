@@ -46,6 +46,7 @@ CREATE TABLE cars  (
   user_id INTEGER,
   is_delete BOOLEAN DEFAULT false,
   provider_id INTEGER REFERENCES provider(provider_id)
+  active BOOLEAN DEFAULT false
 );
 
 CREATE TABLE provider_movements  (

@@ -28,7 +28,7 @@ const CarItem = (props) => {
     props.item;
 
   return (
-    <div className="col-lg-4 col-md-4 col-sm-6 mb-5">
+    <div className="mb-5">
       <div className="car__item" style={{ backgroundColor: "white" }}>
         <div className="car__img">
           <img src={`${images_data}`} alt="" className="w-100" />

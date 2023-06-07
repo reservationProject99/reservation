@@ -204,7 +204,7 @@ const getNotAcceptedProvider = (req, res) => {
 
 const getProvidercount = (req, res) => {
   db.query(
-    "SELECT * FROM public.provider WHERE is_delete = false",
+    "SELECT * FROM public.provider WHERE is_delete = false AND active = true",
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
@@ -306,7 +306,7 @@ const Pre_rented_cars = (req, res) => {
           FROM cars ca
           INNER JOIN customer_movements cu
               ON ca.cars_id = cu.car_id
-          WHERE customers_id = $1 AND is_delete = false
+          WHERE customers_id = $1 AND is_delete = false AND active = true
           `,
     [id],
     (error, results) => {
@@ -390,7 +390,19 @@ const deleteAdmin = (req, res) => {
 // Car
 const getCar = (req, res) => {
   db.query(
-    "SELECT * FROM public.cars WHERE is_delete = false AND available = true ORDER BY cars_id DESC",
+    "SELECT * FROM public.cars WHERE is_delete = false AND available = true AND active = true ORDER BY cars_id DESC",
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
+const getNotActiveCar = (req, res) => {
+  db.query(
+    "SELECT * FROM public.cars WHERE active = false AND is_delete = false  ORDER BY cars_id ASC",
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
@@ -402,7 +414,7 @@ const getCar = (req, res) => {
 
 const getCarscount = (req, res) => {
   db.query(
-    "SELECT * FROM public.cars WHERE is_delete = false",
+    "SELECT * FROM public.cars WHERE is_delete = false AND active = true",
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
@@ -414,7 +426,7 @@ const getCarscount = (req, res) => {
 
 const getRentedCarscount = (req, res) => {
   db.query(
-    "SELECT * FROM public.cars WHERE available = false",
+    "SELECT * FROM public.cars WHERE available = false AND active = true",
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
@@ -424,11 +436,26 @@ const getRentedCarscount = (req, res) => {
   );
 };
 
+const acceptCar = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  db.query(
+    "UPDATE public.cars SET active = $1 WHERE cars_id = $2",
+    [true, id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`car with ID: ${id} Accepted`);
+    }
+  );
+};
+
 const getCarsById = (req, res) => {
   const id = parseInt(req.params.id);
 
   db.query(
-    "SELECT * FROM public.cars WHERE cars_id = $1",
+    "SELECT * FROM public.cars WHERE cars_id = $1 AND active = true",
     [id],
     (error, results) => {
       if (error) {
@@ -453,7 +480,7 @@ const createCar = async (req, res) => {
   } = req.body;
 
   db.query(
-    "INSERT INTO public.cars (discrabtion,type,energy_type,model,year,rental_price,available,images_data,start_date,end_date,is_delete,provider_id,start_location,end_location,seats_number) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING *",
+    "INSERT INTO public.cars (discrabtion,type,energy_type,model,year,rental_price,available,images_data,start_date,end_date,is_delete,provider_id,start_location,end_location,seats_number,active) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) RETURNING *",
     [
       discrabtion,
       type,
@@ -470,6 +497,7 @@ const createCar = async (req, res) => {
       null,
       null,
       seats_number,
+      false,
     ],
     (error, results) => {
       if (error) {
@@ -482,7 +510,7 @@ const createCar = async (req, res) => {
 
 const rentedCars = (req, res) => {
   db.query(
-    "SELECT * FROM public.cars WHERE is_delete = false AND available = false ORDER BY cars_id DESC",
+    "SELECT * FROM public.cars WHERE is_delete = false AND available = false AND active = true ORDER BY cars_id DESC",
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
@@ -496,7 +524,7 @@ const getCarsByIdProvider = (req, res) => {
   const id = parseInt(req.params.id);
 
   db.query(
-    "SELECT * FROM public.cars WHERE provider_id = $1 AND is_delete = false",
+    "SELECT * FROM public.cars WHERE provider_id = $1 AND is_delete = false AND active = true",
     [id],
     (error, results) => {
       if (error) {
@@ -522,7 +550,7 @@ const updateCar = (req, res) => {
   console.log(req.body);
 
   db.query(
-    "UPDATE public.cars SET discrabtion = $1, type = $2, energy_type = $3, model = $4, year = $5, rental_price = $6, images_data = $7, seats_number = $8 WHERE cars_id = $9",
+    "UPDATE public.cars SET discrabtion = $1, type = $2, energy_type = $3, model = $4, year = $5, rental_price = $6, images_data = $7, seats_number = $8 WHERE cars_id = $9 AND active = true",
     [
       discrabtion,
       type,
@@ -549,7 +577,7 @@ const bookCar = (req, res) => {
     req.body;
 
   db.query(
-    "UPDATE public.cars SET user_id = $1, start_date = $2,end_date=$3,start_location=$4,end_location=$5,available=$6 WHERE cars_id = $7",
+    "UPDATE public.cars SET user_id = $1, start_date = $2,end_date=$3,start_location=$4,end_location=$5,available=$6 WHERE cars_id = $7 AND active = true",
     [user_id, start_date, end_date, start_location, end_location, false, id],
     (error, results) => {
       if (error) {
@@ -661,7 +689,7 @@ const checkProvider = (req, res, next) => {
   const { email, password } = req.body;
 
   db.query(
-    "SELECT * FROM public.provider WHERE is_delete = false ORDER BY provider_id ASC",
+    "SELECT * FROM public.provider WHERE is_delete = false AND active = true ORDER BY provider_id ASC",
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
@@ -703,6 +731,7 @@ module.exports = {
   getCustomerByToken,
   updateUser,
   Pre_rented_cars,
+  getNotActiveCar,
 
   getAdmin,
   createAdmin,
@@ -729,6 +758,7 @@ module.exports = {
   getCarsByIdProvider,
   rentedCars,
   updateCar,
+  acceptCar,
 
   checkProvider,
   checkCustomer,

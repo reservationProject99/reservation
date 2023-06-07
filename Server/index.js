@@ -54,6 +54,8 @@ app.get("/cars/:id", db.getCarsById);
 app.post("/cars", db.createCar);
 app.put("/delete_car/:id", db.deleteCars);
 app.put("/bookCar/:id", db.bookCar);
+app.get("/not_active_car", db.getNotActiveCar);
+app.put("/accept_car/:id", db.acceptCar);
 
 app.get("/rented_cars_count", db.getRentedCarscount);
 app.get("/rentedCars", db.rentedCars);
