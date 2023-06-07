@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-useless-escape */
@@ -155,7 +156,7 @@ export default function SignIn({ updateIsLog }) {
 
   return (
     <>
-      <div className="row bg-gray-100 text-gray-900 justify-content-center">
+      <div className="row bg-gray-100 text-gray-900 justify-content-center mx-0">
         <div className="row max-w-screen-lg m-0 m-sm-20 bg-white shadow-sm rounded-lg justify-content-center">
           <div className="col-lg-5 col-md-7 col-10">
             <div className="mt-12 d-flex flex-column align-items-center">
@@ -165,20 +166,6 @@ export default function SignIn({ updateIsLog }) {
               >
                 Sign In
               </h1>
-              <div className="mt-3 d-flex flex-column align-items-center">
-                  <div className="w-100 mt-4">
-                    <div className="d-flex flex-column align-items-center">
-                      <Facebook massage={"Sign in with Facebook"} />
-                      <Google massage={"Sign in with Google"} />
-                    </div>
-
-                    <div className="my-4 border-bottom text-center">
-                      <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
-                        Or sign in with e-mail
-                      </div>
-                    </div>
-                  </div>
-                </div>
               <div className="w-100 flex-1 mt-8">
                 <div className="d-flex flex-wrap mt-4 align-items-center justify-content-around border border-primary border-opacity-50 rounded-3">
                   <div className="form-check my-3">
@@ -291,6 +278,19 @@ export default function SignIn({ updateIsLog }) {
                         Sign Up
                       </Link>
                     </p>
+                  </div>
+                  <div className="mt-3 d-flex flex-column align-items-center">
+                    <div className="w-100 mt-2">
+                      <div className="my-4 border-bottom text-center">
+                        <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
+                          Or Sign In With
+                        </div>
+                      </div>
+                      <div className="d-flex flex-column align-items-center">
+                        <Facebook massage={"Sign in with Facebook"} />
+                        <Google massage={"Sign in with Google"} />
+                      </div>
+                    </div>
                   </div>
                 </form>
               </div>

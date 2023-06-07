@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-useless-escape */
 /* eslint-disable no-undef */
 /* eslint-disable no-dupe-keys */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
 import SignUpCar from "../assets/all-images/SignUp.png";
@@ -14,6 +15,7 @@ export default function SignUp() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const navigate = useNavigate();
 
   const [path, setPath] = useState("/signIn");
   const [userCheck, setUserCheck] = useState(false);
@@ -169,7 +171,7 @@ export default function SignUp() {
       sendDataToServer(user);
       console.log("ok");
       event.target.reset();
-      // navigate(path);
+      navigate(path);
     } else {
       setMassageWarning({
         ...massageWarning,
@@ -224,20 +226,6 @@ export default function SignUp() {
                 >
                   Sign Up to Join Us!
                 </h1>
-                <div className="mt-3 d-flex flex-column align-items-center">
-                  <div className="w-100 mt-4">
-                    <div className="d-flex flex-column align-items-center">
-                      <Facebook massage={"Sign in with Facebook"} />
-                      <Google massage={"Sign in with Google"} />
-                    </div>
-
-                    <div className="my-4 border-bottom text-center">
-                      <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
-                        Or sign in with e-mail
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div className="w-100 flex-1 mt-8">
                   <form onSubmit={handleSubmit}>
                     <div className="mx-auto max-w-xs">
@@ -432,6 +420,19 @@ export default function SignUp() {
                           Sign In
                         </Link>
                       </p>
+                    </div>
+                    <div className="mt-3 d-flex flex-column align-items-center">
+                      <div className="my-4 border-bottom text-center">
+                        <div className="px-2 d-inline-block text-lg text-secondary font-weight-medium bg-white translate-middle-y">
+                          Or Sign Up With
+                        </div>
+                      </div>
+                      <div className="w-100 mt-4">
+                        <div className="d-flex flex-column align-items-center">
+                          <Facebook massage={"Sign in with Facebook"} />
+                          <Google massage={"Sign in with Google"} />
+                        </div>
+                      </div>
                     </div>
                   </form>
                 </div>

@@ -1,8 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProviderAddCar() {
+  const navigate = useNavigate();
+
+  const checkAccess = async (role) => {
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const res = await axios.get("http://localhost:5000/checkToken", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.data.role !== role) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    checkAccess("provider");
+    window.scrollTo(0, 0);
+  }, []);
   const [type, setType] = useState();
   const [energy_type, setEnergyEtype] = useState();
   const [model, setModel] = useState();

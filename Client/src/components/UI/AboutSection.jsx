@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Container, Row, Col } from "reactstrap";
 import "../../styles/about-section.css";
-import aboutImg from "../../assets/all-images/cars-img/bmw-offer.png";
 
 const AboutSection = ({ aboutClass }) => {
   return (

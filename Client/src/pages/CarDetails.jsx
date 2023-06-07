@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
 import { Container, Row, Col } from "reactstrap";
@@ -98,7 +99,7 @@ const CarDetails = () => {
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
-                    <i class="ri-calendar-line" style={{ color: "#f9a826" }}></i>
+                    <i className="ri-calendar-line" style={{ color: "#f9a826" }}></i>
                     {carData[0]?.year}
                   </span>
                 </div>

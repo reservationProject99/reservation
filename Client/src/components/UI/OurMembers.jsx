@@ -1,6 +1,6 @@
 import "../../styles/our-member.css";
 import { Col } from "reactstrap";
-  import fahmi from "../../assets/all-images/fahmi.png";
+import fahmi from "../../assets/all-images/fahmi.png";
 import omar from "../../assets/all-images/omar.png";
 import asma from "../../assets/all-images/asma.png";
 import bushra from "../../assets/all-images/bushra.png";
@@ -71,7 +71,8 @@ const OurMembers = () => {
   return (
     <>
       {OUR__MEMBERS.map((item, index) => (
-        <Col lg="3" md="3" sm="4" xs="6" key={index} className="mb-4">
+        <Col lg="3" md="4" sm="6" xs="10" key={index} className="mb-4">
+          {/* // <Col key={index} className="mb-4"> */}
           <div className="single__member ">
             <div className="single__member-img">
               <img src={item.imgUrl} alt="" className="w-100 BB" />

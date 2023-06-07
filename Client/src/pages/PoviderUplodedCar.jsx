@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Helmet from "../components/Helmet/Helmet";
 import { toast } from "react-toastify";
@@ -18,11 +19,37 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 function ProviderUploadedCar() {
+  const navigate = useNavigate();
+
+  const checkAccess = async (role) => {
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const res = await axios.get("http://localhost:5000/checkToken", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.data.role !== role) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    checkAccess("provider");
+    window.scrollTo(0, 0);
+  }, []);
   const [carsArray, setCarsArray] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState();
-  const [selectedPrice, setSelectedPrice] = useState();
+  // const [selectedPrice, setSelectedPrice] = useState();
   const [selectedType, setSelectedType] = useState();
   const [selectedEnergyType, setSelectedEnergyType] = useState();
+  const [maxPrice, setMaxPrice] = useState("25");
   //////
   // const [carById, setCarById] = useState([]);
   const [show, setShow] = useState(false);
@@ -41,8 +68,12 @@ function ProviderUploadedCar() {
     setSelectedBrand(event.target.value);
   };
 
-  const handlePriceChange = (event) => {
-    setSelectedPrice(event.target.value);
+  // const handlePriceChange = (event) => {
+  //   setSelectedPrice(event.target.value);
+  // };
+
+  const handleMaxPriceChange = (event) => {
+    setMaxPrice(Number(event.target.value));
   };
 
   const handleTypeChange = (event) => {
@@ -69,10 +100,13 @@ function ProviderUploadedCar() {
     ) {
       return false;
     }
-    if (selectedPrice === "low" && car.rental_price >= 50) {
-      return false;
-    }
-    if (selectedPrice === "high" && car.rental_price < 50) {
+    // if (selectedPrice === "low" && car.rental_price >= 50) {
+    //   return false;
+    // }
+    // if (selectedPrice === "high" && car.rental_price < 50) {
+    //   return false;
+    // }
+    if (maxPrice && car.rental_price > maxPrice) {
       return false;
     }
     return true;
@@ -154,9 +188,6 @@ function ProviderUploadedCar() {
         <div className="row">
           <div className="col-lg-12 mt-5">
             <div className="d-flex align-items-center gap-3 mb-5">
-              <span className="d-flex align-items-center gap-2">
-                <i className="ri-sort-asc"></i> Sort By
-              </span>
               <select
                 onChange={handleBrandChange}
                 value={selectedBrand}
@@ -199,7 +230,7 @@ function ProviderUploadedCar() {
                   )
                 )}
               </select>
-              <select
+              {/* <select
                 onChange={handlePriceChange}
                 value={selectedPrice}
                 className="select__group"
@@ -207,7 +238,20 @@ function ProviderUploadedCar() {
                 <option value="">Select Price</option>
                 <option value="low">Low to High</option>
                 <option value="high">High to Low</option>
-              </select>
+              </select> */}
+              <div>
+                <label>Price Range: {maxPrice}$/Day</label>
+                <br />
+                <input
+                  defaultValue={maxPrice}
+                  type="range"
+                  min={Math.min(...carsArray.map((car) => car.rental_price))}
+                  max={Math.max(...carsArray.map((car) => car.rental_price))}
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                />
+                {console.log(maxPrice)}
+              </div>
             </div>
           </div>
 

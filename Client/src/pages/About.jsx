@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import CommonSection from "../components/UI/CommonSection";
 import Helmet from "../components/Helmet/Helmet";
 import AboutSection from "../components/UI/AboutSection";
@@ -78,7 +79,12 @@ const About = () => {
               <h6 className="section__subtitle">Experts</h6>
               <h2 className="section__title">Our Members</h2>
             </Col>
-            <OurMembers />
+            <div
+              className="d-flex flex-row flex-wrap justify-content-center
+"
+            >
+              <OurMembers />
+            </div>
           </Row>
         </Container>
       </section>

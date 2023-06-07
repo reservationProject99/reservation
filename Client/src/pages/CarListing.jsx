@@ -8,10 +8,11 @@ import axios from "axios";
 
 const CarListing = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedPrice, setSelectedPrice] = useState("");
+  // const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedEnergyType, setSelectedEnergyType] = useState("");
   const [search, setSearch] = useState("");
+  const [maxPrice, setMaxPrice] = useState("25");
   const [carData, setCarData] = useState([]);
 
   useEffect(() => {
@@ -29,9 +30,9 @@ const CarListing = () => {
     setSelectedBrand(event.target.value);
   };
 
-  const handlePriceChange = (event) => {
-    setSelectedPrice(event.target.value);
-  };
+  // const handlePriceChange = (event) => {
+  //   setSelectedPrice(event.target.value);
+  // };
 
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
@@ -39,6 +40,10 @@ const CarListing = () => {
 
   const handleEnergyTypeChange = (event) => {
     setSelectedEnergyType(event.target.value);
+  };
+
+  const handleMaxPriceChange = (event) => {
+    setMaxPrice(Number(event.target.value));
   };
 
   const filteredCars = carData.filter((car) => {
@@ -54,10 +59,13 @@ const CarListing = () => {
     if (search && !car.model.toLowerCase().includes(search.toLowerCase())) {
       return false;
     }
-    if (selectedPrice === "low" && car.rental_price > 50) {
-      return false;
-    }
-    if (selectedPrice === "high" && car.rental_price <= 50) {
+    // if (selectedPrice === "low" && car.rental_price > 50) {
+    //   return false;
+    // }
+    // if (selectedPrice === "high" && car.rental_price <= 50) {
+    //   return false;
+    // }
+    if (maxPrice && car.rental_price > maxPrice) {
       return false;
     }
     return true;
@@ -68,12 +76,12 @@ const CarListing = () => {
     const brand = queryParams.get("brand");
     const type = queryParams.get("type");
     const energyType = queryParams.get("energyType");
-    const price = queryParams.get("price");
+    // const price = queryParams.get("price");
 
     setSelectedBrand(brand || "");
     setSelectedType(type || "");
     setSelectedEnergyType(energyType || "");
-    setSelectedPrice(price || "");
+    // setSelectedPrice(price || "");
   }, []);
 
   return (
@@ -119,11 +127,7 @@ const CarListing = () => {
               </div>
             </Col>
             <Col lg="12">
-              <div className="d-flex align-items-center gap-3 mb-5">
-                <span className="row d-flex align-items-center gap-2 mb-1">
-                  <i className="ri-sort-asc"></i> Sort By
-                </span>
-
+              <div className="d-flex align-items-center gap-3 mb-5 flex-wrap justify-content-center">
                 <select
                   onChange={handleBrandChange}
                   value={selectedBrand}
@@ -167,7 +171,7 @@ const CarListing = () => {
                   )}
                 </select>
 
-                <select
+                {/* <select
                   onChange={handlePriceChange}
                   value={selectedPrice}
                   className="select__group"
@@ -175,7 +179,19 @@ const CarListing = () => {
                   <option value="">Select Price</option>
                   <option value="low">Low to High</option>
                   <option value="high">High to Low</option>
-                </select>
+                </select> */}
+                <div>
+                  <label>Price Range: {maxPrice}$/Day</label>
+                  <br />
+                  <input
+                    defaultValue={maxPrice}
+                    type="range"
+                    min={Math.min(...carData.map((car) => car.rental_price))}
+                    max={Math.max(...carData.map((car) => car.rental_price))}
+                    value={maxPrice}
+                    onChange={handleMaxPriceChange}
+                  />
+                </div>
               </div>
             </Col>
             {filteredCars.map((item) => (

@@ -1,4 +1,403 @@
 /* eslint-disable no-unused-vars */
+// /* eslint-disable no-unused-vars */
+// import { useState, useEffect } from "react";
+// import {
+//   MDBCol,
+//   MDBContainer,
+//   MDBRow,
+//   MDBCard,
+//   MDBCardText,
+//   MDBCardBody,
+// } from "mdb-react-ui-kit";
+// import Button from "react-bootstrap/Button";
+// import { MDBInput } from "mdb-react-ui-kit";
+// import { Button as BootstrapButton } from "react-bootstrap";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
+// import { Link } from "react-router-dom";
+// import axios from "axios";
+// import Modal from "react-bootstrap/Modal";
+// import Form from "react-bootstrap/Form";
+
+// export default function ProfilePage() {
+//   const [show, setShow] = useState(false);
+//   const handleClose = () => setShow(false);
+//   const handleShow = () => setShow(true);
+//   const [user, setUser] = useState({});
+//   const [name, setname] = useState();
+//   const [email, setemail] = useState();
+//   const [phone, setphone] = useState();
+//   const [address, setaddress] = useState();
+//   const [password, setpassword] = useState();
+//   const [carsDataAvailable, setCarsDataAvailable] = useState([]);
+//   const [carsDataRented, setCarsDataRented] = useState([]);
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+
+//     if (user?.role == "user") {
+//       axios
+//         .put(`http://localhost:5000/update_user/${user.customers_id}`, {
+//           name: name,
+//           email: email,
+//           password: password,
+//           phone: phone,
+//           address: address,
+//         })
+//         .then((response) => {
+//           setShow(false);
+//         });
+//     } else if (user?.role == "provider") {
+//       axios
+//         .put(`http://localhost:5000/update_provider/${user.provider_id}`, {
+//           name: name,
+//           email: email,
+//           password: password,
+//           phone: phone,
+//           address: address,
+//         })
+//         .then((response) => {
+//           setShow(false);
+//         });
+//     }
+//   };
+
+//   const getCars = async () => {
+//     const token = localStorage.getItem("token") || "";
+//     let userToken;
+
+//     try {
+//       const resToken = await axios.get("http://localhost:5000/checkToken", {
+//         headers: {
+//           authorization: `Bearer ${token}`,
+//         },
+//       });
+
+//       userToken = resToken.data;
+//       setUser(resToken.data);
+
+//       console.log(resToken.data.customers_id);
+
+//       try {
+//         const res = await axios.post(
+//           `http://localhost:5000/Pre_rented_cars/${resToken.data.customers_id}`
+//         );
+
+//         const Rented = res.data?.filter((car) => car.available);
+
+//         const Available = res.data?.filter((car) => !car.available);
+
+//         setCarsDataAvailable(Available);
+//         setCarsDataRented(Rented);
+
+//         console.log(res.data);
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
+
+//   useEffect(() => {
+//     getCars();
+//   }, []);
+
+//   return (
+//     <section style={{ backgroundColor: "#eee" }}>
+//       <div className="text-center">
+//         <h1 className="fw-bold" style={{ color: "#000d6b" }}>
+//           Welcome to QuickRide
+//         </h1>
+//       </div>
+//       <MDBContainer className="py-5">
+//         <MDBRow>
+//           <MDBCol lg="4">
+//             <img
+//               style={{ height: "35rem" }}
+//               src="https://images.pexels.com/photos/1519192/pexels-photo-1519192.jpeg?auto=compress&cs=tinysrgb&w=600"
+//               alt=""
+//             />
+//           </MDBCol>
+//           <MDBCol lg="8">
+//             <MDBCol lg="12">
+//               <MDBCard className="mb-4">
+//                 <MDBCardBody style={{ padding: "7rem" }}>
+//                   <form>
+//                     <MDBRow className="mb-4">
+//                       <MDBCol sm="3">
+//                         <MDBCardText>Full Name</MDBCardText>
+//                       </MDBCol>
+//                       <MDBCol sm="9">
+//                         <MDBInput
+//                           onChange={(event) => setname(event.target.value)}
+//                           type="text"
+//                           className="text"
+//                           value={user?.username}
+//                           readOnly
+//                         />
+//                       </MDBCol>
+//                     </MDBRow>
+//                     <hr />
+//                     <MDBRow className="mb-4">
+//                       <MDBCol sm="3">
+//                         <MDBCardText>Email</MDBCardText>
+//                       </MDBCol>
+//                       <MDBCol sm="9">
+//                         <MDBInput
+//                           onChange={(event) => setemail(event.target.value)}
+//                           type="email"
+//                           className="text"
+//                           value={user?.email}
+//                           readOnly
+//                         />
+//                       </MDBCol>
+//                     </MDBRow>
+//                     <hr />
+//                     <MDBRow className="mb-4">
+//                       <MDBCol sm="3">
+//                         <MDBCardText>Phone</MDBCardText>
+//                       </MDBCol>
+//                       <MDBCol sm="9">
+//                         <MDBInput
+//                           onChange={(event) => setphone(event.target.value)}
+//                           type="text"
+//                           className="text"
+//                           value={user?.phone}
+//                           readOnly
+//                         />
+//                       </MDBCol>
+//                     </MDBRow>
+//                     <hr />
+//                     <MDBRow className="mb-4">
+//                       <MDBCol sm="3">
+//                         <MDBCardText>Address</MDBCardText>
+//                       </MDBCol>
+//                       <MDBCol sm="9">
+//                         <MDBInput
+//                           onChange={(event) => address(event.target.value)}
+//                           type="text"
+//                           className="text"
+//                           value={user?.address}
+//                           readOnly
+//                         />
+//                       </MDBCol>
+//                     </MDBRow>
+
+//                     <div className="d-flex justify-content-end">
+//                       <BootstrapButton
+//                         variant="success"
+//                         className="btn-floating"
+//                         onClick={handleShow}
+//                       >
+//                         <FontAwesomeIcon icon={faUserEdit} />
+//                       </BootstrapButton>
+//                     </div>
+//                     <Modal show={show} onHide={handleClose}>
+//                       <Modal.Header closeButton>
+//                         <Modal.Title>Add A New Inormation </Modal.Title>
+//                       </Modal.Header>
+//                       <Modal.Body>
+//                         <Form>
+//                           <Form.Group
+//                             className="mb-3"
+//                             controlId="exampleForm.ControlInput1"
+//                           >
+//                             <Form.Label>Full Name</Form.Label>
+//                             <Form.Control
+//                               type="email"
+//                               onChange={(event) => setname(event.target.value)}
+//                               placeholder="Johnatan Smith"
+//                               autoFocus
+//                             />
+//                           </Form.Group>
+
+//                           <Form.Group
+//                             className="mb-3"
+//                             controlId="exampleForm.ControlInput1"
+//                           >
+//                             <Form.Label>Email address</Form.Label>
+//                             <Form.Control
+//                               type="email"
+//                               placeholder="name@example.com"
+//                               autoFocus
+//                               onChange={(event) => setemail(event.target.value)}
+//                             />
+//                           </Form.Group>
+
+//                           <Form.Group
+//                             className="mb-3"
+//                             controlId="exampleForm.ControlInput1"
+//                           >
+//                             <Form.Label>Password</Form.Label>
+//                             <Form.Control
+//                               type="Password"
+//                               placeholder="*********"
+//                               autoFocus
+//                               onChange={(event) =>
+//                                 setpassword(event.target.value)
+//                               }
+//                             />
+//                           </Form.Group>
+
+//                           <Form.Group
+//                             className="mb-3"
+//                             controlId="exampleForm.ControlInput1"
+//                           >
+//                             <Form.Label>Phone Number</Form.Label>
+//                             <Form.Control
+//                               type="tel"
+//                               placeholder="0799999999"
+//                               autoFocus
+//                               onChange={(event) => setphone(event.target.value)}
+//                             />
+//                           </Form.Group>
+
+//                           <Form.Group
+//                             className="mb-3"
+//                             controlId="exampleForm.ControlInput1"
+//                           >
+//                             <Form.Label>Address</Form.Label>
+//                             <Form.Control
+//                               type="text"
+//                               placeholder="Zarqa , Jordan"
+//                               autoFocus
+//                               onChange={(event) =>
+//                                 setaddress(event.target.value)
+//                               }
+//                             />
+//                           </Form.Group>
+//                         </Form>
+//                       </Modal.Body>
+//                       <Modal.Footer>
+//                         <Button variant="secondary" onClick={handleClose}>
+//                           Close
+//                         </Button>
+//                         <Button variant="success" onClick={handleSubmit}>
+//                           Update
+//                         </Button>
+//                       </Modal.Footer>
+//                     </Modal>
+//                   </form>
+//                 </MDBCardBody>
+//               </MDBCard>
+//             </MDBCol>
+//           </MDBCol>
+//         </MDBRow>
+
+//         <div className="row d-flex justify-content-around">
+//           {carsDataRented.length >= 1 ? (
+//             <h1
+//               className="row d-flex justify-content-center fw-bold mb-4"
+//               style={{ color: "#000d6b" }}
+//             >
+//               Previously rented cars
+//             </h1>
+//           ) : (
+//             <></>
+//           )}
+//           {carsDataRented?.map((car, index) => (
+//             <div key={index} className="col-lg-4 col-md-4 col-sm-6 mb-5">
+//               <div className="car__item" style={{ backgroundColor: "white" }}>
+//                 <div className="car__img">
+//                   <img src={car.images_data} alt="" className="w-100" />
+//                 </div>
+
+//                 <div className="car__item-content mt-4">
+//                   <h4 className="section__title text-center">{car.model}</h4>
+//                   <h6 className="rent__price text-center mt-">
+//                     ${car.rental_price}.00 <span>/ Day</span>
+//                   </h6>
+
+//                   <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
+//                     <span className="d-flex align-items-center gap-1">
+//                       <i className="ri-car-line"></i> {car.type}
+//                     </span>
+//                     <span className="d-flex align-items-center gap-1">
+//                       <i className="ri-settings-2-line"></i> {car.energy_type}
+//                     </span>
+//                     <span className="d-flex align-items-center gap-1">
+//                       <i
+//                         className="ri-calendar-line"
+//                         style={{ color: "#f9a826" }}
+//                       ></i>
+//                       {car.year}
+//                     </span>
+//                   </div>
+//                   <Link to="/Checkout/:slug">
+//                     <button className="w-50 car__item-btn car__btn-rent">
+//                       Rent it again
+//                     </button>
+//                   </Link>
+//                   <Link to={`/cars/${car.model}`}>
+//                     <button className="w-50 car__item-btn car__btn-details">
+//                       Details
+//                     </button>
+//                   </Link>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+
+//           {carsDataAvailable.length >= 1 ? (
+//             <h1
+//               className="row d-flex justify-content-center fw-bold mb-4"
+//               style={{ color: "#000d6b" }}
+//             >
+//               Your rented cars
+//             </h1>
+//           ) : (
+//             <></>
+//           )}
+
+//           {carsDataAvailable?.map((car, index) => (
+//             <div key={index} className="col-lg-4 col-md-4 col-sm-6 mb-5">
+//               <div className="car__item" style={{ backgroundColor: "white" }}>
+//                 <div className="car__img">
+//                   <img src={car.images_data} alt="" className="w-100" />
+//                 </div>
+
+//                 <div className="car__item-content mt-4">
+//                   <h4 className="section__title text-center">{car.model}</h4>
+//                   <h6 className="rent__price text-center mt-">
+//                     ${car.rental_price}.00 <span>/ Day</span>
+//                   </h6>
+
+//                   <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
+//                     <span className="d-flex align-items-center gap-1">
+//                       <i className="ri-car-line"></i> {car.type}
+//                     </span>
+//                     <span className="d-flex align-items-center gap-1">
+//                       <i className="ri-settings-2-line"></i> {car.energy_type}
+//                     </span>
+//                     <span className="d-flex align-items-center gap-1">
+//                       <i
+//                         className="ri-calendar-line"
+//                         style={{ color: "#f9a826" }}
+//                       ></i>
+//                       {car.year}
+//                     </span>
+//                   </div>
+//                   <Link to="/Checkout">
+//                     <button className="w-50 car__item-btn car__btn-rent">
+//                       Rent it again
+//                     </button>
+//                   </Link>
+//                   <Link to={`/cars/${car.model}`}>
+//                     <button className="w-50 car__item-btn car__btn-details">
+//                       Details
+//                     </button>
+//                   </Link>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </MDBContainer>
+//     </section>
+//   );
+// }
+
 import { useState, useEffect } from "react";
 import {
   MDBCol,
@@ -12,60 +411,31 @@ import Button from "react-bootstrap/Button";
 import { MDBInput } from "mdb-react-ui-kit";
 import { Button as BootstrapButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagic } from "@fortawesome/free-solid-svg-icons";
+import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-// const cardData = [
-//   {
-//     cars_id: 6,
-//     rating: 4,
-//     description:
-//       "toyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyota",
-//     type: "toyota",
-//     energy_type: "electric",
-//     model: "T-120",
-//     year: 2020,
-//     rental_price: 100,
-//     available: true,
-//     start_date: null,
-//     end_date: null,
-//     is_delete: false,
-//     provider_id: 1,
-//     start_location: null,
-//     end_location: null,
-//     seats_number: 4,
-//     user_id: null,
-//     images_data:
-//       "https://www.vhv.rs/dpng/d/483-4831619_outlander-phev-mitsubishi-outlander-phev-2020-ruby-black.png",
-//   },
-// ];
-
 export default function ProfilePage() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({});
-  const [provider, setProvider] = useState({});
-  const [isCustomer, setIsCustomer] = useState(false);
   const [name, setname] = useState();
   const [email, setemail] = useState();
   const [phone, setphone] = useState();
   const [address, setaddress] = useState();
   const [password, setpassword] = useState();
-  const [carsArray, setCarsArray] = useState([]);
-  const [getAllCarsIdOfCustomer, setGetAllCarsIdOfCustomer] = useState([]);
+  const [carsDataAvailable, setCarsDataAvailable] = useState([]);
+  const [carsDataRented, setCarsDataRented] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(name, email, password, phone, address);
-    if (user[0]?.role == "user") {
+    if (user?.role == "user") {
       axios
-        .put(`http://localhost:5000/update_user/${user[0]?.customers_id}`, {
+        .put(`http://localhost:5000/update_user/${user.customers_id}`, {
           name: name,
           email: email,
           password: password,
@@ -74,73 +444,25 @@ export default function ProfilePage() {
         })
         .then((response) => {
           setShow(false);
-          fetchUser();
         });
-    } else if (provider[0]?.role == "provider") {
+    } else if (user?.role == "provider") {
       axios
-        .put(
-          `http://localhost:5000/update_provider/${provider[0]?.provider_id}`,
-          {
-            name: name,
-            email: email,
-            password: password,
-            phone: phone,
-            address: address,
-          }
-        )
+        .put(`http://localhost:5000/update_provider/${user.provider_id}`, {
+          name: name,
+          email: email,
+          password: password,
+          phone: phone,
+          address: address,
+        })
         .then((response) => {
           setShow(false);
-          fetchUser();
         });
     }
   };
-
-  const fetchUser = async () => {
-    try {
-      const token = localStorage.getItem("token") || "";
-
-      console.log(token);
-
-      const [providerResponse, userResponse] = await Promise.all([
-        axios.get("http://localhost:5000/get_provider", {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }),
-
-        axios.get("http://localhost:5000/get_user", {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }),
-      ]);
-
-      const userData = userResponse.data;
-      const providerData = providerResponse.data;
-      console.log(userData);
-      console.log(providerData);
-      setUser(userData);
-      setProvider(providerData);
-
-      // Check if the user is a customer
-      if (userData.role === "user") {
-        setIsCustomer(true);
-      }
-
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   const getCars = async () => {
     const token = localStorage.getItem("token") || "";
-    let id;
+    let userToken;
 
     try {
       const resToken = await axios.get("http://localhost:5000/checkToken", {
@@ -149,33 +471,29 @@ export default function ProfilePage() {
         },
       });
 
-      id = resToken.data.customers_id;
+      userToken = resToken.data;
+      setUser(resToken.data);
+
       console.log(resToken.data.customers_id);
-    } catch (err) {
-      console.log(err);
-    }
 
-    try {
-      const res = await axios.get(`http://localhost:5000/carsCustomer/${id}`);
-      setGetAllCarsIdOfCustomer(res.data.map((e) => e.car_id));
-      // console.log();
-      // console.log(getIdOfCustomer);
-      // console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+      try {
+        const res = await axios.post(
+          `http://localhost:5000/Pre_rented_cars/${resToken.data.customers_id}`
+        );
 
-    try {
-      console.log(getAllCarsIdOfCustomer);
-      getAllCarsIdOfCustomer.map((e) => {
-        id = e;
-      });
-      const res = await axios.get(`http://localhost:5000/cars/${id}`);
-      console.log(res.data);
-      console.log(carsArray);
-      setCarsArray(res.data)
+        const Rented = res.data?.filter((car) => car.available);
+
+        const Available = res.data?.filter((car) => !car.available);
+
+        setCarsDataAvailable(Available);
+        setCarsDataRented(Rented);
+
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -200,262 +518,275 @@ export default function ProfilePage() {
             />
           </MDBCol>
           <MDBCol lg="8">
-            {!isLoading && (
-              <MDBCol lg="12">
-                <MDBCard className="mb-4">
-                  <MDBCardBody style={{ padding: "7rem" }}>
-                    <form>
-                      <MDBRow className="mb-4">
-                        <MDBCol sm="3">
-                          <MDBCardText>Full Name</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBInput
-                            onChange={(event) => setname(event.target.value)}
-                            type="text"
-                            className="text"
-                            value={
-                              user[0] != null
-                                ? user[0]?.username
-                                : provider[0]?.username
-                            }
-                            readOnly
-                          />
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow className="mb-4">
-                        <MDBCol sm="3">
-                          <MDBCardText>Email</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBInput
-                            onChange={(event) => setemail(event.target.value)}
-                            type="email"
-                            className="text"
-                            value={
-                              user[0] != null
-                                ? user[0]?.email
-                                : provider[0]?.email
-                            }
-                            readOnly
-                          />
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow className="mb-4">
-                        <MDBCol sm="3">
-                          <MDBCardText>Phone</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBInput
-                            onChange={(event) => setphone(event.target.value)}
-                            type="text"
-                            className="text"
-                            value={
-                              user[0] != null
-                                ? user[0]?.phone
-                                : provider[0]?.phone
-                            }
-                            readOnly
-                          />
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow className="mb-4">
-                        <MDBCol sm="3">
-                          <MDBCardText>Address</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBInput
-                            onChange={(event) => address(event.target.value)}
-                            type="text"
-                            className="text"
-                            value={
-                              user[0] != null
-                                ? user[0]?.address
-                                : provider[0]?.address
-                            }
-                            readOnly
-                          />
-                        </MDBCol>
-                      </MDBRow>
+            <MDBCol lg="12">
+              <MDBCard className="mb-4">
+                <MDBCardBody style={{ padding: "7rem" }}>
+                  <form>
+                    <MDBRow className="mb-4">
+                      <MDBCol sm="3">
+                        <MDBCardText>Full Name</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBInput
+                          onChange={(event) => setname(event.target.value)}
+                          type="text"
+                          className="text"
+                          value={user?.username}
+                          readOnly
+                        />
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow className="mb-4">
+                      <MDBCol sm="3">
+                        <MDBCardText>Email</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBInput
+                          onChange={(event) => setemail(event.target.value)}
+                          type="email"
+                          className="text"
+                          value={user?.email}
+                          readOnly
+                        />
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow className="mb-4">
+                      <MDBCol sm="3">
+                        <MDBCardText>Phone</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBInput
+                          onChange={(event) => setphone(event.target.value)}
+                          type="text"
+                          className="text"
+                          value={user?.phone}
+                          readOnly
+                        />
+                      </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow className="mb-4">
+                      <MDBCol sm="3">
+                        <MDBCardText>Address</MDBCardText>
+                      </MDBCol>
+                      <MDBCol sm="9">
+                        <MDBInput
+                          onChange={(event) => address(event.target.value)}
+                          type="text"
+                          className="text"
+                          value={user?.address}
+                          readOnly
+                        />
+                      </MDBCol>
+                    </MDBRow>
 
-                      <div className="d-flex justify-content-end">
-                        <BootstrapButton
-                          variant="danger"
-                          className="btn-floating"
-                          onClick={handleShow}
-                        >
-                          <FontAwesomeIcon icon={faMagic} />
-                        </BootstrapButton>
-                      </div>
-                      <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                          <Modal.Title>Add A New Inormation </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          <Form>
-                            <Form.Group
-                              className="mb-3"
-                              controlId="exampleForm.ControlInput1"
-                            >
-                              <Form.Label>Full Name</Form.Label>
-                              <Form.Control
-                                type="email"
-                                onChange={(event) =>
-                                  setname(event.target.value)
-                                }
-                                placeholder="Johnatan Smith"
-                                autoFocus
-                              />
-                            </Form.Group>
+                    <div className="d-flex justify-content-end">
+                      <BootstrapButton
+                        variant="success"
+                        className="btn-floating"
+                        onClick={handleShow}
+                      >
+                        <FontAwesomeIcon icon={faUserEdit} />
+                      </BootstrapButton>
+                    </div>
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Add A New Inormation </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Form>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                          >
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control
+                              type="email"
+                              onChange={(event) => setname(event.target.value)}
+                              placeholder="Johnatan Smith"
+                              autoFocus
+                            />
+                          </Form.Group>
 
-                            <Form.Group
-                              className="mb-3"
-                              controlId="exampleForm.ControlInput1"
-                            >
-                              <Form.Label>Email address</Form.Label>
-                              <Form.Control
-                                type="email"
-                                placeholder="name@example.com"
-                                autoFocus
-                                onChange={(event) =>
-                                  setemail(event.target.value)
-                                }
-                              />
-                            </Form.Group>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                          >
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control
+                              type="email"
+                              placeholder="name@example.com"
+                              autoFocus
+                              onChange={(event) => setemail(event.target.value)}
+                            />
+                          </Form.Group>
 
-                            <Form.Group
-                              className="mb-3"
-                              controlId="exampleForm.ControlInput1"
-                            >
-                              <Form.Label>Password</Form.Label>
-                              <Form.Control
-                                type="Password"
-                                placeholder="*********"
-                                autoFocus
-                                onChange={(event) =>
-                                  setpassword(event.target.value)
-                                }
-                              />
-                            </Form.Group>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                          >
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                              type="Password"
+                              placeholder="*********"
+                              autoFocus
+                              onChange={(event) =>
+                                setpassword(event.target.value)
+                              }
+                            />
+                          </Form.Group>
 
-                            <Form.Group
-                              className="mb-3"
-                              controlId="exampleForm.ControlInput1"
-                            >
-                              <Form.Label>Phone Number</Form.Label>
-                              <Form.Control
-                                type="tel"
-                                placeholder="0799999999"
-                                autoFocus
-                                onChange={(event) =>
-                                  setphone(event.target.value)
-                                }
-                              />
-                            </Form.Group>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                          >
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control
+                              type="tel"
+                              placeholder="0799999999"
+                              autoFocus
+                              onChange={(event) => setphone(event.target.value)}
+                            />
+                          </Form.Group>
 
-                            <Form.Group
-                              className="mb-3"
-                              controlId="exampleForm.ControlInput1"
-                            >
-                              <Form.Label>Address</Form.Label>
-                              <Form.Control
-                                type="text"
-                                placeholder="Zarqa , Jordan"
-                                autoFocus
-                                onChange={(event) =>
-                                  setaddress(event.target.value)
-                                }
-                              />
-                            </Form.Group>
-                          </Form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                          <Button variant="secondary" onClick={handleClose}>
-                            Close
-                          </Button>
-                          <Button variant="success" onClick={handleSubmit}>
-                            Update
-                          </Button>
-                        </Modal.Footer>
-                      </Modal>
-                    </form>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-            )}
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlInput1"
+                          >
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Zarqa , Jordan"
+                              autoFocus
+                              onChange={(event) =>
+                                setaddress(event.target.value)
+                              }
+                            />
+                          </Form.Group>
+                        </Form>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          Close
+                        </Button>
+                        <Button variant="success" onClick={handleSubmit}>
+                          Update
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </form>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
           </MDBCol>
         </MDBRow>
 
-        {user[0]?.role == "user" ? (
-          <>
-            <div className="row d-flex justify-content-around">
-              <h1
-                className="row d-flex justify-content-center fw-bold mb-4"
-                style={{ color: "#000d6b" }}
-              >
-                Last Preservations
-              </h1>
+        <div className="row d-flex justify-content-around">
+          {carsDataRented.length >= 1 ? (
+            <h1
+              className="row d-flex justify-content-center fw-bold mb-4"
+              style={{ color: "#000d6b" }}
+            >
+              Previously rented cars
+            </h1>
+          ) : (
+            <></>
+          )}
+          {carsDataRented?.map((car, index) => (
+            <div key={index} className="col-lg-4 col-md-4 col-sm-6 mb-5">
+              <div className="car__item" style={{ backgroundColor: "white" }}>
+                <div className="car__img">
+                  <img src={car.images_data} alt="" className="w-100" />
+                </div>
 
-              {!isLoading &&
-                carsArray.map((card, index) => (
-                  <div
-                    key={index}
-                    className="col-lg-4 col-md-4 col-sm-6 mb-5 w-25"
-                  >
-                    <div
-                      className="car__item"
-                      style={{ backgroundColor: "white" }}
-                    >
-                      <div className="car__img w-100">
-                        <img src={card.images_data} alt="" className="w-100" />
-                      </div>
+                <div className="car__item-content mt-4">
+                  <h4 className="section__title text-center">{car.model}</h4>
+                  <h6 className="rent__price text-center mt-">
+                    ${car.rental_price}.00 <span>/ Day</span>
+                  </h6>
 
-                      <div className="car__item-content mt-4">
-                        <h4 className="section__title text-center">
-                          {card.model}
-                        </h4>
-                        <h6 className="rent__price text-center mt-">
-                          ${card.rental_price}.00 <span>/ Day</span>
-                        </h6>
-
-                        <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
-                          <span className="d-flex align-items-center gap-1">
-                            <i className="ri-car-line"></i> {card.type}
-                          </span>
-                          <span className="d-flex align-items-center gap-1">
-                            <i className="ri-settings-2-line"></i>{" "}
-                            {card.energy_type}
-                          </span>
-                          <span className="d-flex align-items-center gap-1">
-                            <i
-                              className="ri-calendar-line"
-                              style={{ color: "#f9a826" }}
-                            ></i>
-                            {card.year}
-                          </span>
-                        </div>
-                        <Link to="/Checkout/:slug">
-                          <button className="w-50 car__item-btn car__btn-rent">
-                            Rent it again
-                          </button>
-                        </Link>
-                        <Link to={`/cars/${card.model}`}>
-                          <button className="w-50 car__item-btn car__btn-details">
-                            Details
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
+                  <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
+                    <span className="d-flex align-items-center gap-1">
+                      <i className="ri-car-line"></i> {car.type}
+                    </span>
+                    <span className="d-flex align-items-center gap-1">
+                      <i className="ri-settings-2-line"></i> {car.energy_type}
+                    </span>
+                    <span className="d-flex align-items-center gap-1">
+                      <i
+                        className="ri-calendar-line"
+                        style={{ color: "#f9a826" }}
+                      ></i>
+                      {car.year}
+                    </span>
                   </div>
-                ))}
+                  <Link to="/Checkout">
+                    <button className="w-50 car__item-btn car__btn-rent">
+                      Rent it again
+                    </button>
+                  </Link>
+                  <Link to={`/cars/${car.cars_id}`}>
+                    {console.log(car.cars_id)}
+                    <button className="w-50 car__item-btn car__btn-details">
+                      Details
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
-          </>
-        ) : (
-          <></>
-        )}
+          ))}
+
+          {carsDataAvailable.length >= 1 ? (
+            <h1
+              className="row d-flex justify-content-center fw-bold mb-4"
+              style={{ color: "#000d6b" }}
+            >
+              Your rented cars
+            </h1>
+          ) : (
+            <></>
+          )}
+
+          {carsDataAvailable?.map((car, index) => (
+            <div key={index} className="col-lg-4 col-md-4 col-sm-6 mb-5">
+              <div className="car__item" style={{ backgroundColor: "white" }}>
+                <div className="car__img">
+                  <img src={car.images_data} alt="" className="w-100" />
+                </div>
+
+                <div className="car__item-content mt-4">
+                  <h4 className="section__title text-center">{car.model}</h4>
+                  <h6 className="rent__price text-center mt-">
+                    ${car.rental_price}.00 <span>/ Day</span>
+                  </h6>
+
+                  <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
+                    <span className="d-flex align-items-center gap-1">
+                      <i className="ri-car-line"></i> {car.type}
+                    </span>
+                    <span className="d-flex align-items-center gap-1">
+                      <i className="ri-settings-2-line"></i> {car.energy_type}
+                    </span>
+                    <span className="d-flex align-items-center gap-1">
+                      <i
+                        className="ri-calendar-line"
+                        style={{ color: "#f9a826" }}
+                      ></i>
+                      {car.year}
+                    </span>
+                  </div>
+                  <Link to={`/cars/${car.cars_id}`}>
+                    <button className="w-100 car__item-btn car__btn-details">
+                      Details
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </MDBContainer>
     </section>
   );

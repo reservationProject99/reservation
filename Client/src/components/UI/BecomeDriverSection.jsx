@@ -1,56 +1,58 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../../styles/BecomeDriverSection.css";
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-    slidesToSlide: 4, // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 768 },
-    items: 3,
-    slidesToSlide: 3, // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 767, min: 464 },
-    items: 2,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-};
+
 const sliderImageUrl = [
   //First image url
   {
-    url: "https://www.carlogos.org/car-logos/bmw-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933172560056342/Rectangle_43.png",
   },
   {
-    url: "https://www.carlogos.org/car-logos/toyota-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933106743025684/Rectangle_34.png",
   },
   //Second image url
   {
-    url: "https://www.carlogos.org/car-logos/ford-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933107074383882/Rectangle_32.png",
   },
   //Third image url
   {
-    url: "https://www.carlogos.org/car-logos/honda-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933172828471366/Rectangle_41.png",
   },
   {
-    url: "https://www.carlogos.org/car-logos/nissan-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933173084340314/nissan-logo_1.png",
   },
   {
-    url: "https://www.carlogos.org/car-logos/kia-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933173407285329/honda-logo_1.png",
   },
   {
-    url: "https://www.carlogos.org/car-logos/mercedes-benz-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933173713485856/ford-logo_1.png",
   },
 
   //Fourth image url
 
   {
-    url: "https://www.carlogos.org/car-logos/hyundai-logo.png",
+    url: "https://cdn.discordapp.com/attachments/1106603223458000987/1115933173956759572/toyota-logo_1.png",
   },
 ];
+
 const Slider = () => {
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 768 },
+      items: 3,
+      slidesToSlide: 3,
+    },
+    mobile: {
+      breakpoint: { max: 767, min: 0 },
+      items: 2,
+      slidesToSlide: 2,
+    },
+  };
   return (
     <>
       <div className="title text-center">
@@ -66,11 +68,12 @@ const Slider = () => {
             showDots={true}
             infinite={true}
             partialVisible={false}
+            arrows={false}
             dotListClass="custom-dot-list-style"
           >
             {sliderImageUrl.map((imageUrl, index) => {
               return (
-                <div className="slider" key={index}>
+                <div className="slider ms-0" key={index}>
                   <img src={imageUrl.url} alt="movie" />
                 </div>
               );

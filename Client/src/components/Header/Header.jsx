@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
 import { Link, NavLink } from "react-router-dom";
 import "../../styles/header.css";
 import { useEffect, useRef, useState } from "react";

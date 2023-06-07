@@ -62,7 +62,7 @@ const CarItem = (props) => {
             </>
           ) : (
             <>
-              <Link to={`/Checkout/${cars_id}`}>
+              <Link to={`/cars/${cars_id}`}>
                 <button className="w-50 car__item-btn car__btn-rent">
                   Rent
                 </button>

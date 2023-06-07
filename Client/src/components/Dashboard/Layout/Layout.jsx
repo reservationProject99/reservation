@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import Router from "../routes/Router";
 import Sidebar from "../Sidebar/Sidebar";
@@ -7,8 +9,32 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Layout = () => {
-  document.body.style = "background: var(--body-bg)"
+  document.body.style = "background: var(--body-bg)";
   const navigate = useNavigate();
+
+  const checkAccess = async (role) => {
+    const token = localStorage.getItem("token") || "";
+
+    try {
+      const res = await axios.get("http://localhost:5000/checkToken", {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.data.role !== role) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+      navigate("/*");
+    }
+  };
+
+  useEffect(() => {
+    checkAccess("admin");
+    window.scrollTo(0, 0);
+  }, []);
 
   const checkAccsees = async (role) => {
     const token = localStorage.getItem("token") || "";
@@ -22,23 +48,21 @@ const Layout = () => {
       });
 
       if (res.data.role === role) {
-        console.log('Ok')
+        console.log("Ok");
+      } else {
+        navigate("/");
       }
-      else {
-        navigate('/')
-      }
-
     } catch (err) {
       console.log(err);
-      return '';
+      return "";
     }
-  }
+  };
 
-  useEffect( () => {
-    checkAccsees('admin')
-  }, [])
+  useEffect(() => {
+    checkAccsees("admin");
+  }, []);
 
-    return (
+  return (
     <div className="mainCont">
       <div className="layout">
         <Sidebar />

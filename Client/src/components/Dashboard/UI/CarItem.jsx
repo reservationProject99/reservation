@@ -1,5 +1,4 @@
-import React from "react";
-
+/* eslint-disable react/prop-types */
 const CarItem = (props) => {
   const { category, Status, rentPrice, imgUrl, carName, groupSize } = props.item;
   return (
@@ -8,7 +7,7 @@ const CarItem = (props) => {
         <div className="car__item-tile">
           <h3>{carName}</h3>
           <span>
-            <i class="ri-delete-bin-line"></i>
+            <i className="ri-delete-bin-line"></i>
       
           </span>
         </div>
@@ -22,7 +21,7 @@ const CarItem = (props) => {
       <div className="car__item-bottom">
         <div className="car__bottom-left">
           <p>
-            <i class="ri-user-line"></i> {groupSize}
+            <i className="ri-user-line"></i> {groupSize}
           </p>
           <p>
             {Status}

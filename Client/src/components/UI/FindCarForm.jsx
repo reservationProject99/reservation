@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import { useState, useEffect } from "react";
 import { Form, FormGroup } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";

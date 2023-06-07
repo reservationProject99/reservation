@@ -141,8 +141,15 @@ const updateUser = (req, res) => {
 
 const fillCreditCard = (req, res) => {
   const id = parseInt(req.params.id);
-  const { credit_card, cardholder_name, card_expiration_date, cvv_cvc_code } = req.body;
-  console.log([credit_card, cardholder_name, card_expiration_date, cvv_cvc_code, id])
+  const { credit_card, cardholder_name, card_expiration_date, cvv_cvc_code } =
+    req.body;
+  console.log([
+    credit_card,
+    cardholder_name,
+    card_expiration_date,
+    cvv_cvc_code,
+    id,
+  ]);
   db.query(
     "UPDATE public.customers SET credit_card = $1,cardholder_name= $2,card_expiration_date=$3,cvv_cvc_code=$4 WHERE customers_id = $5",
     [credit_card, cardholder_name, card_expiration_date, cvv_cvc_code, id],
@@ -158,16 +165,16 @@ const fillCreditCard = (req, res) => {
 const createMoveCustomer = async (req, res) => {
   const { move_type, date, car_id, customers_id } = req.body;
 
-    db.query(
-      "INSERT INTO public.customer_movements (move_type, date, car_id, customers_id) VALUES ($1, $2,$3,$4) RETURNING *",
-      [move_type, date, car_id, customers_id],
-      (error, results) => {
-        if (error) {
-          return res.status(400).json(error);
-        }
-        res.status(201).json(results.rows[0]);
+  db.query(
+    "INSERT INTO public.customer_movements (move_type, date, car_id, customers_id) VALUES ($1, $2,$3,$4) RETURNING *",
+    [move_type, date, car_id, customers_id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
       }
-    );
+      res.status(201).json(results.rows[0]);
+    }
+  );
 };
 
 // Provider
@@ -290,6 +297,28 @@ const getProviderByToken = (req, res) => {
   );
 };
 
+const Pre_rented_cars = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  db.query(
+    `SELECT DISTINCT cars_id, discrabtion, type, energy_type, model, year, rental_price, images_data,
+          seats_number, available
+          FROM cars ca
+          INNER JOIN customer_movements cu
+              ON ca.cars_id = cu.car_id
+          WHERE customers_id = $1 AND is_delete = false
+          `,
+    [id],
+    (error, results) => {
+      console.log(id);
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).json(results.rows);
+    }
+  );
+};
+
 // Admin
 const getAdmin = (req, res) => {
   db.query(
@@ -361,7 +390,7 @@ const deleteAdmin = (req, res) => {
 // Car
 const getCar = (req, res) => {
   db.query(
-    "SELECT * FROM public.cars WHERE is_delete = false ORDER BY cars_id DESC",
+    "SELECT * FROM public.cars WHERE is_delete = false AND available = true ORDER BY cars_id DESC",
     (error, results) => {
       if (error) {
         return res.status(400).json(error);
@@ -547,14 +576,13 @@ const deleteCars = (req, res) => {
 };
 
 const checkCustomer = (req, res, next) => {
-
   const { email, password } = req.body;
 
   db.query(
-    'SELECT * FROM public.customers WHERE is_delete = false ORDER BY customers_id ASC',
+    "SELECT * FROM public.customers WHERE is_delete = false ORDER BY customers_id ASC",
     (error, results) => {
       if (error) {
-        return res.status(400).json(error)
+        return res.status(400).json(error);
       }
 
       const result = results.rows.find((user) => {
@@ -564,24 +592,21 @@ const checkCustomer = (req, res, next) => {
       if (result) {
         req.body = result;
         next();
-      }
-      else {
+      } else {
         res.status(404).send("user not exist");
       }
-
     }
   );
-}
+};
 
 const checkAdmin = (req, res, next) => {
-
   const { email, password } = req.body;
   db.query(
-    'SELECT * FROM public.admin WHERE is_delete = false ORDER BY admin_id ASC',
+    "SELECT * FROM public.admin WHERE is_delete = false ORDER BY admin_id ASC",
     (error, results) => {
-      console.log(results)
+      console.log(results);
       if (error) {
-        return res.status(400).json(error)
+        return res.status(400).json(error);
       }
 
       const result = results.rows.find((user) => {
@@ -591,14 +616,12 @@ const checkAdmin = (req, res, next) => {
       if (result) {
         req.body = result;
         next();
-      }
-      else {
+      } else {
         res.status(404).send("admin not exist");
       }
-
     }
   );
-}
+};
 
 const updateAdmin = (req, res) => {
   const id = parseInt(req.params.id);
@@ -635,14 +658,13 @@ const updateProvider = (req, res) => {
 };
 
 const checkProvider = (req, res, next) => {
-
   const { email, password } = req.body;
 
   db.query(
-    'SELECT * FROM public.provider WHERE is_delete = false ORDER BY provider_id ASC',
+    "SELECT * FROM public.provider WHERE is_delete = false ORDER BY provider_id ASC",
     (error, results) => {
       if (error) {
-        return res.status(400).json(error)
+        return res.status(400).json(error);
       }
 
       const result = results.rows.find((user) => {
@@ -652,18 +674,16 @@ const checkProvider = (req, res, next) => {
       if (result) {
         req.body = result;
         next();
-      }
-      else {
+      } else {
         res.status(404).send("user not exist");
       }
-
     }
   );
-}
+};
 
 const getCarWithProvider = (req, res) => {
   pool.query(
-    'SELECT * FROM public.cars INNER JOIN public.provider ON public.cars.provider_id  = public.provider.provider_id WHERE is_delete = falseORDER BY cars_id DESC',
+    "SELECT * FROM public.cars INNER JOIN public.provider ON public.cars.provider_id  = public.provider.provider_id WHERE is_delete = falseORDER BY cars_id DESC",
     (error, results) => {
       if (error) {
         throw error;
@@ -682,6 +702,7 @@ module.exports = {
   getCustomercount,
   getCustomerByToken,
   updateUser,
+  Pre_rented_cars,
 
   getAdmin,
   createAdmin,
@@ -716,5 +737,4 @@ module.exports = {
   checkAdmin,
   createMoveCustomer,
   fillCreditCard,
-
 };
