@@ -132,6 +132,7 @@ import Checkout from "../pages/Checkout";
 import Edit from "../components/UI/ProfileProvider";
 import ProviderUplodedCar from "../pages/PoviderUplodedCar";
 import ProviderAddCar from "../pages/providerAddCar";
+import ThankY from "../components/UI/ThankY";
 
 const Routers = ({ updateIsLog }) => {
   return (
@@ -150,6 +151,7 @@ const Routers = ({ updateIsLog }) => {
         <Route path="/ProviderUplodedCar" element={<ProviderUplodedCar />} />
         <Route path="/userProfile" element={<ProfilePage />} />
         <Route path="/Checkout/:slug" element={<Checkout />} />
+        <Route path="/ThankY" element={<ThankY />} />
         <Route path="/Edit" element={<Edit />} />
         <Route path="/admin" element={<Layout />}>
           <Route path="Dashboard" index element={<Dashboard />} />

@@ -313,8 +313,9 @@ import { indigo } from "@mui/material/colors";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const steps = ["Your Information", "Payment details", "Review your order"];
+const steps = ["Booking Time", "Payment details", "Review your order"];
 
 const defaultTheme = createTheme();
 
@@ -573,7 +574,6 @@ export default function Checkout() {
           },
         },
       },
-      
     },
   });
 
@@ -655,6 +655,12 @@ export default function Checkout() {
                       alignSelf: "flex-end",
                     }}
                   >
+                    <Link
+                      to="/ThankY"
+                      style={{ textDecoration: "none", color: "white" }}
+                    >
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    </Link>
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}
                   </Button>
                 ) : null}

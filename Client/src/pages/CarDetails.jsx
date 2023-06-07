@@ -13,7 +13,6 @@ const CarDetails = () => {
   const [carData, setCarData] = useState([]);
   const [userType, setUserType] = useState(false);
 
-
   const getCar = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/cars/${slug}`);
@@ -21,24 +20,25 @@ const CarDetails = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     getCar();
 
-    const token = localStorage.getItem('token') || false;
+    const token = localStorage.getItem("token") || false;
 
-    axios.get(`http://localhost:5000/checkToken`, {
-      headers: {
-        'authorization': `Bearer ${token}`
-      }
-    }).then((response) => {
-      setUserType(response.data);
-    })
+    axios
+      .get(`http://localhost:5000/checkToken`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUserType(response.data);
+      })
       .catch((error) => {
         console.error(error);
       });
-
   }, []);
 
   useEffect(() => {
@@ -51,7 +51,11 @@ const CarDetails = () => {
         <Container>
           <Row>
             <Col lg="6">
-              <img src={`${carData[0]?.images_data}`} alt="" className="w-100" />
+              <img
+                src={`${carData[0]?.images_data}`}
+                alt=""
+                className="w-100"
+              />
             </Col>
 
             <Col lg="6">
@@ -64,12 +68,27 @@ const CarDetails = () => {
                   </h6>
 
                   <span className=" d-flex align-items-center gap-2">
-                    <span >
-                      <i className="ri-star-s-fill" style={{ color: `#f9a826` }}></i>
-                      <i className="ri-star-s-fill" style={{ color: `#f9a826` }}></i>
-                      <i className="ri-star-s-fill" style={{ color: `#f9a826` }}></i>
-                      <i className="ri-star-s-fill" style={{ color: `#f9a826` }}></i>
-                      <i className="ri-star-s-fill" style={{ color: `#f9a826` }}></i>
+                    <span>
+                      <i
+                        className="ri-star-s-fill"
+                        style={{ color: `#f9a826` }}
+                      ></i>
+                      <i
+                        className="ri-star-s-fill"
+                        style={{ color: `#f9a826` }}
+                      ></i>
+                      <i
+                        className="ri-star-s-fill"
+                        style={{ color: `#f9a826` }}
+                      ></i>
+                      <i
+                        className="ri-star-s-fill"
+                        style={{ color: `#f9a826` }}
+                      ></i>
+                      <i
+                        className="ri-star-s-fill"
+                        style={{ color: `#f9a826` }}
+                      ></i>
                     </span>
                     ({carData[0]?.rating} ratings)
                   </span>
@@ -99,7 +118,10 @@ const CarDetails = () => {
                   </span>
 
                   <span className=" d-flex align-items-center gap-1 section__description">
-                    <i className="ri-calendar-line" style={{ color: "#f9a826" }}></i>
+                    <i
+                      className="ri-calendar-line"
+                      style={{ color: "#f9a826" }}
+                    ></i>
                     {carData[0]?.year}
                   </span>
                 </div>
@@ -108,7 +130,6 @@ const CarDetails = () => {
                   className=" d-flex align-items-center mt-3"
                   style={{ columnGap: "2.8rem" }}
                 >
-
                   <span className=" d-flex align-items-center gap-1 section__description">
                     <i
                       className="ri-wheelchair-line"
@@ -119,20 +140,27 @@ const CarDetails = () => {
                 </div>
               </div>
             </Col>
-            {
-              userType.role === 'provider' ?
-                <Link to={`/cars`} className="text-decoration-none">
-                  <span className="d-flex justify-content-center mt-4">
-                    <Button variant="contained">Back</Button>
-                  </span>
-                </Link>
-                :
-                <Link to={`/Checkout/${carData[0]?.cars_id}`} className="text-decoration-none">
-                  <span className="d-flex justify-content-center mt-4">
-                    <Button variant="contained">Rent</Button>
-                  </span>
-                </Link>
-            }
+            {userType.role === "provider" ? (
+              <Link to={`/cars`} className="text-decoration-none">
+                <span className="d-flex justify-content-center mt-4">
+                  <Button variant="contained">Back</Button>
+                </span>
+              </Link>
+            ) : (
+              <Link
+                to={`/Checkout/${carData[0]?.cars_id}`}
+                className="text-decoration-none"
+              >
+                <span className="d-flex justify-content-center mt-4">
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#000d6b" }}
+                  >
+                    Rent
+                  </Button>
+                </span>
+              </Link>
+            )}
           </Row>
         </Container>
       </section>

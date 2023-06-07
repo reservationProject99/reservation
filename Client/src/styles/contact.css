@@ -21,3 +21,11 @@
     font-size: 0.8rem;
   }
 }
+
+.custom-color {
+  background-color: #003c711e;
+}
+
+.custom-colors {
+  color: #0c134f;
+}
