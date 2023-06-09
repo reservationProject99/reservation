@@ -19,6 +19,7 @@ export default function SignIn({ updateIsLog }) {
   const [user, setUser] = useState(false);
   const [path, setPath] = useState("/");
   const [selectedUserType, setSelectedUserType] = useState("");
+  const [passwordMode, setPasswordMode] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token") || false;
@@ -37,6 +38,9 @@ export default function SignIn({ updateIsLog }) {
     password: "",
   });
 
+  function handlePasswordMode() {
+    setPasswordMode(!passwordMode);
+  }
   function handleEmail(event) {
     const patternEmail = /^[A-z0-9\.]+@[A-z0-9]+\.[A-z]{3,5}$/;
     const email = event.target.value;
@@ -223,7 +227,7 @@ export default function SignIn({ updateIsLog }) {
                         {massageWarning.email}
                       </p>
                     </div>
-                    <div>
+                    <div className="password">
                       <label
                         htmlFor="password"
                         className={`block mb-2 text-sm font-weight-medium"`}
@@ -232,11 +236,25 @@ export default function SignIn({ updateIsLog }) {
                       </label>
                       <input
                         onChange={handlePassword}
-                        type="password"
+                        type={passwordMode ? "password" : "text"}
                         id="password"
-                        className={`form-control rounded-lg`}
+                        className={`form-control rounded-lg `}
                         placeholder="Enter your password"
                       />
+                      <span className="eye" onClick={handlePasswordMode}>
+                        <i
+                          className={`fas fa-eye ${
+                            passwordMode ? "d-block" : "d-none"
+                          }`}
+                          id="showEye"
+                        />
+                        <i
+                          className={`fas fa-eye-slash ${
+                            passwordMode ? "d-none" : "d-block"
+                          }`}
+                          id="hideEye"
+                        />
+                      </span>
                       <p className={`mt-2 text-sm text-warning-600`}>
                         {massageWarning.password}
                       </p>

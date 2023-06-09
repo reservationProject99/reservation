@@ -4,10 +4,9 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
-import SignUpCar from "../assets/all-images/SignUp.png";
 import Facebook from "./SignInWithFacebook";
 import Google from "./SignInWithGoogle";
 
@@ -15,10 +14,12 @@ export default function SignUp() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
+  const navigate = useNavigate();
   const [path, setPath] = useState("/signIn");
   const [userCheck, setUserCheck] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState("");
+  const [passwordMode, setPasswordMode] = useState(true);
+  const [passwordModeCon, setPasswordModeCon] = useState(true);
 
   const location = useLocation();
 
@@ -42,6 +43,7 @@ export default function SignUp() {
     password: false,
     confirmPassword: false,
     address: false,
+    type: false,
   });
 
   const [massageWarning, setMassageWarning] = useState({
@@ -52,7 +54,15 @@ export default function SignUp() {
     confirmPassword: "",
     address: "",
     submit: "",
+    type: "",
   });
+
+  function handlePasswordMode() {
+    setPasswordMode(!passwordMode);
+  }
+  function handlePasswordModeCon() {
+    setPasswordModeCon(!passwordModeCon);
+  }
 
   function handleUsername(event) {
     const name = event.target.value;
@@ -153,7 +163,22 @@ export default function SignUp() {
   }
 
   function handleUserType(e) {
-    setSelectedUserType(e.target.value);
+    const type = e.target.value;
+    setCheckInput({ ...checkInput, type: false });
+
+    if (type === "") {
+      setMassageWarning({
+        ...massageWarning,
+        type: "Please select a user type",
+      });
+    } else {
+      setMassageWarning({
+        ...massageWarning,
+        type: "",
+      });
+      setSelectedUserType(e.target.value);
+      setCheckInput({ ...checkInput, type: true });
+    }
   }
 
   function handleSubmit(event) {
@@ -165,12 +190,12 @@ export default function SignUp() {
       checkInput.phone &&
       checkInput.password &&
       checkInput.confirmPassword &&
-      checkInput.address
+      checkInput.address &&
+      checkInput.type
     ) {
       sendDataToServer(user);
-      console.log("ok");
       event.target.reset();
-      // navigate(path);
+      navigate(path);
     } else {
       setMassageWarning({
         ...massageWarning,
@@ -264,6 +289,11 @@ export default function SignUp() {
                           />
                         </div>
                       </div>
+                      <p className="mt-2 text-sm text-warning-600">
+                        <span className="font-weight-medium">
+                          {massageWarning.type}
+                        </span>
+                      </p>
                       <div className="mb-3">
                         <label
                           htmlFor="name"
@@ -344,7 +374,7 @@ export default function SignUp() {
                           </span>
                         </p>
                       </div>
-                      <div className="mb-3">
+                      <div className="mb-3 password">
                         <label
                           htmlFor="password"
                           className="block mb-2 text-sm font-weight-medium"
@@ -353,18 +383,32 @@ export default function SignUp() {
                         </label>
                         <input
                           onChange={handlePassword}
-                          type="password"
+                          type={passwordMode ? "password" : "text"}
                           id="password"
                           className="form-control rounded-lg"
                           placeholder="Enter your password"
                         />
+                        <span className="eye" onClick={handlePasswordMode}>
+                          <i
+                            className={`fas fa-eye ${
+                              passwordMode ? "d-block" : "d-none"
+                            }`}
+                            id="showEye"
+                          />
+                          <i
+                            className={`fas fa-eye-slash ${
+                              passwordMode ? "d-none" : "d-block"
+                            }`}
+                            id="hideEye"
+                          />
+                        </span>
                         <p className="mt-2 text-sm text-warning-600">
                           <span className="font-weight-medium">
                             {massageWarning.password}
                           </span>
                         </p>
                       </div>
-                      <div className="mb-3">
+                      <div className="mb-3 password">
                         <label
                           htmlFor="confirmPassword"
                           className="block mb-2 text-sm font-weight-medium"
@@ -373,17 +417,52 @@ export default function SignUp() {
                         </label>
                         <input
                           onChange={handleConfirmPassword}
-                          type="password"
+                          type={passwordModeCon ? "password" : "text"}
                           id="confirmPassword"
                           className="form-control rounded-lg"
                           placeholder="Confirm password"
                         />
+                        <span className="eye" onClick={handlePasswordModeCon}>
+                          <i
+                            className={`fas fa-eye ${
+                              passwordModeCon ? "d-block" : "d-none"
+                            }`}
+                            id="showEye"
+                          />
+                          <i
+                            className={`fas fa-eye-slash ${
+                              passwordModeCon ? "d-none" : "d-block"
+                            }`}
+                            id="hideEye"
+                          />
+                        </span>
                         <p className="mt-2 text-sm text-warning-600">
                           <span className="font-weight-medium">
                             {massageWarning.confirmPassword}
                           </span>
                         </p>
                       </div>
+                      <button
+                        type="submit"
+                        className="mt-3 btn w-100 py-3 rounded-lg d-flex align-items-center justify-content-center Abd"
+                        style={{ backgroundColor: "#000d6b" }}
+                      >
+                        <svg
+                          className="w-6 h-6 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{ color: "white" }}
+                        >
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="8.5" cy="7" r="4" />
+                          <path d="M20 8v6M23 11h-6" />
+                        </svg>
+
+                        <span style={{ color: "white" }}>Sign Up</span>
+                      </button>
                       <p className="mt-2 text-sm text-warning-600">
                         <span className="font-weight-medium">
                           {massageWarning.submit}
@@ -395,7 +474,7 @@ export default function SignUp() {
                           to="/signIn"
                           className="font-weight-bold text-primary-600"
                         >
-                          Sign up
+                          SignIn
                         </Link>
                       </p>
                     </div>

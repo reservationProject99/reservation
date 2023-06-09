@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { gapi } from "gapi-script";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -106,9 +109,9 @@ export default function SignInWithGoogle({ massage, path, updateIsLog }) {
 
   return (
     <>
-      <button id="customBtn" class="sign-with-account custom-button">
-        <div class="p-1">
-          <svg class="custom-svg me-1" viewBox="0 0 533.5 544.3">
+      <button id="customBtn" className="sign-with-account custom-button">
+        <div className="p-1">
+          <svg className="custom-svg me-1" viewBox="0 0 533.5 544.3">
             <path
               d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z"
               fill="#4285f4"
@@ -127,13 +130,13 @@ export default function SignInWithGoogle({ massage, path, updateIsLog }) {
             />
           </svg>
         </div>
-        <span class="custom-text">
+        <span className="custom-text">
           <div></div>
           {massage}
         </span>
       </button>
-      <p class="custom-warning">
-        <span class="custom-font-medium">{massageWarning}</span>
+      <p className="custom-warning">
+        <span className="custom-font-medium">{massageWarning}</span>
       </p>
     </>
   );

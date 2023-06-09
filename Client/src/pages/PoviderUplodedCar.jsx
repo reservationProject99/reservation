@@ -16,6 +16,7 @@ import {
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import "react-toastify/dist/ReactToastify.min.css";
 import { ToastContainer, toast } from "react-toastify";
 
 function ProviderUploadedCar() {
@@ -142,6 +143,7 @@ function ProviderUploadedCar() {
       );
       getCars();
       console.log(deleteCars);
+      toast.success(`Car Was deleted`);
     } catch (err) {
       console.log(err);
     }
@@ -165,7 +167,8 @@ function ProviderUploadedCar() {
       })
       .then((response) => {
         console.log(response.data);
-        toast.success("Car deleted successfully.");
+        toast.success("Car Was Updated");
+        setShow(false)
       })
       .catch((error) => {
         console.error(error);
@@ -252,11 +255,7 @@ function ProviderUploadedCar() {
               <div key={item.cars_id}>
                 <div className="car__item" style={{ backgroundColor: "white" }}>
                   <div className="car__img w-100">
-                    <img
-                      src={item.images_data}
-                      alt=""
-                      className="w-100"
-                    />
+                    <img src={item.images_data} alt="" className="w-100" />
                   </div>
                   <div className="car__item-content mt-4">
                     <h4 className="section__title text-center">{item.model}</h4>
@@ -305,7 +304,7 @@ function ProviderUploadedCar() {
       <div className="py-5">
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add A New Inormation </Modal.Title>
+            <Modal.Title>Add A New Information </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -447,6 +446,7 @@ function ProviderUploadedCar() {
             </Button>
           </Modal.Footer>
         </Modal>
+        <ToastContainer />
       </div>
     </>
   );
