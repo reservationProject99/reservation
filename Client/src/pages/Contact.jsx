@@ -77,6 +77,7 @@ const Contact = () => {
                     placeholder="Message"
                     className="textarea w-100"
                     name="message"
+                    style={{padding:"5px" , border:"0", borderRadius:"0.375rem"}}
                   ></textarea>
                 </FormGroup>
 

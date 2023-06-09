@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.min.css";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 function ProviderAddCar() {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ function ProviderAddCar() {
       });
 
       console.log(getCars);
-      toast.success(`admin with id is updated`);
+      toast.success(`Your car was Add you must wait for Admin approval`);
     } catch (err) {
       console.log(err);
       toast.success("Car deleted successfully.");
@@ -260,6 +260,7 @@ function ProviderAddCar() {
           </form>
         </>
       </div>
+      <ToastContainer />
     </>
   );
 }

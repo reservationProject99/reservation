@@ -3,9 +3,9 @@ import Slider from "react-slick";
 import "../../styles/testimonial.css";
 
 import ava01 from "../../assets/all-images/ava-1.jpg";
-// import ava02 from "../../assets/all-images/ava-2.jpg";
+import ava02 from "../../assets/all-images/ava-2.jpg";
 import ava03 from "../../assets/all-images/ava-3.jpg";
-// import ava04 from "../../assets/all-images/ava-4.jpg";
+import ava04 from "../../assets/all-images/ava-4.jpg";
 
 const Testimonial = () => {
   const settings = {
@@ -46,7 +46,8 @@ const Testimonial = () => {
           they helped me find the perfect car for my needs. The rental process
           was quick and efficient, and the car was clean and well-maintained. I
           had no issues during my rental period, and the return process was
-          equally smooth. I highly recommend for their excellent service.
+          equally smooth. I highly recommend for their excellent service and
+          drop-off locations.
         </p>
 
         <div className="mt-3 d-flex align-items-center gap-4">
@@ -71,7 +72,7 @@ const Testimonial = () => {
         </p>
 
         <div className="mt-3 d-flex align-items-center gap-4">
-          <img src={ava01} alt="" className="w-25 h-25 rounded-2" />
+          <img src={ava02} alt="" className="w-25 h-25 rounded-2" />
 
           <div>
             <h6 className="mb-0 mt-3"> Sarah Johnson</h6>
@@ -113,7 +114,7 @@ const Testimonial = () => {
         </p>
 
         <div className="mt-3 d-flex align-items-center gap-4">
-          <img src={ava03} alt="" className="w-25 h-25 rounded-2" />
+          <img src={ava04} alt="" className="w-25 h-25 rounded-2" />
 
           <div>
             <h6 className="mb-0 mt-3"> Emily Thompson</h6>

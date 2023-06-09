@@ -172,7 +172,7 @@ function ProviderUploadedCar() {
       })
       .catch((error) => {
         console.error(error);
-        toast.error("Failed to delete car.");
+        toast.error("You have missed Inputs Fields");
       });
   };
 

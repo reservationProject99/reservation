@@ -275,7 +275,7 @@ export default function Checkout() {
               <Typography variant="subtitle1">
                 We have emailed your order confirmation.
               </Typography>
-              <Box display="flex" justifyContent="flex-end">
+              <Box display="flex" justifyContent="flex-end" alignItems="flex-end">
                 <Button
                   onClick={handleGoBackHome}
                   sx={{ mt: 3, ml: 1, color: "white" }}
@@ -297,16 +297,13 @@ export default function Checkout() {
                   </Button>
                 )}
                 {activeStep === 2 ? (
-                  <div className="">
-                    {" "}
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 3, ml: 1 }}
-                    >
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
-                  </div>
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    sx={{ mt: 3, ml: 1 }}
+                  >
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
                 ) : null}
               </Box>
             </React.Fragment>
