@@ -188,13 +188,17 @@ export default function ProfilePage() {
                         variant="success"
                         className="btn-floating"
                         onClick={handleShow}
+                        style={{
+                          backgroundColor: "#000D6B",
+                          border: "1px solid #000D6B",
+                        }}
                       >
                         <FontAwesomeIcon icon={faUserEdit} />
                       </BootstrapButton>
                     </div>
                     <Modal show={show} onHide={handleClose}>
                       <Modal.Header closeButton>
-                        <Modal.Title>Add A New Inormation </Modal.Title>
+                        <Modal.Title>Add A New Information </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                         <Form>
@@ -272,7 +276,13 @@ export default function ProfilePage() {
                         <Button variant="secondary" onClick={handleClose}>
                           Close
                         </Button>
-                        <Button variant="success" onClick={handleSubmit}>
+                        <Button
+                          onClick={handleSubmit}
+                          style={{
+                            backgroundColor: "#000D6B",
+                            border: "1px solid #000D6B",
+                          }}
+                        >
                           Update
                         </Button>
                       </Modal.Footer>
