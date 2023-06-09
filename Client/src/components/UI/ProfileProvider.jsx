@@ -46,8 +46,6 @@ const Edit = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Perform any necessary logic for submitting the updated profile information
-        // For this example, we will simply log the updated information to the console
         console.log({
             fullName,
             email,

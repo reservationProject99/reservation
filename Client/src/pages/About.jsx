@@ -76,8 +76,8 @@ const About = () => {
         <Container>
           <Row>
             <Col lg="12" className="mb-5 text-center">
-              <h6 className="section__subtitle">Experts</h6>
-              <h2 className="section__title">Our Members</h2>
+              <h6 className="section__subtitle fw-bold">Experts</h6>
+              <h2 className="section__title fw-bold">Our Members</h2>
             </Col>
             <div
               className="d-flex flex-row flex-wrap justify-content-center

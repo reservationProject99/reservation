@@ -140,27 +140,34 @@ const CarDetails = () => {
                 </div>
               </div>
             </Col>
-            {userType.role === "provider" ? (
-              <Link to={`/cars`} className="text-decoration-none">
-                <span className="d-flex justify-content-center mt-4">
-                  <Button variant="contained">Back</Button>
-                </span>
-              </Link>
-            ) : (
-              <Link
-                to={`/Checkout/${carData[0]?.cars_id}`}
-                className="text-decoration-none"
-              >
-                <span className="d-flex justify-content-center mt-4">
-                  <Button
-                    variant="contained"
-                    style={{ backgroundColor: "#000d6b" }}
-                  >
-                    Rent
-                  </Button>
-                </span>
-              </Link>
-            )}
+            <div className="d-flex justify-content-end">
+              {userType.role === "provider" ? (
+                <Link to={`/cars`} className="text-decoration-none">
+                  <span className="d-flex justify-content-center mt-4">
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#000D6B" }}
+                    >
+                      Back
+                    </Button>
+                  </span>
+                </Link>
+              ) : (
+                <Link
+                  to={`/Checkout/${carData[0]?.cars_id}`}
+                  className="text-decoration-none"
+                >
+                  <span className="d-flex justify-content-center mt-4">
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#000d6b" }}
+                    >
+                      Rent
+                    </Button>
+                  </span>
+                </Link>
+              )}
+            </div>
           </Row>
         </Container>
       </section>

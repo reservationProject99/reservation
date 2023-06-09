@@ -56,7 +56,7 @@ const Slider = () => {
   return (
     <>
       <div className="title text-center">
-        <p className="fw-bold">OUR PARTNERS</p>
+        <p className="fw-bold">Brands</p>
       </div>
       <div className="AA">
         <div className="parent">

@@ -23,7 +23,7 @@ CREATE TABLE customers  (
   popular_cars TEXT,
   credit_card TEXT,
   cardholder_name TEXT,
-  card_expiration_date DATE,
+  card_expiration_date TEXT,
   CVV_CVC_code TEXT,
   is_delete BOOLEAN DEFAULT false
 );

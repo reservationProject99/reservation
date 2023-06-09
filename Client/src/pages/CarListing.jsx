@@ -8,7 +8,6 @@ import axios from "axios";
 
 const CarListing = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
-  // const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [selectedEnergyType, setSelectedEnergyType] = useState("");
   const [search, setSearch] = useState("");
@@ -30,10 +29,6 @@ const CarListing = () => {
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
   };
-
-  // const handlePriceChange = (event) => {
-  //   setSelectedPrice(event.target.value);
-  // };
 
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
@@ -63,12 +58,6 @@ const CarListing = () => {
     if (search && !car.model.toLowerCase().includes(search.toLowerCase())) {
       return false;
     }
-    // if (selectedPrice === "low" && car.rental_price > 50) {
-    //   return false;
-    // }
-    // if (selectedPrice === "high" && car.rental_price <= 50) {
-    //   return false;
-    // }
     if (maxPrice && car.rental_price > maxPrice) {
       return false;
     }
@@ -177,28 +166,6 @@ const CarListing = () => {
                     )
                   )}
                 </select>
-
-                {/* <select
-                  onChange={handlePriceChange}
-                  value={selectedPrice}
-                  className="select__group"
-                >
-                  <option value="">Select Price</option>
-                  <option value="low">Low to High</option>
-                  <option value="high">High to Low</option>
-                </select>
-                <div>
-                  <label>Price Range: {maxPrice}$/Day</label>
-                  <br />
-                  <input
-                    defaultValue={maxPrice}
-                    type="range"
-                    min={Math.min(...carData.map((car) => car.rental_price))}
-                    max={Math.max(...carData.map((car) => car.rental_price))}
-                    value={maxPrice}
-                    onChange={handleMaxPriceChange}
-                  />
-                </div>*/}
               </div>
               <div className="d-flex align-items-center gap-3 mb-5 flex-wrap justify-content-center">
                 <div className="d-flex align-items-center">

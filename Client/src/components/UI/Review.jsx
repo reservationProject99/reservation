@@ -21,9 +21,6 @@ export default function Review({ review }) {
     return totalPrice;
   };
 
-  // const pricePerDay= {
-  //     pricePerDay: 10,
-  // };
 
   return (
     <React.Fragment>

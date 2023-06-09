@@ -16,7 +16,7 @@ const AboutSection = ({ aboutClass }) => {
         <Row>
           <Col lg="6" md="6">
             <div className="about__section-content">
-              <h4 className="section__subtitle">About Us</h4>
+              <h4 className="section__subtitle fw-bold">About Us</h4>
               <h2 className="section__title">Welcome to Quick Ride service</h2>
               <p className="section__description">
                 LET US HELP YOU FIND THE RIGHT VEHICLE FOR YOUR BUDGET.

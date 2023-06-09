@@ -80,10 +80,6 @@ const Provider = () => {
           <form className="d-flex flex-column">
             <div className="row">
               <div className="col">
-                {/* Name input */}
-                {/* <label className="form-label" htmlFor="form8Example1">
-                    Car Name
-                  </label> */}
                 <div className="form-outline">
                   <input
                     placeholder="Car Name"
@@ -95,10 +91,6 @@ const Provider = () => {
                 </div>
               </div>
               <div className="col">
-                {/* Email input */}
-                {/* <label className="form-label" htmlFor="form8Example2">
-                    Car Type
-                  </label> */}
                 <div className="form-outline">
                   <input
                     placeholder="Car Type"
@@ -110,10 +102,6 @@ const Provider = () => {
                 </div>
               </div>
               <div className="col">
-                {/* Email input */}
-                {/* <label className="form-label" htmlFor="form8Example">
-                    Energy Type
-                  </label> */}
                 <div className="input-group mb-3">
                   <select
                     className="form-select"
@@ -132,7 +120,6 @@ const Provider = () => {
             <br />
             <div className="row">
               <div className="col">
-                {/* Name input */}
                 <div className="form-outline">
                   <input
                     placeholder=" Rental Price per Day"
@@ -141,13 +128,9 @@ const Provider = () => {
                     className="form-control"
                     required
                   />
-                  {/* <label className="form-label" htmlFor="form8Example3">
-                    Rental Price per Day
-                  </label> */}
                 </div>
               </div>
               <div className="col">
-                {/* Name input */}
                 <div className="form-outline">
                   <input
                     placeholder=" Seat's Number"
@@ -159,13 +142,9 @@ const Provider = () => {
                     step="1"
                     required
                   />
-                  {/* <label className="form-label" htmlFor="form8Example4">
-                    Seat's Num
-                  </label> */}
                 </div>
               </div>
               <div className="col">
-                {/* Email input */}
                 <div className="form-outline">
                   <input
                     placeholder=" Year of made"
@@ -177,9 +156,6 @@ const Provider = () => {
                     step="1"
                     required
                   />
-                  {/* <label className="form-label" htmlFor="form8Example5">
-                    Year of made
-                  </label> */}
                 </div>
               </div>
             </div>
@@ -189,12 +165,6 @@ const Provider = () => {
               <div className="col">
                 <div className="input-group  d-flex justify-content-center">
                   <div className="input-group-prepend ">
-                    {/* <span
-                      className="input-group-text"
-                      id="inputGroupFileAddon01"
-                    >
-                      Upload
-                    </span> */}
                   </div>
                   <div className="custom-file">
                     <input

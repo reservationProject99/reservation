@@ -53,6 +53,7 @@ app.get("/rented_Carscount", db.getRentedCarscount);
 app.get("/cars/:id", db.getCarsById);
 app.post("/cars", db.createCar);
 app.put("/delete_car/:id", db.deleteCars);
+app.put("/delete_car_Prov/:id", db.deleteCarsOfProvider);
 app.put("/bookCar/:id", db.bookCar);
 app.get("/not_active_car", db.getNotActiveCar);
 app.put("/accept_car/:id", db.acceptCar);
@@ -60,6 +61,8 @@ app.put("/accept_car/:id", db.acceptCar);
 app.get("/rented_cars_count", db.getRentedCarscount);
 app.get("/rentedCars", db.rentedCars);
 app.put("/update_car/:id", db.updateCar);
+app.put("/update_car_available/:id", db.RomveUserAndUpdateCarAvailable);
+app.get("/cars", db.checkCars, db.getCar);
 
 // Sign
 app.get("/checkToken", authenticateToken, (req, res) => {

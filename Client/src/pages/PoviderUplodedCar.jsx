@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Helmet from "../components/Helmet/Helmet";
-import { toast } from "react-toastify";
 import {
   MDBCol,
   MDBContainer,
@@ -17,6 +16,7 @@ import {
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { ToastContainer, toast } from "react-toastify";
 
 function ProviderUploadedCar() {
   const navigate = useNavigate();
@@ -46,13 +46,10 @@ function ProviderUploadedCar() {
   }, []);
   const [carsArray, setCarsArray] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState();
-  // const [selectedPrice, setSelectedPrice] = useState();
   const [selectedType, setSelectedType] = useState();
   const [selectedEnergyType, setSelectedEnergyType] = useState();
   const [maxPrice, setMaxPrice] = useState("");
   const [minPrice, setMinPrice] = useState("");
-  //////
-  // const [carById, setCarById] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [carName, setCarName] = useState();
@@ -68,10 +65,6 @@ function ProviderUploadedCar() {
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
   };
-
-  // const handlePriceChange = (event) => {
-  //   setSelectedPrice(event.target.value);
-  // };
 
   const handleMaxPriceChange = (event) => {
     setMaxPrice(Number(event.target.value));
@@ -104,12 +97,6 @@ function ProviderUploadedCar() {
     ) {
       return false;
     }
-    // if (selectedPrice === "low" && car.rental_price >= 50) {
-    //   return false;
-    // }
-    // if (selectedPrice === "high" && car.rental_price < 50) {
-    //   return false;
-    // }
     if (maxPrice && car.rental_price > maxPrice) {
       return false;
     }
@@ -149,8 +136,6 @@ function ProviderUploadedCar() {
   }, []);
 
   const handleDelete = async (id) => {
-    // const token = localStorage.getItem("token") || "";
-
     try {
       const deleteCars = await axios.put(
         `http://localhost:5000/delete_car/${id}`
@@ -194,7 +179,7 @@ function ProviderUploadedCar() {
       <div className="container">
         <div className="row">
           <div className="col-lg-12 mt-5">
-            <div className="d-flex justify-content-center align-items-center gap-3 mb-5">
+            <div className="d-flex justify-content-center align-items-center gap-3 mb-5 flex-wrap">
               <select
                 onChange={handleBrandChange}
                 value={selectedBrand}
@@ -237,28 +222,6 @@ function ProviderUploadedCar() {
                   )
                 )}
               </select>
-              {/* <select
-                onChange={handlePriceChange}
-                value={selectedPrice}
-                className="select__group"
-              >
-                <option value="">Select Price</option>
-                <option value="low">Low to High</option>
-                <option value="high">High to Low</option>
-              </select> */}
-              {/* <div>
-                <label>Price Range: {maxPrice}$/Day</label>
-                <br />
-                <input
-                  defaultValue={maxPrice}
-                  type="range"
-                  min={Math.min(...carsArray.map((car) => car.rental_price))}
-                  max={Math.max(...carsArray.map((car) => car.rental_price))}
-                  value={maxPrice}
-                  onChange={handleMaxPriceChange}
-                />
-                {console.log(maxPrice)}
-              </div> */}
             </div>
             <div className="d-flex align-items-center gap-3 mb-5 flex-wrap justify-content-center">
               <div className="d-flex align-items-center">
@@ -284,57 +247,58 @@ function ProviderUploadedCar() {
               </div>
             </div>
           </div>
-
-          {filteredCars.map((item) => (
-            <div className="col-lg-4 col-md-4 col-sm-6 mb-5" key={item.cars_id}>
-              <div className="car__item" style={{ backgroundColor: "white" }}>
-                <div className="car__img w-100">
-                  <img
-                    src={item.images_data}
-                    alt=""
-                    className="w-100"
-                    style={{ height: "15rem" }}
-                  />
-                </div>
-                <div className="car__item-content mt-4">
-                  <h4 className="section__title text-center">{item.model}</h4>
-                  <h6 className="rent__price text-center mt-">
-                    ${item.rental_price}.00 <span>/ Day</span>
-                  </h6>
-
-                  <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
-                    <span className="d-flex align-items-center gap-1">
-                      <i className="ri-car-line"></i> {item.type}
-                    </span>
-                    <span className="d-flex align-items-center gap-1">
-                      <i className="ri-settings-2-line"></i> {item.energy_type}
-                    </span>
-                    <span className="d-flex align-items-center gap-1">
-                      <i className="ri-timer-flash-line"></i> {item.year}
-                    </span>
+          <div className="d-flex flex-row flex-wrap justify-content-center mt-5">
+            {filteredCars.map((item) => (
+              <div key={item.cars_id}>
+                <div className="car__item" style={{ backgroundColor: "white" }}>
+                  <div className="car__img w-100">
+                    <img
+                      src={item.images_data}
+                      alt=""
+                      className="w-100"
+                    />
                   </div>
+                  <div className="car__item-content mt-4">
+                    <h4 className="section__title text-center">{item.model}</h4>
+                    <h6 className="rent__price text-center mt-">
+                      ${item.rental_price}.00 <span>/ Day</span>
+                    </h6>
 
-                  <button
-                    className="w-50 car__item-btn car__btn-rent"
-                    onClick={() => {
-                      handleShow(item.cars_id);
+                    <div className="car__item-info d-flex align-items-center justify-content-between mt-3 mb-4">
+                      <span className="d-flex align-items-center gap-1">
+                        <i className="ri-car-line"></i> {item.type}
+                      </span>
+                      <span className="d-flex align-items-center gap-1">
+                        <i className="ri-settings-2-line"></i>{" "}
+                        {item.energy_type}
+                      </span>
+                      <span className="d-flex align-items-center gap-1">
+                        <i className="ri-timer-flash-line"></i> {item.year}
+                      </span>
+                    </div>
 
-                      setCarId(item.cars_id);
-                    }}
-                  >
-                    Edit
-                  </button>
+                    <button
+                      className="w-50 car__item-btn car__btn-rent"
+                      onClick={() => {
+                        handleShow(item.cars_id);
 
-                  <button
-                    className="w-50 car__item-btn car__btn-details"
-                    onClick={() => handleDelete(item.cars_id)}
-                  >
-                    Delete
-                  </button>
+                        setCarId(item.cars_id);
+                      }}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className="w-50 car__item-btn car__btn-details"
+                      onClick={() => handleDelete(item.cars_id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
       {/* ////// */}

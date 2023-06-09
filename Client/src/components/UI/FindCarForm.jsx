@@ -88,7 +88,7 @@ const FindCarForm = () => {
               onChange={handleEnergyTypeChange}
               value={selectedEnergyType}
             >
-              <option value="SET">Select Energy Type</option>
+              <option value="SET">Energy Type</option>
               {uniqueEnergyTypes.map((energyType) => (
                 <option key={energyType} value={energyType}>
                   {energyType}
@@ -96,16 +96,8 @@ const FindCarForm = () => {
               ))}
             </select>
           </FormGroup>
-
-          <FormGroup className="select__group">
-            <select onChange={handlePriceChange} value={selectedPrice}>
-              <option value="">Select Price</option>
-              <option value="low">Low to High</option>
-              <option value="high">High to Low</option>
-            </select>
-          </FormGroup>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-end pt-5">
           <FormGroup className="form__group">
             <Link
               to={`/cars?brand=${selectedBrand}&type=${selectedType}&energyType=${selectedEnergyType}&price=${selectedPrice}`}

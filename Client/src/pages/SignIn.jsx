@@ -287,8 +287,14 @@ export default function SignIn({ updateIsLog }) {
                         </div>
                       </div>
                       <div className="d-flex flex-column align-items-center">
-                        <Facebook massage={"Sign in with Facebook"} />
-                        <Google massage={"Sign in with Google"} />
+                        <Facebook
+                          massage={"Sign in with Facebook"}
+                          selectedUserType={selectedUserType}
+                        />
+                        <Google
+                          massage={"Sign in with Google"}
+                          selectedUserType={selectedUserType}
+                        />
                       </div>
                     </div>
                   </div>

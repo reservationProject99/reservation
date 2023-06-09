@@ -602,6 +602,20 @@ const deleteCars = (req, res) => {
     }
   );
 };
+const deleteCarsOfProvider = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  db.query(
+    "UPDATE public.cars SET is_delete = $1 WHERE provider_id=$2",
+    [true, id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`Car  with ID: ${id} deleted`);
+    }
+  );
+};
 
 const checkCustomer = (req, res, next) => {
   const { email, password } = req.body;
@@ -721,6 +735,49 @@ const getCarWithProvider = (req, res) => {
   );
 };
 
+const RomveUserAndUpdateCarAvailable = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  db.query(
+    "UPDATE public.cars SET available = $1,user_id = $2 WHERE user_id = $3",
+    [true, null, id],
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      res.status(200).send(`Provider deleted with ID: ${id}`);
+    }
+  );
+};
+
+const checkCars = (req, res, next) => {
+  const today = new Date();
+  db.query(
+    "SELECT * FROM public.cars WHERE available = false",
+    (error, results) => {
+      if (error) {
+        return res.status(400).json(error);
+      }
+      const date = results;
+
+      date.rows.forEach((car) => {
+        if (car.end_date <= today) {
+          db.query(
+            "UPDATE public.cars SET available = $1, user_id = $2, start_date = $3, end_date = $4  WHERE cars_id = $5",
+            [true, null, null, null, car.cars_id],
+            (error, results) => {
+              if (error) {
+                return res.status(400).json(error);
+              }
+            }
+          );
+        }
+      });
+      next();
+    }
+  );
+};
+
 module.exports = {
   getCustomer,
   getCustomerById,
@@ -732,6 +789,7 @@ module.exports = {
   updateUser,
   Pre_rented_cars,
   getNotActiveCar,
+  checkCars,
 
   getAdmin,
   createAdmin,
@@ -754,6 +812,7 @@ module.exports = {
   createCar,
   bookCar,
   deleteCars,
+  deleteCarsOfProvider,
   getRentedCarscount,
   getCarsByIdProvider,
   rentedCars,
@@ -767,4 +826,5 @@ module.exports = {
   checkAdmin,
   createMoveCustomer,
   fillCreditCard,
+  RomveUserAndUpdateCarAvailable,
 };

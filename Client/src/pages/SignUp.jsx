@@ -4,7 +4,7 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "../styles/SignUp.css";
 import SignUpCar from "../assets/all-images/SignUp.png";
@@ -15,7 +15,6 @@ export default function SignUp() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const navigate = useNavigate();
 
   const [path, setPath] = useState("/signIn");
   const [userCheck, setUserCheck] = useState(false);
@@ -116,7 +115,7 @@ export default function SignUp() {
   function handlePassword(event) {
     // more than 8 characters, with at least 1 number, uppercase, and special characters.
     const patternPassword =
-      /^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,.?]).{8,}$/;
+      /^(?=.*[A-Z]?)(?=.*?[0-9])(?=.*?[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,.?]).{8,}$/;
     setCheckInput({ ...checkInput, password: false });
     const password = event.target.value;
 
@@ -171,7 +170,7 @@ export default function SignUp() {
       sendDataToServer(user);
       console.log("ok");
       event.target.reset();
-      navigate(path);
+      // navigate(path);
     } else {
       setMassageWarning({
         ...massageWarning,
@@ -385,27 +384,6 @@ export default function SignUp() {
                           </span>
                         </p>
                       </div>
-                      <button
-                        type="submit"
-                        className="mt-3 btn w-100 py-3 rounded-lg d-flex align-items-center justify-content-center Abd"
-                        style={{ backgroundColor: "#000d6b" }}
-                      >
-                        <svg
-                          className="w-6 h-6 mr-2"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          style={{ color: "white" }}
-                        >
-                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                          <circle cx="8.5" cy="7" r="4" />
-                          <path d="M20 8v6M23 11h-6" />
-                        </svg>
-
-                        <span style={{ color: "white" }}>Sign Up</span>
-                      </button>
                       <p className="mt-2 text-sm text-warning-600">
                         <span className="font-weight-medium">
                           {massageWarning.submit}
@@ -417,7 +395,7 @@ export default function SignUp() {
                           to="/signIn"
                           className="font-weight-bold text-primary-600"
                         >
-                          Sign In
+                          Sign up
                         </Link>
                       </p>
                     </div>
@@ -429,8 +407,14 @@ export default function SignUp() {
                       </div>
                       <div className="w-100 mt-4">
                         <div className="d-flex flex-column align-items-center">
-                          <Facebook massage={"Sign in with Facebook"} />
-                          <Google massage={"Sign in with Google"} />
+                          <Facebook
+                            massage={"Sign in with Facebook"}
+                            selectedUserType={selectedUserType}
+                          />
+                          <Google
+                            massage={"Sign in with Google"}
+                            selectedUserType={selectedUserType}
+                          />
                         </div>
                       </div>
                     </div>

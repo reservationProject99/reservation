@@ -8,28 +8,28 @@ const serviceData = [
 
   {
     id: 2,
-    title: "Whole  City Tour",
+    title: "City Tour",
     icon: "ri-community-line",
-    desc: "A whole city tour is an immersive experience that allows visitors to explore and discover all the major attractions, landmarks, and cultural highlights of a city.",
+    desc: "A whole city tour is an immersive experience that allows visitors to explore and discover all the major attractions and landmarks.",
   },
 
   {
     id: 3,
-    title: "Unlimited Miles Car Rental",
+    title: "Unlimited Rental",
     icon: "ri-roadster-line",
-    desc: "Unlimited miles car rental allows customers to drive without worrying about mileage restrictions, providing freedom and flexibility for long-distance travel.",
+    desc: "Unlimited miles car rental allows customers to drive without worrying about mileage restrictions, providing freedom and flexibility.",
   },
 
   {
     id: 4,
-    title: "Fast & Easy Booking",
+    title: "Easy Booking",
     icon: "ri-timer-flash-line",
-    desc: "With just a few simple steps, you can reserve your desired vehicle and get ready for your journey. Whether you're planning a weekend getaway or a long road trip.",
+    desc: "With just a few simple steps, you can reserve your desired vehicle and get ready for your journey. Whether you're planning a weekend.",
   },
 
   {
     id: 5,
-    title: "Many Pickup Locations",
+    title: "Many Locations",
     icon: "ri-map-pin-line",
     desc: "Many pickup locations for car rentals provide convenience and accessibility for customers, allowing them to easily access a vehicle from various locations.",
   },

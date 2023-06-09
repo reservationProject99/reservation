@@ -7,17 +7,13 @@ const quickLinks = [
     display: "Who we are",
   },
   {
-    path: "*",
-    display: "Privacy Policy",
+    path: "/contact",
+    display: "Contact",
   },
   {
     path: "/cars",
     display: "Car Listing",
   },
-  // {
-  //   path: "/blogs",
-  //   display: "Blog",
-  // },
   {
     path: "/contact",
     display: "Get in touch",

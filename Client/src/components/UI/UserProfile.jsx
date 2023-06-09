@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import {
@@ -17,31 +18,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-
-const cardData = [
-  {
-    cars_id: 6,
-    rating: 4,
-    description:
-      "toyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyotatoyota",
-    type: "toyota",
-    energy_type: "electric",
-    model: "T-120",
-    year: 2020,
-    rental_price: 100,
-    available: true,
-    start_date: null,
-    end_date: null,
-    is_delete: false,
-    provider_id: 1,
-    start_location: null,
-    end_location: null,
-    seats_number: 4,
-    user_id: null,
-    images_data:
-      "https://www.vhv.rs/dpng/d/483-4831619_outlander-phev-mitsubishi-outlander-phev-2020-ruby-black.png",
-  },
-];
 
 export default function ProfilePage() {
   const [show, setShow] = useState(false);

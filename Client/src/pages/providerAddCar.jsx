@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {  toast } from "react-toastify";
 
 function ProviderAddCar() {
   const navigate = useNavigate();
@@ -71,9 +72,12 @@ function ProviderAddCar() {
       });
 
       console.log(getCars);
+      toast.success(`admin with id is updated`);
     } catch (err) {
       console.log(err);
+      toast.success("Car deleted successfully.");
     }
+    event.target.reset();
   };
 
   function handleCarType(event) {
@@ -194,9 +198,6 @@ function ProviderAddCar() {
                     required
                     onChange={handleSeatNumber}
                   />
-                  {/* <label className="form-label" htmlFor="form8Example4">
-                    Seat's Num
-                  </label> */}
                 </div>
               </div>
               <div className="col">
